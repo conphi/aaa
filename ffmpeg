@@ -1,0 +1,25 @@
+获取视频时间
+ffmpeg -i test.mp4 2>&1 | grep Duration | cut -d ' ' -f 4 | sed s/,//
+
+
+
+ffmpeg -i test.mp4 -vf "ass=test.ass" test_ass.mp4
+
+
+ffmpeg -i test.mp4 -vf subtitles=test.srt test_srt.mp4
+
+
+
+
+ffmpeg视频黑白
+
+./ffmpeg -i wry.mp4 -vf hue=s=0 -c:a copy wry_grey.mp4
+
+./ffmpeg -i wry_srt.mp4 -vf hue=s=0 -c:a copy wry_srt_grey.mp4
+
+
+
+ffmpeg -f concat -safe 0 -i <(for f in ./*.mp4; do echo "file '$PWD/$f'"; done) -c:v libvpx-vp9 -c:a libopus -r 30 -s hd720 000-720.mp4
+
+
+-vcodec libx264 -crf 23 -preset medium -acodec aac -strict experimental -ac 2 -ar 44100 -ab 128k
