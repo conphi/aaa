@@ -1,0 +1,69 @@
+https://www.youtube.com/watch?v=RhaepLsP5eg
+youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a] -o './%(title)s.%(ext)s' --prefer-ffmpeg
+
+youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a] -o './%(title)s.%(ext)s' --write-sub 
+youtube-dl -f 22 -o './%(title)s.%(ext)s' --write-sub --convert-subs srt --skip-download
+
+youtube-dl -f 22 -o './%(title)s.%(ext)s'
+youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a] -o './cc/%(playlist_index)s-%(title)s.%(ext)s'
+
+youtube-dl -f 22 -o './cc/%(title)s.%(ext)s'
+
+
+ --playlist-reverse
+
+ffmpeg -i i.mp4 -vf subtitles=i.srt o.mp4
+
+--prefer-ffmpeg
+
+--playlist-start NUMBER
+
+-i, --ignore-errors
+-c, --continue
+
+bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best
+
+youtube-dl -f 22/best[ext=mp4]/best
+
+youtube-dl -f 22 -o './%(title)s.%(ext)s' --write-sub --sub-format vtt --convert-subtitles srt --prefer-ffmpeg
+
+
+youtube-dl --proxy socks5://127.0.0.1:1080 https://vimeo.com/252314418 --video-password meetslut
+
+
+youtube-dl -f 22/best[ext=mp4]/best https://www.youtube.com/playlist?list=PLE7DDD91010BC51F8 -o './cc/%(title)s.%(ext)s'
+
+
+youtube-dl -f 22/best[ext=mp4]/best -o './cc/%(title)s.%(ext)s' https://www.youtube.com/user/missglamorazzi/videos --playlist-start 109
+
+
+youtube-dl -f 22/best[ext=mp4]/best -o './cc/%(title)s.%(ext)s' https://www.youtube.com/channel/UCTGKsdgtT96GCA8kU4P6ZAg/videos  --playlist-start 90
+
+https://www.youtube.com/watch?v=RhaepLsP5eg
+youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a] -o './%(title)s.%(ext)s' --prefer-ffmpeg
+
+youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a] -o './%(title)s.%(ext)s' --write-sub 
+youtube-dl -f 22 -o './%(title)s.%(ext)s' --write-sub --convert-subs srt --skip-download
+
+youtube-dl -f 22 -o './%(title)s.%(ext)s'
+youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a] -o './cc/%(playlist_index)s-%(title)s.%(ext)s'
+youtube-dl -f 22 -o './cc/%(title)s.%(ext)s'
+
+ffmpeg -i i.mp4 -vf subtitles=i.srt o.mp4
+
+--prefer-ffmpeg
+
+--playlist-start NUMBER
+
+-i, --ignore-errors
+-c, --continue
+
+bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best
+
+22/best[ext=mp4]/best
+
+youtube-dl -f 22 -o './%(title)s.%(ext)s' --write-sub --sub-format vtt --convert-subtitles srt --prefer-ffmpeg
+
+https://www.youtube.com/watch?v=MgnNOJnhVog&list=PLKWcPfZiScgDvnz7bSAR7nm1r3Y6WpBgY
+
+https://www.youtube.com/user/vickihollettvideo/videos
