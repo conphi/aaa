@@ -1,0 +1,52 @@
+apt install wireguard
+
+cd /etc/wireguard
+wg genkey | tee sprivatekey | wg pubkey > spublickey
+wg genkey | tee cprivatekey | wg pubkey > cpublickey
+
+################ server conf#################
+cat > /etc/wireguard/swg.conf << _EOF
+[Interface]
+PrivateKey = $(cat /etc/wireguard/sprivatekey)
+Address = 10.0.0.1/24
+ListenPort = XXXX
+SaveConfig = true
+PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o XXXX -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o XXXX -j MASQUERADE
+_EOF
+############################################
+
+################ Client conf #################
+cat > /etc/wireguard/client.conf << _EOF
+[Interface]
+PrivateKey = $(cat /etc/wireguard/cprivatekey)
+Address = 10.0.0.2/32
+DNS = X.X.X.X,X.X.X.X
+[Peer]
+PublicKey = $(cat /etc/wireguard/spublickey)
+Endpoint = X.X.X.X:XXXX
+AllowedIPs = 0.0.0.0/0
+PersistentKeepalive = 25
+_EOF
+#############################################
+
+wg-quick up swg
+
+########## add client peer ##############
+wg set swg peer $(cat /etc/wireguard/cpublickey) allowed-ips 10.0.0.2/32
+#########################################
+
+############### forward #####################
+cat /etc/sysctl.conf
+vim /etc/sysctl.conf
+net.ipv4.ip_forward=1
+sysctl -p
+net.ipv4.ip_forward=1
+#############################################
+
+reboot
+wg-quick down swg
+systemctl enable wg-quick@swg.service
+systemctl start wg-quick@swg.service
+wg
+
