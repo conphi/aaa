@@ -50,3 +50,6 @@ systemctl enable wg-quick@swg.service
 systemctl start wg-quick@swg.service
 wg
 
+###########    qrencode   #######################
+qrencode -t ANSIUTF8 < /etc/wireguard/client.conf
+
