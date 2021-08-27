@@ -57,3 +57,30 @@ func main() {
 　　set GOARCH=amd64
 
 　　go build main.go
+
+
+//////////////////////////////////auth//////////
+package main
+
+import (
+	"flag"
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
+
+func main() {
+
+	port := flag.String("p", "9002", "a port")
+	dir := flag.String("d", "mm", "a dir")
+	user := flag.String("u", "aaa", "username")
+	key := flag.String("k", "aaa", "password")
+	flag.Parse()
+
+	gin.SetMode(gin.ReleaseMode)
+	r := gin.New()
+
+	authorized := r.Group("", gin.BasicAuth(gin.Accounts{*user: *key}))
+
+	authorized.StaticFS("", http.Dir(*dir))
+	r.Run(":" + *port)
+}
