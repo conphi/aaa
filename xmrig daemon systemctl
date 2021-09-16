@@ -1,0 +1,20 @@
+####/root/xmrig-6.12.1/auto.sh
+
+#!/bin/sh
+/root/xmrig-6.12.1/xmrig -o pool.supportxmr.com:3333 -u 4B753xNybmGRwQ45955F6wDwZ3G8o1mTcTN628WF7LbCb73SuyEuCxVihXLr7ajYYh7Ho4owGDguxW56597in5EaRrHDWzy --cpu-max-threads-hint 74
+
+
+
+
+
+###/etc/systemd/system/myxmrig.service
+
+[Unit]
+Description=my xmrig
+
+[Service]
+ExecStart=/root/xmrig-6.12.1/auto.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
