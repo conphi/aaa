@@ -1,0 +1,12 @@
+file=abc_asdfjhdsf_dfksfj_12345678.csv
+n=${file%.*}   # n becomes abc_asdfjhdsf_dfksfj_12345678
+n=${file##*_}  # n becomes 12345678.csv
+
+${variable%pattern} is like $variable, minus shortest matching pattern from the back-end;
+${variable##pattern} is like $variable, minus the longest matching pattern from front-end.
+
+See a reference like this one for more on parameter expansion.
+
+If the list of file names is on a text stream with one filename per line:
+
+sed -n 's/.*_\(.*\)\..*/\1/p'
