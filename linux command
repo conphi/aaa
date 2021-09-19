@@ -1,3 +1,5 @@
+https://pubs.opengroup.org/onlinepubs/9699919799.2016edition/utilities/V3_chap02.html#tag_18_06_02
+
 file=abc_asdfjhdsf_dfksfj_12345678.csv
 n=${file%.*}   # n becomes abc_asdfjhdsf_dfksfj_12345678
 n=${file##*_}  # n becomes 12345678.csv
