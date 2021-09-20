@@ -1,3 +1,7 @@
+批量延时转化
+for f in *;do ffmpeg -i "${f}" -c:v libx264 -c:a aac "${f%.ts}.mp4";sleep 5m;done
+
+
 获取视频时间
 ffmpeg -i test.mp4 2>&1 | grep Duration | cut -d ' ' -f 4 | sed s/,//
 
