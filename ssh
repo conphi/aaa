@@ -1,0 +1,10 @@
+##change ssh port
+
+netstat -tulnp | grep ssh
+grep -i port /etc/ssh/sshd_config
+
+###sshd_
+echo "Port 123456">> /etc/ssh/sshd_config
+systemctl restart sshd
+
+ssh -p 123456 11.22.33.44
