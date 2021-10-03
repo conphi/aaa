@@ -84,3 +84,25 @@ func main() {
 	authorized.StaticFS("", http.Dir(*dir))
 	r.Run(":" + *port)
 }
+
+///////////s7///////with subdir secret///////
+package main
+
+import (
+	"flag"
+	"net/http"
+)
+
+func main() {
+	port := flag.String("p", "9001", "a port")
+	dir := flag.String("d", "tmp", "a dir")
+	tag := flag.String("t", "dd", "a tag")
+	flag.Parse()
+	sub := "/" + *tag + "/"
+
+	http.Handle(sub, http.StripPrefix(sub, http.FileServer(http.Dir(*dir))))
+	http.ListenAndServe(":"+*port, nil)
+}
+///////////////////////////////////////////////
+
+E.g. s7 -d \.\/
