@@ -1,3 +1,6 @@
+配置hosts里面最后加一行（docker里）
+13.224.161.90 api.themoviedb.org
+
 docker run
 
 --name=jellyfin
