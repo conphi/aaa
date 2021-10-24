@@ -1,0 +1,24 @@
+docker run
+
+--name=jellyfin
+
+--add-host=api.themoviedb.org:13.224.161.90
+
+--add-host=image.tmdb.org:104.16.61.155
+
+--add-host=api.themoviedb.org:13.35.67.86
+
+--add-host=www.themoviedb.org:54.192.151.79
+
+--device=/dev/dri:/dev/dri jellyfin/jellyfin:latest
+
+
+
+docker run -d \
+ --name jellyfin \
+ --volume /root/jellyfin/config:/config \
+ --volume /root/jellyfin/cache:/cache \
+ --mount type=bind,source=/root/jellyfinMedia,target=/media \
+ --restart=unless-stopped \
+ -p xxxx:8096 \
+ jellyfin/jellyfin
