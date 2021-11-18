@@ -1,0 +1,3 @@
+端口使用情况
+lsof -i:3000
+ss -lnpt | grep 3000
