@@ -1,0 +1,27 @@
+
+systemctl list-unit-files | grep enabled
+systemctl list-units --type=service --state=running
+systemctl list-units --type=service --state=active
+systemctl list-unit-files --state=enabled
+systemctl list-units --type service --state running,failed
+
+systemctl stop [servicename]
+systemctl disable [servicename]
+rm /etc/systemd/system/[servicename]
+rm /etc/systemd/system/[servicename] # and symlinks that might be related
+rm /usr/lib/systemd/system/[servicename] 
+rm /usr/lib/systemd/system/[servicename] # and symlinks that might be related
+
+/////////refrash////////////
+systemctl daemon-reload
+systemctl reset-failed
+
+/etc/systemd/system/ (and sub directories)
+/usr/local/etc/systemd/system/ (and sub directories)
+~/.config/systemd/user/ (and sub directories)
+/usr/lib/systemd/ (and sub directories)
+/usr/local/lib/systemd/ (and sub directories)
+/etc/init.d/ (Converted old service system)
+
+////the best and official way to remove a service and its override files is:
+systemctl revert tat_agent
