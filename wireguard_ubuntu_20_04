@@ -59,4 +59,28 @@ ip rule
 0:      from all lookup local
 32766:  from all lookup main
 32767:  from all lookup default
+#############################################################
+sellibitze
+·
+9 hr. ago
+The issue is most likely routing. It's to be expected that, for example, enabling a VPN on a remote server makes it inaccessible because everything is routed through the VPN.
+
+But Linux is powerful. It allows you to do policy-based routing and even virtualize the network stack (network namespaces).
+
+You could add policy-based routing so that IP packets with the VPS' public IP address as source are still routed using your old/native default route. This should make all TCP-based services (including SSH) work again.
+
+You need two commands for that:
+
+ip rule and
+
+ip route
+
+Add your old default route to a new routing table
+
+ip route add default via x.y.z.w dev xxx table 123
+and use
+
+ip rule add from a.b.c.d table 123
+to make Linux use that other table for all IP packets with source address a.b.c.d (which should be the VPS' public IP)
+###############################################################
 
