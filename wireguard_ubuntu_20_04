@@ -53,3 +53,10 @@ wg
 ###########    qrencode   #######################
 qrencode -t ANSIUTF8 < /etc/wireguard/client.conf
 
+################ ip rule #################################
+安装wireguard前
+ip rule
+0:      from all lookup local
+32766:  from all lookup main
+32767:  from all lookup default
+
