@@ -4,7 +4,7 @@ cd /etc/wireguard
 wg genkey | tee sprivatekey | wg pubkey > spublickey
 wg genkey | tee cprivatekey | wg pubkey > cpublickey
 
-################ server conf#################
+################ Server conf#################
 cat > /etc/wireguard/swg.conf << _EOF
 [Interface]
 PrivateKey = $(cat /etc/wireguard/sprivatekey)
@@ -60,27 +60,23 @@ ip rule
 32766:  from all lookup main
 32767:  from all lookup default
 #############################################################
-sellibitze
-·
-9 hr. ago
-The issue is most likely routing. It's to be expected that, for example, enabling a VPN on a remote server makes it inaccessible because everything is routed through the VPN.
+##wireguard bypass ssh port
+##https://www.reddit.com/r/WireGuard/comments/fr95qx/howto_bypass_wireguard_vpn_for_specific/
 
-But Linux is powerful. It allows you to do policy-based routing and even virtualize the network stack (network namespaces).
+echo "2 ssh" >> /etc/iproute2/rt_tables
+net.ipv4.conf.all.rp_filter = 2
+net.ipv4.ip_forward = 1
+reboot
 
-You could add policy-based routing so that IP packets with the VPS' public IP address as source are still routed using your old/native default route. This should make all TCP-based services (including SSH) work again.
+##查询网关和物理网口
+route -n | grep ^0.0.0.0
+## 0.0.0.0         10.0.24.1       0.0.0.0         UG    100    0        0 eth0
 
-You need two commands for that:
-
-ip rule and
-
-ip route
-
-Add your old default route to a new routing table
-
-ip route add default via x.y.z.w dev xxx table 123
-and use
-
-ip rule add from a.b.c.d table 123
-to make Linux use that other table for all IP packets with source address a.b.c.d (which should be the VPS' public IP)
+PostUp = ip route add default via 10.0.24.1 dev eth0 table ssh
+PostUp = ip rule add fwmark 0x2 table ssh
+PostUp = /usr/sbin/iptables -A OUTPUT -t mangle -o wg0 -p tcp --sport 22 -j MARK --set-mark 2
+PreDown = /usr/sbin/iptables -D OUTPUT -t mangle -o wg0 -p tcp --sport 22 -j MARK --set-mark 2
+PreDown = ip rule del fwmark 0x2 table ssh
+PreDown = ip route del default via 10.0.24.1 dev eth0 table ssh
 ###############################################################
 
