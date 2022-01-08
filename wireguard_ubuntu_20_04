@@ -1,4 +1,5 @@
 apt install wireguard
+apt install resolvconf
 
 cd /etc/wireguard
 wg genkey | tee sprivatekey | wg pubkey > spublickey
