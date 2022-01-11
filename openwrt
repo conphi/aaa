@@ -1,0 +1,2 @@
+remove dnsmasq （make menuconfig -----basefile） for offical openwrt
+keep dnsmasq-full
