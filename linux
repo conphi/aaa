@@ -4,3 +4,8 @@ ss -lnpt | grep 3000
 
 删除用户
 userdel -r xxx
+
+
+systemctl status service-name -n50
+journalctl -u service-name
+journalctl -f
