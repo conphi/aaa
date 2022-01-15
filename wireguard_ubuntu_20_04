@@ -80,4 +80,15 @@ PreDown = /usr/sbin/iptables -D OUTPUT -t mangle -o wg0 -p tcp --sport 22 -j MAR
 PreDown = ip rule del fwmark 0x2 table ssh
 PreDown = ip route del default via 10.0.24.1 dev eth0 table ssh
 ###############################################################
+https://www.reddit.com/r/mullvadvpn/comments/k87vn0/bypass_vpn_for_inbound_port_80_and_22_for_http
+
+w.x.y.z private ip
+
+[Interface]
+...
+PostUp = ip rule add from w.x.y.z table main
+PreDown = ip rule del from w.x.y.z table main
+
+[Peer]
+...
 
