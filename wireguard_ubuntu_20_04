@@ -92,5 +92,8 @@ PreDown = ip rule del from w.x.y.z table main
 [Peer]
 ...
 
+PreUp    = sysctl -w net.ipv4.ip_forward=1
+PostDown = sysctl -w net.ipv4.ip_forward=0
+
 PostUp = ip rule add from 10.0.24.16 table main
 PreDown = ip rule del from 10.0.24.16 table main
