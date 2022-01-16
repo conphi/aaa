@@ -1,0 +1,4 @@
+######## dbxcli download folder #############
+dbxcli ls -l "path/to/folder/to/download"|awk -F"ago" '{print $2}'|sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'|xargs -I{} dbxcli get {} .
+#############################################
+
