@@ -97,3 +97,23 @@ PostDown = sysctl -w net.ipv4.ip_forward=0
 
 PostUp = ip rule add from 10.0.24.16 table main
 PreDown = ip rule del from 10.0.24.16 table main
+
+#######################################################################
+https://www.linode.com/community/questions/7381/openvpn-client-connected-to-a-server-while-listening-to-ssh#answer-36662
+https://serverfault.com/questions/515272/openvpn-bypass-on-some-ports
+
+ip route flush table 100
+ip route flush cache
+
+ip rule add from x.x.x.x table 100
+ip route add table 100 to y.y.y.y/y dev ethX
+ip route add table 100 default via z.z.z.z
+
+x.x.x.x is your Linode's public IP, 
+y.y.y.y/y should be the subnet of your Linode's public IP address, 
+ethX should be your Linode's public Ethernet interface, 
+z.z.z.z should be the default gateway.
+
+ip rule add from 172.16.9.132 table 128
+ip route add table 128 to 172.16.9.0/24 dev eth0
+ip route add table 128 default via 172.16.9.1
