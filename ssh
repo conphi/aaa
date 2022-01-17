@@ -8,3 +8,5 @@ echo "Port 123456">> /etc/ssh/sshd_config
 systemctl restart sshd
 
 ssh -p 123456 11.22.33.44
+######################################
+echo get -ar /file/path/file.data | sftp login@server
