@@ -25,3 +25,8 @@ docker run -d \
  --restart=unless-stopped \
  -p xxxx:8096 \
  jellyfin/jellyfin
+##################################################
+docker pull jellyfin/jellyfin:latest
+mkdir -p /root/jellyfin/{config,cache,media}
+docker run -d -v /root/jellyfin/config:/config -v /root/jellyfin/cache:/cache -v /root/jellyfin/media:/media --net=host jellyfin/jellyfin:latest
+##################################################
