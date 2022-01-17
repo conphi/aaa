@@ -4,3 +4,6 @@
 Before you create the environment, you’ll need to copy the public SSH key, 
 and add it to the ~/.ssh/authorized_keys file of the user you’re connecting as. 
 This will authenticate AWS and allow the connection.
+
+############################################
+apt install -y build-essential
