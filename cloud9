@@ -7,3 +7,20 @@ This will authenticate AWS and allow the connection.
 
 ############################################
 apt install -y build-essential
+git clone https://github.com/c9/core.git c9sdk
+cd c9sdk
+scripts/install-sdk.sh
+###########################################
+# /etc/systemd/system/c9.service
+[Unit]
+Description=Cloud9 Daemon
+#After=network.target
+[Service]
+WorkingDirectory=/root/c9sdk
+ExecStart=/usr/bin/node server.js -l 0.0.0.0 -p 9000 -a username:password -w /root
+User=root
+#Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+#########################################################
