@@ -15,7 +15,9 @@ docker run
 
 --device=/dev/dri:/dev/dri jellyfin/jellyfin:latest
 
-
+####################################################
+mkdir /root/jellyfinmedia
+mkdir -p /root/jellyfin/{config,cache}
 
 docker run -d \
  --name jellyfin \
@@ -23,7 +25,7 @@ docker run -d \
  --volume /root/jellyfin/cache:/cache \
  --mount type=bind,source=/root/jellyfinmedia,target=/media \
  --restart=unless-stopped \
- -p xxxx:8096 \
+ -p 9002:8096 \
  jellyfin/jellyfin
 ##################################################
 docker pull jellyfin/jellyfin:latest
