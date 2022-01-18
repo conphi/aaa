@@ -1,3 +1,6 @@
+#################
+mkdir -p transmission/{config,downloads,watch}
+###############################
 docker run -d \
   --name=transmission \
   -e TZ=Europe/London \
