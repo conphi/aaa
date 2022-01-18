@@ -21,12 +21,12 @@ docker run -d \
  --name jellyfin \
  --volume /root/jellyfin/config:/config \
  --volume /root/jellyfin/cache:/cache \
- --mount type=bind,source=/root/jellyfinMedia,target=/media \
+ --mount type=bind,source=/root/jellyfinmedia,target=/media \
  --restart=unless-stopped \
  -p xxxx:8096 \
  jellyfin/jellyfin
 ##################################################
 docker pull jellyfin/jellyfin:latest
-mkdir -p /root/jellyfin/{config,cache,media}
+mkdir -p /root/jellyfin/{config,cache}
 docker run -d -v /root/jellyfin/config:/config -v /root/jellyfin/cache:/cache -v /root/jellyfin/media:/media --net=host jellyfin/jellyfin:latest
 ##################################################
