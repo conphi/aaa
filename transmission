@@ -1,0 +1,13 @@
+docker run -d \
+  --name=transmission \
+  -e TZ=Europe/London \
+  -e USER=username `#optional` \
+  -e PASS=password `#optional` \
+  -p 9001:9091 \
+  -p 51413:51413 \
+  -p 51413:51413/udp \
+  -v /root/transmission/config:/config \
+  -v /root/transmission/downloads:/downloads \
+  -v /root/transmission/watch:/watch \
+  --restart unless-stopped \
+  lscr.io/linuxserver/transmission
