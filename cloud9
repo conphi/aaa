@@ -24,3 +24,7 @@ User=root
 [Install]
 WantedBy=multi-user.target
 #########################################################
+
+npm install -g c9
+############ /usr/local/lib/node_modules ################## globally installed #########
+c9 filename # c9 open a file
