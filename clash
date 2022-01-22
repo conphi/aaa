@@ -1,0 +1,21 @@
+########################## linux cli ##########################
+docker run -p 3001:80 -d --rm haishanh/yacd
+export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7891
+
+./clash -h
+./clash -f to-yaml-file.yaml
+###############################################################
+
+
+# proxy list
+alias proxy='export all_proxy=socks5://127.0.0.1:1080'
+alias unproxy='unset all_proxy'
+
+alias proxy='export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7891'
+alias unproxy='unset https_proxy http_proxy all_proxy'
+
+curl cip.cc
+curl ip.gs
+curl ifconfig.me
+curl ifconfig.co
+httpbin.org/ip
