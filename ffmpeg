@@ -1,3 +1,19 @@
+############ cut ################
+ffmpeg -i input.mp4 -c copy -ss 00:04:25.000 -to 00:09:25.000 output.mp4
+ffmpeg -i input.mp4 -c copy -to 00:09:07 output.mp4
+#######################################
+################## merge ####################
+The concat demuxer instructions:
+
+create a text file named vidlist.txt in the following format:
+
+file '/path/to/clip1'
+file '/path/to/clip2'
+file '/path/to/clip3'
+
+ffmpeg -f concat -safe 0 -i vidlist.txt -c copy output
+#################################################################
+
 批量延时转化
 for f in *;do ffmpeg -i "${f}" -c:v libx264 -c:a aac "${f%.ts}.mp4";sleep 5m;done
 
