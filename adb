@@ -20,6 +20,9 @@ Performing Push Install adb: error: failed to get feature set: device offline
 adb devices
 adb kill-server
 ####################################
+adb shell pm uninstall --user 0 com.xiaomi.mibox.gamecenter（游戏中心）
+adb shell pm uninstall --user 0 com.xiaomi.tv.gallery（时尚画报）
+
 
 PS:我的电视小米4A43寸的，广告真是太让人烦，研究了好几天没办法root，后来找了很多资料，终于弄清楚怎么卸载内置应用了，如果完全去广告需要更换桌面，语音功能将会废掉。。。但是真清净。
 所以，我们此次的最佳目标就是没有广告还能正常使用语音功能。
