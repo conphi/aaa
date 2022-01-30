@@ -23,6 +23,9 @@ adb kill-server
 adb shell pm uninstall --user 0 com.xiaomi.mibox.gamecenter（游戏中心）
 adb shell pm uninstall --user 0 com.xiaomi.tv.gallery（时尚画报）
 ###########################################
+删除有问题去掉 --user 0
+adb shell pm uninstall --user 0 或者 adb shell pm uninstall
+################################################
 附表：
 
 【桌面】--user 0 com.mitv.tvhome     （请先安装其他桌面APP后再卸载，要不有变砖的危险。）
