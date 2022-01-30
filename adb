@@ -12,3 +12,11 @@ pm disable-user --user 0 com.dangbei.TVHomeLauncher
 列出第三方应用 adb shell pm list packages -3
 列出已禁用应用 adb shell pm list packages -d
 列出已启用应用 adb shell pm list packages -e
+
+
+###########################################
+Performing Push Install adb: error: failed to get feature set: device offline
+
+adb devices
+adb kill-server
+####################################
