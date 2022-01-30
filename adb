@@ -23,7 +23,7 @@ adb kill-server
 adb shell pm uninstall --user 0 com.xiaomi.mibox.gamecenter（游戏中心）
 adb shell pm uninstall --user 0 com.xiaomi.tv.gallery（时尚画报）
 ###########################################
-删除有问题去掉 --user 0
+删除需要加 --user 0 且 去掉 --user 0  各一次
 adb shell pm uninstall --user 0 或者 adb shell pm uninstall
 ################################################
 附表：
