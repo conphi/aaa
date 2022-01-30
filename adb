@@ -22,6 +22,59 @@ adb kill-server
 ####################################
 adb shell pm uninstall --user 0 com.xiaomi.mibox.gamecenter（游戏中心）
 adb shell pm uninstall --user 0 com.xiaomi.tv.gallery（时尚画报）
+###########################################
+附表：
+
+【桌面】--user 0 com.mitv.tvhome     （请先安装其他桌面APP后再卸载，要不有变砖的危险。）
+
+【广告插件】adb shell pm uninstall --user 0 com.miui.systemAdSolution    （有些电视没有这个）
+
+【系统升级】adb shell pm uninstall --user 0 com.xiaomi.mitv.upgrade
+
+【视频头条】adb shell pm uninstall --user 0 com.duokan.videodaily
+
+【小米商城】adb shell pm uninstall --user 0 com.xiaomi.mitv.shop
+
+【时尚画报】adb shell pm uninstall --user 0 com.xiaomi.tv.gallery
+
+【定时提醒】adb shell pm uninstall --user 0 com.mitv.alarmcenter
+
+【小米支付】adb shell pm uninstall --user 0 com.xiaomi.mitv.payment
+
+【电视支付】adb shell pm uninstall --user 0 com.xiaomi.mitv.pay
+
+【游戏中心】adb shell pm uninstall --user 0 com.xiaomi.mibox.gamecenter
+
+【日历】adb shell pm uninstall --user 0 com.xiaomi.mitv.calendar
+
+【天气】adb shell pm uninstall --user 0 com.xiaomi.tweather
+
+【位置信息】adb shell pm uninstall --user 0 com.android.location.fused
+
+【应用商店】adb shell pm uninstall --user 0 com.xiaomi.mitv.appstore
+
+【电视推送】adb shell pm uninstall --user 0 com.xiaomi.mitv.tvpush.tvpushservice
+
+【小米钱包】adb shell pm uninstall --user 0 com.mipay.wallet.tv
+
+【用户手册】adb shell pm uninstall --user 0 com.xiaomi.mitv.handbook
+
+【小爱同学】adb shell pm uninstall --user 0 com.xiaomi.voicecontrol
+
+【相册】adb shell pm uninstall --user 0 com.mitv.gallery
+
+【米家】adb shell pm uninstall --user 0 com.xiaomi.smarthome.tv
+
+下面不推荐卸载-----------------------------------------------------------------------------
+
+【高清播放器也是资源浏览器】com.xiaomi.mitv.mediaexplorer
+
+【电视管家】com.xiaomi.mitv.tvmanager
+
+【无线投屏】com.xiaomi.mitv.smartshare
+
+【通知中心】com.xiaomi.mitv.systemui
+########################################
 
 
 PS:我的电视小米4A43寸的，广告真是太让人烦，研究了好几天没办法root，后来找了很多资料，终于弄清楚怎么卸载内置应用了，如果完全去广告需要更换桌面，语音功能将会废掉。。。但是真清净。
