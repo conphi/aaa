@@ -1,1 +1,6 @@
 curl --range 0-800000000 -o mbr.mp41 http://1.2.3.4:8080/abc.mp4
+
+###############################################
+wget --recursive --no-parent http://example.com/configs/.vim/
+wget -r -np -R "index.html*" http://example.com/configs/.vim/
+wget -r --no-parent --reject "index.html*" http://www.mysite.com/Pictures/
