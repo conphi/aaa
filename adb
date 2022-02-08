@@ -1,3 +1,6 @@
+#######################
+adb shell input text <text>
+#######################
 https://post.smzdm.com/p/axl325l3/
 
 
