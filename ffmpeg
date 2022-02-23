@@ -13,6 +13,11 @@ file '/path/to/clip3'
 
 ffmpeg -f concat -safe 0 -i vidlist.txt -c copy output
 #################################################################
+windows cmd
+##不能处理文件名中’等特殊字符
+(for %i in (*.mp4) do @echo file '%i') > mylist.txt
+ffmpeg -safe 0 -f concat -i mylist.txt -c copy output.mp4
+################################################################
 
 批量延时转化
 for f in *;do ffmpeg -i "${f}" -c:v libx264 -c:a aac "${f%.ts}.mp4";sleep 5m;done
