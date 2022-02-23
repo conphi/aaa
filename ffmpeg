@@ -21,7 +21,10 @@ ffmpeg -safe 0 -f concat -i mylist.txt -c copy output.mp4
 https://trac.ffmpeg.org/wiki/Concatenate
 
 for f in *.mp4; do echo "file '$f'" >> mylist.txt; done
-
+################################################
+B站合并视频用LosslessCut
+windows下 cmd 获取视频名清单
+(for %i in (*.mp4) do @echo %i) > mylist.txt
 ###############################################
 
 批量延时转化
