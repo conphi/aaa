@@ -14,4 +14,7 @@ csrutil status
 restart mac os ===> Command + R
 csrutil disable
 ##########################
-
+for big fur and monterey
+csrutil disable ======> it will disable System Integrity Protection (SIP)
+csrutil authenticated-root disable ===> it will disable Signed System Volume (SSV)
+#######################
