@@ -35,3 +35,19 @@ csrutil authenticated-root disable ===> it will disable Signed System Volume (SS
 　　打开屏幕下方的“访达(笑脸图标)”—选择左侧边栏的“应用程序”，再找到你需要处理的软件拖拽到命令后面，按回车后输入密码执行，举个例子，比如需要打开sketch应用的命令是：
 
 　　sudo xattr -r -d com.apple.quarantine /Applications/sketch.app/
+  #######################
+  For Intel-based Macs 
+
+Restart your Mac, holding down the Command-Shift-Option-R keys.
+
+Release when the Apple logo appears.
+
+When the macOS Utilities window appears, select Disk Repair.
+
+For Apple silicon
+
+Press down and hold the power button until the startup options appear.
+
+Press Options, then Continue.
+
+Select Disk Repair from the macOS Utilities window.
