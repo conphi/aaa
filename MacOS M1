@@ -1,0 +1,17 @@
+mac os 12.2 monterey
+#####占用CPU 700% ###########
+top
+
+####################
+禁止 聚焦 索引文件
+sudo mdutil -a -i off
+#######################
+macxin.com
+
+sudo spctl --master-disable
+######### SIP #############
+csrutil status
+restart mac os ===> Command + R
+csrutil disable
+##########################
+
