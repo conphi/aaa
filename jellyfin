@@ -1,3 +1,8 @@
+##########################
+docker exec -it jellyfin bash
+echo "13.224.161.90 api.themoviedb.org">>/etc/hosts
+################################
+
 配置hosts里面最后加一行（docker里）
 13.224.161.90 api.themoviedb.org
 
