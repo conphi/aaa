@@ -1,0 +1,13 @@
+### ONLY client ####
+apt install sshutle
+sshutle -r root@1.2.3.4 0/0 -x local_ip/24
+####################
+
+-x <subnet>, --exclude=<subnet>
+Explicitly exclude this subnet from forwarding. 
+The format of this option is the same as the <subnets> option. 
+To exclude more than one subnet, specify the -x option more than once. 
+You can say something like 0/0 -x 1.2.3.0/24 to forward everything except the local subnet over the VPN, for example.
+
+-X <file>, --exclude-from=<file>
+Exclude the subnets specified in a file, one subnet per line. Useful when you have lots of subnets to exclude.
