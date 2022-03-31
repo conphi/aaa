@@ -9,6 +9,8 @@ ffmpeg -ss 00:00:00.000 -i in.mp4 -t 00:00:09 -c copy out.mp4
 -crf Consider 18 to be visually lossless (0 is lossless, 23 is default, and 51 is worst possible. )
 -preset ultrafast, superfast, veryfast, faster, fast, medium, slow, slower, veryslow.(a smaller file size but slow speed) Default is medium.
 
+-r 25 -s hd720 ### maybe 25 frame rate, low bit rate
+
 
 ############ cut ################
 ffmpeg -i input.mp4 -c copy -ss 00:04:25.000 -to 00:09:25.000 output.mp4
