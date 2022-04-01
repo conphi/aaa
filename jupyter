@@ -1,0 +1,14 @@
+pip install notebook
+
+###########################
+jupyter notebook --generate-config
+##~/.jupyter/jupyter_notebook_config.py
+c.NotebookApp.ip = '*' #所有绑定服务器的IP都能访问，若想只在特定ip访问，输入ip地址即可
+c.NotebookApp.port = 1234 #将端口设置为自己喜欢的吧，默认是8888
+c.NotebookApp.open_browser = False #我们并不想在服务器上直接打开Jupyter Notebook，所以设置成False
+c.NotebookApp.notebook_dir = '/root/pycode' #这里是设置Jupyter的根目录，若不设置将默认root的根目录，不安全
+c.NotebookApp.allow_root = True # 为了安全，Jupyter默认不允许以root权限启动jupyter 
+###############################################
+jupyter notebook password
+###########################
+jupyter notebook
