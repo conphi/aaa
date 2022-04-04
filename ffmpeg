@@ -20,6 +20,7 @@ ffmpeg -ss 00:00:00.000 -i in.mp4 -t 00:00:09 -c copy out.mp4
 ##########################################
 
 ####subtitles hardcode
+## default: h264 (libx264)); aac (native))
 ffmpeg -i 指环王1：护戒使者\ \(2001\).mkv -map 0:0 -map 0:1 -vf subtitles="指环王1：护戒使者 (2001).mkv" ../../downloads/"指环王1：护戒使者 (2001)".mp4
 #########################
 
