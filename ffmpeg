@@ -1,6 +1,13 @@
 ################## remove watermark BBC##############
 ffmpeg.exe -i input.mp4 -vf "delogo=x=30:y=30:w=90:h=30" -c:a copy output.mp4
 #####################################################
+# ffmpeg -ss 0 -t 20:00 -i inputA.avi -ss 0 -t 10:00 -i inputB.avi -filter_complex "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1" out.mp4
+ffmpeg -itsoffset -3 -c copy -i np.ass
+
+ffmpeg -itsoffset -3 -i np.ass -c copy npp.ass
+ffmpeg -i np1.mp4 -t 00:00:30 -vf ass=npp.ass outnp1.mp4
+
+####################################################
 
 ffmpeg -ss 00:00:00.000 -i in.mp4 -t 00:00:09 -c copy out.mp4
 
