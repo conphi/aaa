@@ -1,0 +1,24 @@
+import pandas as pd
+import matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
+fm.fontManager.addfont('/usr/share/fonts/truetype/arphic/ukai.ttc')
+matplotlib.rc('font', family='AR PL UKai CN')
+import matplotlib.ticker as mtick
+#########################################
+x = ['2021-09', '2021-11', '2022-01', '2022-03']
+###########################################
+def esi(xnames,university,category):
+    y = []
+    for time in xnames:
+        xl = pd.read_excel('ESI.xlsx', sheet_name=time)
+        y.append(xl.loc[xl[xl.columns[0]]==university][category].iloc[0])
+    y = [i*100.0 for i in y]
+    plt.plot(x,y,label=university)
+    plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter())
+    plt.title('ESI '+ category)
+    plt.ylabel('学术 表现力')
+#################################################
+#esi(x,'华中科技大学','化学')
+#esi(x,'武汉大学','化学')
+plt.legend(loc='best')
