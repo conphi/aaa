@@ -9,3 +9,8 @@ userdel -r xxx
 systemctl status service-name -n50
 journalctl -u service-name
 journalctl -f
+
+##############
+find . -type f -iname \*.jpg -delete
+-iname makes the search case insensitive.
+-delete tells find to delete/remove all files found.
