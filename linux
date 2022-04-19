@@ -18,5 +18,5 @@ find . -type f -iname \*.jpg -delete
 ############### remove all empty dirs
 find /path/to/dir -empty -type d -delete
 
-########### rename
+########### rename #### must have '' in filename ######
 find . -type f -name 'file*' -execdir mv {} {}_renamed ';'
