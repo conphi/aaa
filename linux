@@ -14,3 +14,9 @@ journalctl -f
 find . -type f -iname \*.jpg -delete
 -iname makes the search case insensitive.
 -delete tells find to delete/remove all files found.
+
+############### remove all empty dirs
+find /path/to/dir -empty -type d -delete
+
+########### rename
+find . -type f -name 'file*' -execdir mv {} {}_renamed ';'
