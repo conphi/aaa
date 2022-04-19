@@ -20,3 +20,10 @@ find /path/to/dir -empty -type d -delete
 
 ########### rename #### must have '' in filename ######
 find . -type f -name 'file*' -execdir mv {} {}_renamed ';'
+### may work
+for i in $(find . -name 'config.yml'); do mv $i $i.bak; done
+### example
+find . -type f -iname '*mov' -execdir ffmpeg -i {} -c:v copy -c:a aac {}.mp4 ';'
+##########################################################
+
+
