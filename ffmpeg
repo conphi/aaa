@@ -1,4 +1,4 @@
-################## remove watermark BBC##############
+################## remove watermark of BBC ##############
 ffmpeg.exe -i input.mp4 -vf "delogo=x=30:y=30:w=90:h=30" -c:a copy output.mp4
 #####################################################
 # ffmpeg -ss 0 -t 20:00 -i inputA.avi -ss 0 -t 10:00 -i inputB.avi -filter_complex "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1" out.mp4
@@ -23,24 +23,35 @@ For the transpose parameter you can pass:
 3 = 90Clockwise and Vertical Flip
 ###########################################
 
-####################################################
+### scale ################################
+https://trac.ffmpeg.org/wiki/Scaling
+-vf scale=-1:1080
+-s hd1080
 
+### cut ##################################
 ffmpeg -ss 00:00:00.000 -i in.mp4 -t 00:00:09 -c copy out.mp4
+ffmpeg -i input.mp4 -c copy -ss 00:04:25.000 -to 00:09:25.000 output.mp4
+ffmpeg -i input.mp4 -c copy -to 00:09:07 output.mp4
 
--vf scale=-1:720 -c:v libx264 -crf 18 -preset veryslow -c:a copy
+### crop ################################
+ffmpeg -i in.mp4 -filter:v "crop=out_w:out_h:x:y" out.mp4
 
+out_w is the width of the output rectangle
+out_h is the height of the output rectangle
+x and y specify the top left corner of the output rectangle
+
+### quality ############################
+-crf 18 -preset veryslow
 -crf Consider 18 to be visually lossless (0 is lossless, 23 is default, and 51 is worst possible. )
 -preset ultrafast, superfast, veryfast, faster, fast, medium, slow, slower, veryslow.(a smaller file size but slow speed) Default is medium.
-
--r 25 -s hd720 ### maybe 25 frame rate, low bit rate
 ##########################################
 
-####subtitles hardcode
+### subtitles hardcode ###################
 ## default: h264 (libx264)); aac (native))
 ffmpeg -i 指环王1：护戒使者\ \(2001\).mkv -map 0:0 -map 0:1 -vf subtitles="指环王1：护戒使者 (2001).mkv" ../../downloads/"指环王1：护戒使者 (2001)".mp4
 ####### untest ##################################################################################
 ffmpeg -i input.mkv -map 0:0 -map 0:2 -map 0:3 -vf subtitles=input.mkv -c:v libx264 -c:a aac output.mp4
-############### untest below
+####### untest below
 subtitles=sub.srt
 which is equivalent to:
 
@@ -71,11 +82,6 @@ ffmpeg -f avfoundation -i "<screen device index>:<audio device index>" output.mk
 ffmpeg -f avfoundation -i "1:0" output.mkv
 ######################
 
-
-############ cut ################
-ffmpeg -i input.mp4 -c copy -ss 00:04:25.000 -to 00:09:25.000 output.mp4
-ffmpeg -i input.mp4 -c copy -to 00:09:07 output.mp4
-#######################################
 ################## merge ####################
 The concat demuxer instructions:
 
