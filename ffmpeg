@@ -39,10 +39,8 @@ ffmpeg -ss 00:00:00.000 -i in.mp4 -t 00:00:09 -c copy out.mp4
 ## default: h264 (libx264)); aac (native))
 ffmpeg -i 指环王1：护戒使者\ \(2001\).mkv -map 0:0 -map 0:1 -vf subtitles="指环王1：护戒使者 (2001).mkv" ../../downloads/"指环王1：护戒使者 (2001)".mp4
 ####### untest ##################################################################################
-If the first key is not specified, it is assumed that the first value specifies the filename.
-
-For example, to render the file sub.srt on top of the input video, use the command:
-
+ffmpeg -i input.mkv -map 0:0 -map 0:2 -map 0:3 -vf subtitles=input.mkv -c:v libx264 -c:a aac output.mp4
+############### untest below
 subtitles=sub.srt
 which is equivalent to:
 
