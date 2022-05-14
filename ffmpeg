@@ -7,6 +7,13 @@ ffmpeg -itsoffset -3 -c copy -i np.ass
 ffmpeg -itsoffset -3 -i np.ass -c copy npp.ass
 ffmpeg -i np1.mp4 -t 00:00:30 -vf ass=npp.ass outnp1.mp4
 
+########## limit or reduce file size###################
+https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg
+
+### default video:libx264 audio:aac crf:23 ###
+ffmpeg -i input.mp4 output.mp4
+#######################################################
+
 ######### rotate ###################
 ### without re-encoding
 ffmpeg -i input.mp4 -c copy -metadata:s:v:0 rotate=90 output.mp4
