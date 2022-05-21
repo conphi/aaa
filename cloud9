@@ -5,6 +5,15 @@ Before you create the environment, you’ll need to copy the public SSH key,
 and add it to the ~/.ssh/authorized_keys file of the user you’re connecting as. 
 This will authenticate AWS and allow the connection.
 
+### cloud9 for aws native
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt install nodejs
+sudo bash nodesource_setup.sh
+
+### or
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt install nodejs
+
 ############################################
 apt install -y build-essential
 git clone https://github.com/c9/core.git c9sdk
