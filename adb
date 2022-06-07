@@ -8,6 +8,68 @@ Android TV操作系统版本，遥控器点5下OK按钮
 移除默认桌面
 pm disable-user --user 0 com.dangbei.TVHomeLauncher
 
+############ 极米投影仪 #######################
+adb shell pm uninstall --user 0 com.xgimi.home
+############
+adb shell pm uninstall --user 0 com.xgimi.filemanager
+adb shell pm uninstall --user 0 com.xgimi.xgimiservice
+adb shell pm uninstall --user 0 com.xgimi.streammeadiaplayer
+adb shell pm uninstall --user 0 com.xgimi.misckey
+
+
+adb shell pm uninstall --user 0 com.xgimi.miracast
+adb shell pm uninstall tv.fun.orangemovie_jimi
+adb shell pm uninstall --user 0 com.hunantv.license
+adb shell pm uninstall com.hunantv.license
+adb shell pm uninstall --user 0 com.xgimi.manager
+adb shell pm uninstall --user 0 com.xgimi.iot
+adb shell pm uninstall com.xgimi.transfer
+adb shell pm uninstall --user 0 com.liskovsoft.videomanager
+adb shell pm uninstall com.xgimi.activitypage
+adb shell pm uninstall --user 0 com.xgimi.stream.media
+adb shell pm uninstall --user 0 com.xgimi.screensaver
+adb shell pm uninstall --user 0 com.xgimi.soundermodeservice
+adb shell pm uninstall --user 0 com.xgimi.msgcenter
+adb shell pm uninstall --user 0 com.xgimi.upgrade
+adb shell pm uninstall --user 0 com.android.mcast
+adb shell pm uninstall --user 0 com.xgimi.payview
+adb shell pm uninstall com.xgimi.payview
+adb shell pm uninstall --user 0 com.xgimi.appmarket
+adb shell pm uninstall --user 0 com.xgimi.recamera
+adb shell pm uninstall --user 0 com.xgimi.datareporter
+adb shell pm uninstall --user 0 com.xgimi.artmode
+adb shell pm uninstall --user 0 com.xgimi.instruction30
+adb shell pm uninstall --user 0 com.xgimi.theme
+adb shell pm uninstall --user 0 com.xgimi.voiceoffline
+adb shell pm uninstall --user 0 com.xgimi.wirelessscreen
+adb shell pm uninstall com.xgimi.wirelessscreen
+adb shell pm uninstall com.xgimi.user
+adb shell pm uninstall --user 0 com.xgimi.user
+adb shell pm uninstall --user 0 com.xgimi.doubanfm
+adb shell pm uninstall com.xgimi.doubanfm
+adb shell pm uninstall --user 0 com.xgimi.weather
+adb shell pm uninstall --user 0 com.xgimi.smartcurtain
+adb shell pm uninstall --user 0 com.xgimi.remote
+adb shell pm uninstall --user 0 com.xgimi.adservice
+adb shell pm uninstall --user 0 com.xgimiui.api
+adb shell pm uninstall --user 0 com.xgimi.windowsystem
+adb shell pm uninstall com.xgimi.duertts
+adb shell pm uninstall --user 0 com.xgimi.duertts
+adb shell pm uninstall --user 0 com.xgimi.gimiplayer
+adb shell pm uninstall --user 0 com.android.wallpaper
+
+adb shell pm uninstall --user 0 com.gitvjimi.video
+adb shell pm uninstall com.gitvjimi.video
+
+adb shell pm uninstall --user 0 com.kuyun.common.identifer
+adb shell pm uninstall --user 0 com.xgimi.burnin
+adb shell pm uninstall com.xgimi.burnin
+adb shell pm uninstall --user 0 com.jd.smart.tv.sdk
+adb shell pm uninstall --user 0 com.xgimi.vcontrol
+adb shell pm uninstall com.xgimi.vcontrol
+adb shell pm uninstall --user 0 com.xgimi.minitvfactory
+
+#################################################
 
 ################################################
 列出所有应用 adb shell pm list packages
