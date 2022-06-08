@@ -9,6 +9,7 @@ Android TV操作系统版本，遥控器点5下OK按钮
 pm disable-user --user 0 com.dangbei.TVHomeLauncher
 
 ############ 极米投影仪 #######################
+usb刷机文件名不能修改，要不然检测不到
 #### 同一固件，U盘需要升级重复两次
 adb shell pm uninstall --user 0 com.xgimi.home
 ############
