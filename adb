@@ -12,8 +12,14 @@ pm disable-user --user 0 com.dangbei.TVHomeLauncher
 usb刷机文件名不能修改，要不然检测不到
 #### 同一固件，U盘需要升级重复两次
 adb shell pm uninstall --user 0 com.xgimi.home
-############ new try V1.15.46
+############ new try V1.15.46 ############
 ###可以看到的app
+#永远的流氓
+adb shell pm uninstall --user 0 com.ktcp.tvvideo
+adb shell pm uninstall --user 0 com.gitvjimi.video
+adb shell pm uninstall --user 0 com.hunantv.license
+
+
 adb shell pm list packages|grep xgimi
 adb shell pm uninstall --user 0 com.xgimi.upgrade
 adb shell pm uninstall --user 0 com.xgimi.recamera
@@ -22,6 +28,9 @@ adb shell pm uninstall --user 0 com.xgimi.theme
 adb shell pm uninstall --user 0 com.xgimi.artmode
 adb shell pm uninstall --user 0 com.xgimi.instruction30
 adb shell pm uninstall --user 0 com.xgimi.user
+adb shell pm uninstall --user 0 com.xgimi.manager
+adb shell pm uninstall --user 0 com.xgimi.vcontrol
+adb shell pm uninstall --user 0 com.xgimi.filemanager
 ##
 adb shell pm uninstall --user 0 com.xgimi.datareporter
 adb shell pm uninstall --user 0 com.xgimi.miracast
@@ -35,6 +44,13 @@ adb shell pm uninstall --user 0 com.xgimi.smartcurtain
 adb shell pm uninstall --user 0 com.xgimi.doubanfm
 adb shell pm uninstall --user 0 com.xgimi.msgcenter
 adb shell pm uninstall com.xgimi.xgimiservice
+adb shell pm uninstall --user 0 com.xgimi.duertts
+adb shell pm uninstall --user 0 com.xgimiui.api
+
+adb shell pm uninstall --user 0 com.xgimi.gimiplayer
+
+adb shell pm uninstall --user 0 com.kuyun.common.identifer
+
 #################
 adb shell pm uninstall --user 0 com.xgimi.filemanager
 adb shell pm uninstall --user 0 com.xgimi.xgimiservice
