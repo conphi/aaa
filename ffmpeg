@@ -54,6 +54,7 @@ x and y specify the top left corner of the output rectangle
 ##########################################
 
 ### subtitles hardcode ###################
+https://trac.ffmpeg.org/wiki/HowToBurnSubtitlesIntoVideo
 ## default: h264 (libx264)); aac (native))
 ffmpeg -i 指环王1：护戒使者\ \(2001\).mkv -map 0:0 -map 0:1 -vf subtitles="指环王1：护戒使者 (2001).mkv" ../../downloads/"指环王1：护戒使者 (2001)".mp4
 ####### untest ##################################################################################
