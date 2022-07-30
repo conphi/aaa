@@ -20,3 +20,7 @@ https://sukebei.nyaa.si/view/3649351
 
 ### 特别网站，用什么做的呢？
 https://www.ptt.cc/bbs/index.html
+
+##quark
+kkpans.com
+aipanxiaozhan.com
