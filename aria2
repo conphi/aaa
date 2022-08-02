@@ -1,0 +1,25 @@
+curl -O https://ngosang.github.io/trackerslist/trackers_best.txt
+tr -s '\r\n' ',' < trackers_best.txt | sed -e 's/,$/\n/' > output.txt
+
+curl -O https://ngosang.github.io/trackerslist/trackers_best_ip.txt
+tr -s '\r\n' ',' < trackers_best_ip.txt | sed -e 's/,$/\n/' > output.txt
+
+aria2c -S xxx.torrent
+aria2c -S xxx.torrent > test.txt
+aria2c --select-file=1-5,8,9 --seed-time=0 xxx.torrent
+aria2c --seed-time=0 --bt-tracker=
+--bt-tracker=
+aria2c --show-files your-torrent-file.torrent
+
+aria2c --bt-save-metadata --bt-metadata-only magnet:?xt=urn:btih:
+
+--bt-save-metadata
+--bt-metadata-only
+
+-S works for local file only.
+For magnet URIs, first download torrent metadata using --bt-save-metadata and --bt-metadata-only, and then use -S option against the downloaded torrent file.
+
+--bt-remove-unselected-file [true|false]
+Removes the unselected files when download is completed in BitTorrent. 
+To select files, use --select-file option. If it is not used, all files are assumed to be selected. 
+Please use this option with care because it will actually remove files from your disk. Default: false
