@@ -34,3 +34,4 @@ https://91porny.com/author/玩物上志
 
 fb1080.me
 https://jubt.fun/cn/index.html
+https://sukebei.nyaa.si/?f=0&c=0_0&q=pr%E7%A4%BE&s=size&o=desc
