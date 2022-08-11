@@ -1,5 +1,7 @@
 https://adult.contents.fc2.com/ranking/
 
+https://sukebei.nyaa.si/user/offkab?f=0&c=0_0&q=fc2
+
 https://www.akiba-online.com/
 btdig.com
 https://sukebei.nyaa.si/user/offkab
