@@ -1,0 +1,30 @@
+https://github.com/conphi/Xiaomi-Mi-Router-4A-MIR4A-Gbit
+
+##############################################
+diy-part2.sh
+sed -i 's/192.168.1.1/192.168.31.1/g' package/base-files/files/bin/config_generate
+###################################################
+小米路由器wan口用网线连接原来可以翻墙的路由器的lan口作为二级路由器
+##################################################
+### mac air
+# 克隆仓库
+git clone https://github.com/acecilia/OpenWRTInvasion.git
+# 进入目录
+cd OpenWRTInvasion
+# 安装依赖
+pip3 install -r requirements.txt
+
+python3 remote_command_execution_vulnerability.py
+
+telnet 192.168.31.1
+
+# 进入到临时目录
+cd /tmp
+# 下载固件
+curl -u usrname:password https://我的固件地址-squashfs-sysupgrade.bin --output firmware.bin
+mtd -e OS1 -r write firmware.bin OS1
+## 直到显示rebooting...
+##########################################################
+拔掉小米路由器用一根网线连接windows电脑网口和小米路由器的lan口
+浏览器输入192.168.31.1
+### done
