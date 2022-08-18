@@ -17,7 +17,7 @@ pip3 install -r requirements.txt
 python3 remote_command_execution_vulnerability.py
 
 telnet 192.168.31.1
-
+root/root
 # 进入到临时目录
 cd /tmp
 # 下载固件
