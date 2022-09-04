@@ -1,0 +1,8 @@
+ubuntu 20.04
+ruby -v 2.7.0
+rails -v 7.0.3.1
+### apt install ruby-dev 可能需要
+
+rails new blog (必须先开; sshuttle -r root@x.x.x.x 0/0 -x 211.85.177.0/24)(被墙cd blog; bundle install)
+cd blog && rails s -b 0 -p 3000
+
