@@ -1,0 +1,27 @@
+docker run -d -v $(pwd):/workspace -p fuck:8181 sapk/cloud9 --auth fuck:fuck
+#################
+docker run -d \
+  --name=cloud9 \
+  -e PUID=0 \
+  -e PGID=0 \
+  -e USERNAME=fuck \
+  -e PASSWORD=fuck \
+  -p fuck:8000 \
+  -v /root:/code \
+  --restart unless-stopped \
+  lscr.io/linuxserver/cloud9:latest
+##################
+docker run -d \
+  --name=wg-easy \
+  -e WG_HOST=fuck \
+  -e PASSWORD=fuck \
+  -v ~/.wg-easy:/etc/wireguard \
+  -p fuck:51820/udp \
+  -p fuck:51821/tcp \
+  --cap-add=NET_ADMIN \
+  --cap-add=SYS_MODULE \
+  --sysctl="net.ipv4.conf.all.src_valid_mark=1" \
+  --sysctl="net.ipv4.ip_forward=1" \
+  --restart unless-stopped \
+  weejewel/wg-easy
+  ####################
