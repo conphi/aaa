@@ -20,6 +20,11 @@ git clone https://github.com/c9/core.git c9sdk
 cd c9sdk
 ### apt install python2
 scripts/install-sdk.sh
+###
+/usr/bin/node /opt/c9sdk/server.js -l 0.0.0.0 -p 9000 -w /root -a :
+#################################
+cd 
+mv c9sdk /opt/
 ###########################################
 # /etc/systemd/system/c9.service
 [Unit]
@@ -27,7 +32,7 @@ Description=Cloud9 Daemon
 #After=network.target
 [Service]
 WorkingDirectory=/root/c9sdk
-ExecStart=/usr/bin/node server.js -l 0.0.0.0 -p 9000 -a username:password -w /root
+ExecStart=/usr/bin/node /opt/c9sdk/server.js -l 0.0.0.0 -p 9000 -w /root -a fuck:fuck
 User=root
 #Restart=on-failure
 
