@@ -13,7 +13,15 @@ sudo bash nodesource_setup.sh
 ### or
 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt install nodejs
+#######################################
+nvm install v10
+npm install -g npm@5
+########################
+node -v
+v10.24.0
 
+npm -v
+5.8.0
 ############################################
 apt install -y build-essential
 git clone https://github.com/c9/core.git c9sdk
@@ -22,7 +30,7 @@ git checkout HEAD -- node_modules
 ### apt install python2
 scripts/install-sdk.sh
 ###
-/usr/bin/node /opt/c9sdk/server.js -l 0.0.0.0 -p 9000 -w /root -a :
+node /opt/c9sdk/server.js -l 0.0.0.0 -p 9000 -w /root -a :
 #################################
 cd 
 mv c9sdk /opt/
@@ -33,7 +41,7 @@ Description=Cloud9 Daemon
 #After=network.target
 [Service]
 WorkingDirectory=/opt/c9sdk
-ExecStart=/usr/bin/node /opt/c9sdk/server.js -l 0.0.0.0 -p 9000 -w /root -a fuck:fuck
+ExecStart=/root/.nvm/versions/node/v10.24.1/bin/node /opt/c9sdk/server.js -l 0.0.0.0 -p 9000 -w /root -a fuck:fuck
 User=root
 #Restart=on-failure
 
