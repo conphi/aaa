@@ -18,6 +18,7 @@ sudo apt install nodejs
 apt install -y build-essential
 git clone https://github.com/c9/core.git c9sdk
 cd c9sdk
+git checkout HEAD -- node_modules
 ### apt install python2
 scripts/install-sdk.sh
 ###
