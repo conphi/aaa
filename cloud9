@@ -31,7 +31,7 @@ mv c9sdk /opt/
 Description=Cloud9 Daemon
 #After=network.target
 [Service]
-WorkingDirectory=/root/c9sdk
+WorkingDirectory=/opt/c9sdk
 ExecStart=/usr/bin/node /opt/c9sdk/server.js -l 0.0.0.0 -p 9000 -w /root -a fuck:fuck
 User=root
 #Restart=on-failure
@@ -39,7 +39,11 @@ User=root
 [Install]
 WantedBy=multi-user.target
 #########################################################
-
+systemctl daemon-reload
+systemctl start c9.service
+systemctl status c9.service
+systemctl enable c9.service
+##################################
 npm install -g c9
 ############ /usr/local/lib/node_modules ################## globally installed #########
 c9 filename # c9 open a file
