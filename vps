@@ -21,7 +21,7 @@ docker run -d \
   -e WG_HOST=fuck \
   -e PASSWORD=fuck \
   -v ~/.wg-easy:/etc/wireguard \
-  -p fuck:51820/udp \
+  -p 51820:51820/udp \
   -p fuck:51821/tcp \
   --cap-add=NET_ADMIN \
   --cap-add=SYS_MODULE \
