@@ -59,20 +59,13 @@ https://trac.ffmpeg.org/wiki/HowToBurnSubtitlesIntoVideo
 ffmpeg -i 指环王1：护戒使者\ \(2001\).mkv -map 0:0 -map 0:1 -vf subtitles="指环王1：护戒使者 (2001).mkv" ../../downloads/"指环王1：护戒使者 (2001)".mp4
 ffmpeg -i input.mkv -map 0:0 -map 0:2 -map 0:5 -c copy output.mkv
 ####### untest ##################################################################################
-ffmpeg -i input.mkv -map 0:0 -map 0:2 -map 0:3 -vf subtitles=input.mkv -c:v libx264 -c:a aac output.mp4
-####### untest below
-subtitles=sub.srt
-which is equivalent to:
-
-subtitles=filename=sub.srt
-To render the default subtitles stream from file video.mkv, use:
-
-subtitles=video.mkv
 To render the second subtitles stream from that file, use:
-
 subtitles=video.mkv:si=1
-To make the subtitles stream from sub.srt appear in 80% transparent blue DejaVu Serif, use:
+You'll have to use the double and single quote if the file has spaces in it.
 
+ffmpeg -i input.mkv -map 0:0 -map 0:2 -vf "subtitles='video.mkv':si=0" -c:v libx264 -c:a copy output.mp4
+
+To make the subtitles stream from sub.srt appear in 80% transparent blue DejaVu Serif, use:
 subtitles=sub.srt:force_style='Fontname=DejaVu Serif,PrimaryColour=&HCCFF0000'
 #############################################################################
 
