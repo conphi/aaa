@@ -10,3 +10,10 @@ systemctl restart sshd
 ssh -p 123456 11.22.33.44
 ######################################
 echo get -ar /file/path/file.data | sftp login@server
+
+
+######## Mac OS ##############
+cat ./.ssh/config 
+ServerAliveInterval 5
+##############################
+
