@@ -1,3 +1,54 @@
+################################
+######## pmset -g
+System-wide power settings:
+Currently in use:
+ standby              1
+ Sleep On Power Button 1
+ hibernatefile        /var/vm/sleepimage
+ powernap             1
+ networkoversleep     0
+ disksleep            10
+ sleep                1 (sleep prevented by powerd)
+ hibernatemode        3
+ ttyskeepawake        1
+ displaysleep         10
+ tcpkeepalive         1
+ lowpowermode         0
+ womp                 1
+#############
+查看 hibernatemode 这一行，如果 hibernatemode 后面的数字是 0 ，那这种休眠模式下，掉电程度就是非常严重，
+如果 hibernatemode 后面的数字是 3 （大部分人的电脑应该是这个休眠模式），这种模式的掉电掉电程度就是一般严重，
+如果 hibernatemode 后面的数字是 25 ，那掉电就会更少一些（只会掉一点点）
+
+第三步：修改电脑休眠模式
+如果你常用电脑，那么直接将休眠模式改为25即可，只掉一点电。
+
+在终端里输入命令sudo pmset -a hibernatemode 25，然后回车；
+如果你想达到和关机一样的效果，再进行一步：在终端输入sudo pmset -b tcpkeepalive 0，此模式下合盖即断网，下载文件慎用。
+
+注意：修改以上两种模式后，电脑开盖后屏幕启动速度可能会变慢一些（开盖后 3 至 5 秒屏幕才会点亮），如果介意这个，可以选择不更改。
+
+如果在终端命令运行之后sleep后显示休眠被程序阻止，那么一定要注意把这些后台程序咔嚓掉。
+
+另外还有一行Standby，终端输入sudo pmset -b standby 1,回车。合上屏幕之后，在4200分钟之内如果被唤醒，则从内存直接调用数据，
+如果4200分钟后依然未请求唤醒，系统则会移送所有内存数据到硬盘，并且停止供电。
+
+7.重置系统管理控制器（SMC）
+
+如果没有其他效果，则应尝试重置Mac的SMC。SMC管理各种硬件过程，包括电池的工作方式。
+虽然这是万不得已的方法，但它不会对Mac造成任何损害，Apple经常推荐它作为无法通过简单解决方案解决的问题的解决方案。
+
+如何使用不可拆卸的电池在MacBooks上重置SMC
+
+关闭MacBook。
+关闭时，请按Shift + Control + Option（Alt）键。
+按住这些键的同时，按电源按钮（在带有Touch Bar的MacBook上，Touch ID按钮为电源按钮）。
+按住键和电源按钮十秒钟，然后松开它们。
+再次按电源按钮以启动Mac。
+
+
+
+################################
 mac os 12.2 monterey
 #####占用CPU 700% ###########
 top
