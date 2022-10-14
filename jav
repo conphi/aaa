@@ -16,9 +16,8 @@ https://ec.sod.co.jp/prime/videos/sample.php?id=
 https://ec.sod.co.jp/prime/videos/sample.php?id=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 https://adult.contents.fc2.com/article/3053723/
-
-### HD FC2卖家♒ 無名な男
-https://sukebei.nyaa.si/view/3649351
+fc2 1228282
+fc2 3061625
 
 ### 特别网站，用什么做的呢？
 https://www.ptt.cc/bbs/index.html
