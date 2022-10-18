@@ -1,3 +1,9 @@
+port forward
+apt-get install redir
+redir :SRC :DEST
+will run in the background as a daemon
+
+
 端口使用情况
 lsof -i:3000
 ss -lnpt | grep 3000
