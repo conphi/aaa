@@ -20,6 +20,8 @@ docker run -d \
   --name=wg-easy \
   -e WG_HOST=fuck \
   -e PASSWORD=fuck \
+  -e WG_DEFAULT_DNS="8.8.8.8, 8.8.4.4" \
+  -e WG_ALLOWED_IPS="0.0.0.0/0" \
   -v ~/.wg-easy:/etc/wireguard \
   -p 51820:51820/udp \
   -p fuck:51821/tcp \
