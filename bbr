@@ -1,0 +1,23 @@
+Linux Kernel 内核升级到 4.9 及以上版本可以实现 BBR 加速，
+由于Ubuntu 18.04 默认的内核就是 4.15版本的内核，
+由于Ubuntu 20.04 默认的内核就是 5.4 版本的内核，并已经默认编译了 TCP BBR 模块，所以可以直接通过参数开启。
+
+新的 TCP 拥塞控制算法 BBR (Bottleneck Bandwidth and RTT) 可以让服务器的带宽尽量跑慢，并且尽量不要有排队的情况，让网络服务更佳稳定和高效。
+
+修改系统变量：
+
+echo net.core.default_qdisc=fq >> /etc/sysctl.conf
+echo net.ipv4.tcp_congestion_control=bbr >> /etc/sysctl.conf
+保存生效
+
+sysctl -p
+执行
+
+sysctl net.ipv4.tcp_available_congestion_control
+如果结果是这样
+
+sysctl net.ipv4.tcp_available_congestion_control
+net.ipv4.tcp_available_congestion_control = bbr cubic reno
+就开启了。
+
+执行 lsmod | grep bbr ，以检测 BBR 是否开启。
