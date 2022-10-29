@@ -2,7 +2,10 @@
 $ curl -sSL https://get.docker.com | sh
 $ sudo usermod -aG docker $(whoami)
 $ exit
-###############################
+############################################
+docker run -e PASSWORD=9MLSpPmNt -p 8388:8388 -p 8388:8388/udp -d --restart always shadowsocks/shadowsocks-libev
+### - METHOD=aes-256-gcm
+##########################################
 docker run -d -v $(pwd):/workspace -p fuck:8181 sapk/cloud9 --auth fuck:fuck
 #################
 docker run -d \
