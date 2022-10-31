@@ -21,7 +21,7 @@ docker run -d \
 ##################
 docker run -d \
   --name=wg-easy \
-  -e WG_HOST=fuck \
+  -e WG_HOST=$(dig @resolver4.opendns.com myip.opendns.com +short) \
   -e PASSWORD=fuck \
   -e WG_DEFAULT_DNS="8.8.8.8, 8.8.4.4" \
   -e WG_ALLOWED_IPS="0.0.0.0/0" \
