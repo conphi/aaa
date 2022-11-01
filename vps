@@ -35,3 +35,22 @@ docker run -d \
   --restart unless-stopped \
   weejewel/wg-easy
   ####################
+ 
+###########################################
+[Unit]
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/disk-space-check.sh
+
+[Install]
+WantedBy=default.target
+#########################################
+crontab -e
+@reboot /root/wg.sh
+############# untest below 
+crontab -l
+In ubuntu you have to: @reboot root sh script.sh
+#!/bin/sh
+@reboot sleep 10 && node /PATH/index.js &
+#############################################
