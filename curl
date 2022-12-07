@@ -1,0 +1,8 @@
+//http auth download 
+//filename : sth'sth
+// double quotes are a must!
+curl -u user:pass -O "http://www.example.com/sth'sth"
+wget
+http
+xh -a user:pass -d "http://www.example.com/sth'sth"
+###################################################
