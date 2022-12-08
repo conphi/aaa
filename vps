@@ -1,6 +1,6 @@
 ############################################
 $ curl -sSL https://get.docker.com | sh
-$ sudo usermod -aG docker $(whoami)
+$ usermod -aG docker $(whoami)
 $ exit
 ############################################
 docker run -e PASSWORD=9MLSpPmNt -p 8388:8388 -p 8388:8388/udp -d --restart always shadowsocks/shadowsocks-libev
@@ -21,7 +21,7 @@ docker run -d \
 ##################
 docker run -d \
   --name=wg-easy \
-  -e WG_HOST=$(dig @resolver4.opendns.com myip.opendns.com +short) \
+  -e WG_HOST=$(curl checkip.amazonaws.com) \
   -e PASSWORD=fuck \
   -e WG_DEFAULT_DNS="8.8.8.8, 8.8.4.4" \
   -e WG_ALLOWED_IPS="0.0.0.0/0" \
