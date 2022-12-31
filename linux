@@ -1,4 +1,12 @@
-port forward
+############## 测试udp端口是否开放 ###
+#server
+nc -luvn 0.0.0.0 3000
+#client
+nc -uv public ip 3000
+###### 两端输入数据对方“有显示”表示联通
+###################################
+
+########### port forward
 apt-get install redir
 redir :SRC :DEST
 will run in the background as a daemon
