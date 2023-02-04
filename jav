@@ -12,6 +12,8 @@ https://www.shinagawa-esthe.jp/
 https://adult.contents.fc2.com/ranking/
 
 //木内
+https://bigboobs.pink/archives/106720
+『木内（20歳）』〔別名：由香/いと〕
 https://adult.contents.fc2.com/article/1966336/
 
 https://sukebei.nyaa.si/user/offkab?f=0&c=0_0&q=fc2
