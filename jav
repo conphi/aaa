@@ -1,3 +1,6 @@
+//https://www.i-dol.tv/idol/detail/257399/
+村上りいな
+
 /// buri-001
 https://ja.wikipedia.org/wiki/伊東麻央
 
