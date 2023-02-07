@@ -78,3 +78,4 @@ https://www.oldoll.com/
 https://www.tpdoll.com/
 e-nls.com
 https://www.ms-online.co.jp/
+https://daimaoh.co.jp/
