@@ -13,7 +13,16 @@ echo get -ar /file/path/file.data | sftp login@server
 
 
 ######## Mac OS ##############
-cat ./.ssh/config 
+cat ~/.ssh/config 
 ServerAliveInterval 5
+
+Host foo
+  HostName 192.168.1.20
+  User root
+##IdentityFile ~/.ssh/id_rsa.pub
 ##############################
 
+ssh-keygen -t rsa ######## create id_rsa & id_rsa.pub
+ssh-copy-id -i path/to/id_rsa.pub root@IP
+
+type "ssh foo" and you are in.
