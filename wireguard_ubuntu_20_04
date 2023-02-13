@@ -1,5 +1,7 @@
+## check the port available
 apt install wireguard
-apt install resolvconf
+#apt install resolvconf
+apt install openresolv
 
 cd /etc/wireguard
 wg genkey | tee s.key | wg pubkey > s.pub
