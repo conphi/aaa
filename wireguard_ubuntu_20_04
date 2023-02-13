@@ -2,14 +2,14 @@ apt install wireguard
 apt install resolvconf
 
 cd /etc/wireguard
-wg genkey | tee private.key | wg pubkey > public.key
-wg genkey | tee cprivatekey | wg pubkey > cpublickey
+wg genkey | tee s.key | wg pubkey > s.pub
+wg genkey | tee c.key | wg pubkey > c.pub
 
 ################ Server conf#################
 cat > /etc/wireguard/wg0.conf << _EOF
 [Interface]
-PrivateKey = $(cat /etc/wireguard/private.key)
-Address = 10.0.0.1/24
+PrivateKey = $(cat /etc/wireguard/s.key)
+Address = 10.0.0.2/24
 ListenPort = XXXX
 SaveConfig = true
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o XXXX -j MASQUERADE
@@ -20,11 +20,11 @@ _EOF
 ################ Client conf #################
 cat > /etc/wireguard/client.conf << _EOF
 [Interface]
-PrivateKey = $(cat /etc/wireguard/cprivatekey)
-Address = 10.0.0.2/32
-DNS = X.X.X.X,X.X.X.X
+PrivateKey = $(cat /etc/wireguard/c.key)
+Address = 10.0.0.3/32
+DNS = 8.8.8.8, 8.8.4.4
 [Peer]
-PublicKey = $(cat /etc/wireguard/public.key)
+PublicKey = $(cat /etc/wireguard/s.pub)
 Endpoint = X.X.X.X:XXXX
 AllowedIPs = 0.0.0.0/0
 PersistentKeepalive = 25
@@ -34,7 +34,7 @@ _EOF
 wg-quick up wg0
 
 ########## add client peer ##############
-wg set wg0 peer $(cat /etc/wireguard/cpublickey) allowed-ips 10.0.0.2/32
+wg set wg0 peer $(cat /etc/wireguard/c.pub) allowed-ips 10.0.0.3/32
 #########################################
 
 ############### forward #####################
