@@ -1,6 +1,7 @@
 ### ONLY client ####
 apt install sshutle
 sshutle -r root@1.2.3.4 0/0 -x local_ip/24
+sshutle -r root@1.2.3.4 0/0 -x 211.85.177.0/24
 ####################
 
 -x <subnet>, --exclude=<subnet>
