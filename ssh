@@ -26,3 +26,11 @@ ssh-keygen -t rsa ######## create id_rsa & id_rsa.pub
 ssh-copy-id -i path/to/id_rsa.pub root@IP
 
 type "ssh foo" and you are in.
+
+###########################
+## change port
+find / -name "sshd_config" 2>/dev/null
+# /etc/ssh/sshd_config
+# Port 22
+service ssh restart
+systemctl restart sshd
