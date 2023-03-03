@@ -9,3 +9,11 @@ cat /etc/passwd
 su username
 cd ./openwrt
 sudo chown -R $USER:$GROUPS ./
+
+###################################
+useradd -m USERNAME
+## You have to use -m, otherwise no home directory will be created. 
+## passwd USERNAME
+
+userdel username
+rm -r /home/username
