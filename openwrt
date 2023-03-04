@@ -17,3 +17,7 @@ useradd -m USERNAME
 
 userdel username
 rm -r /home/username
+###################################
+####### https://supes.top/ 
+-luci-app-firewall -firewall -luci-app-gpsysupgrade -luci-app-autoreboot -luci-app-upnp -wizard
+8021xd ????????
