@@ -1,0 +1,3 @@
+### openwrt 主路由
+lan uncheck eth0 ==> check bridge
+add wan set eth0
