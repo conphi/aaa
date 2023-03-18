@@ -1,5 +1,6 @@
 ### ERROR: kex_exchange_identification: Connection closed by remote host
 ### ERROR: Connection closed by x.x.x.x port 22
+### 1.开全局导致的；或者 2. 绕过国内IP，有时候绕不过
 ssrplus 访问控制 ==> 黑白名单 WAN IP 访问控制 ==> 不走代理的WAN IP 添加 vps 的ip
 #########################################################################
 
