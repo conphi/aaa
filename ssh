@@ -1,3 +1,9 @@
+### ERROR: kex_exchange_identification: Connection closed by remote host
+### ERROR: Connection closed by x.x.x.x port 22
+ssrplus 访问控制 ==> 黑白名单 WAN IP 访问控制 ==> 不走代理的WAN IP 添加 vps 的ip
+#########################################################################
+
+
 ##change ssh port
 
 netstat -tulnp | grep ssh
