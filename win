@@ -7,3 +7,8 @@ HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Terminal Server\WinStations\
 # PortNumber
 net stop termservice & net start termservice
 ####################################################
+# 磁盘无法显示问题
+## 调出 "计算机管理" 
+compmgmt.msc
+# 磁盘管理--更改驱动器号和路径--显示添加 D、E 等盘
+#####################################################
