@@ -1,0 +1,9 @@
+## windows server 2012 r2
+## rdp 修改端口前--先关闭防火墙--这台电脑右键--远程设置--允许
+# regedit
+# HKEY_LOCAL_MACHINE > System > CurrentControlSet > Control > Terminal Server > Wds > rdpwd > Tds > tcp
+HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp
+#HKEY_LOCAL_MACHINE > System > CurrentControlSet > Control > Terminal Server > WinStations > RDP-Tcp
+# PortNumber
+net stop termservice & net start termservice
+####################################################
