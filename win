@@ -12,3 +12,6 @@ net stop termservice & net start termservice
 compmgmt.msc
 # 磁盘管理--更改驱动器号和路径--显示添加 D、E 等盘
 #####################################################
+# 调出图标
+rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,0
+#######################################################
