@@ -15,3 +15,10 @@ compmgmt.msc
 # 调出图标
 rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,0
 #######################################################
+##### rdp
+## change pass
+## net user Administrator *
+## redir src:port dst:port
+## pkill -9 redir
+## killall -9 redir
+######################################################
