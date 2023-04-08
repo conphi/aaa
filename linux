@@ -26,6 +26,9 @@ screen // to start
 ctrl d or exit // to end 
 ctrl a d // to detach
 screen -r // to attach
+ctrl a shift s // split
+ctrl a TAB // switch and fails to swith after reattach ==> solution below
+ctrl a shift ' // switch splitted bash
 #####################################
 
 ############# tmux ##################
