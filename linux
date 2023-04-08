@@ -14,11 +14,20 @@ nc -uv public ip 3000
 #### 已连接，数据不通可能是防火墙的原因
 ###################################
 
-########### port forward
+########### port forward ###########
 apt-get install redir
 redir :SRC :DEST
 will run in the background as a daemon
+####################################
 
+############# tmux ##################
+tmux ls
+tmux new -t name
+tmux a
+ctrl+b+s
+tmux kill-session -t name
+ctrl+b+d
+#####################################
 
 端口使用情况
 lsof -i:3000
