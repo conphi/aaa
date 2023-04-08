@@ -18,7 +18,12 @@ nc -uv public ip 3000
 apt-get install redir
 redir :SRC :DEST
 will run in the background as a daemon
-####################################
+
+######## zellij ####################
+zellij ls
+zellij a
+ctrl p n // new pane
+ctrl o d // detach
 
 ############# screen #################
 screen -ls // list all
@@ -32,7 +37,6 @@ ctrl a shift x // close current session
 ctrl a shift q // close except current session
 ctrl a TAB // switch and fails to swith after reattach ==> solution below
 ctrl a shift ' // switch splitted bash
-#####################################
 
 ############# tmux ##################
 tmux ls
