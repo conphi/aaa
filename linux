@@ -38,9 +38,11 @@ ctrl a shift ' // switch splitted bash
 tmux ls
 tmux new -t name
 tmux a
-ctrl+b+s
+ctrl b s
+ctrl b %
+ctrl b "
 tmux kill-session -t name
-ctrl+b+d
+ctrl b d
 #####################################
 
 端口使用情况
