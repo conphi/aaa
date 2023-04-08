@@ -20,6 +20,14 @@ redir :SRC :DEST
 will run in the background as a daemon
 ####################################
 
+############# screen #################
+screen -ls // list all
+screen // to start
+ctrl d or exit // to end 
+ctrl a d // to detach
+screen -r // to attach
+#####################################
+
 ############# tmux ##################
 tmux ls
 tmux new -t name
