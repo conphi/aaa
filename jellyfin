@@ -1,3 +1,20 @@
+#############################
+mkdir /root/jellyfinmedia
+mkdir -p /root/jellyfin/{config,cache}
+
+docker run -d \
+ --name jellyfin \
+ --add-host=api.themoviedb.org:13.224.161.90 \
+ - JELLYFIN_PublishedServerUrl=http://example.com
+ --volume /root/jellyfin/config:/config \
+ --volume /root/jellyfin/cache:/cache \
+ --mount type=bind,source=/root/jellyfinmedia,target=/media \
+ --restart=unless-stopped \
+ -p 9002:8096 \
+ jellyfin/jellyfin
+
+
+
 ##########################
 docker exec -it jellyfin bash
 echo "13.224.161.90 api.themoviedb.org">>/etc/hosts
