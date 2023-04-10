@@ -5,7 +5,7 @@ mkdir -p /root/jellyfin/{config,cache}
 docker run -d \
  --name jellyfin \
  --add-host=api.themoviedb.org:13.224.161.90 \
- -e JELLYFIN_PublishedServerUrl=http://192.168.191.130:9001/fuck \
+ -e JELLYFIN_PUBLIC_PATH=/fuck \
  --volume /root/jellyfin/config:/config \
  --volume /root/jellyfin/cache:/cache \
  --mount type=bind,source=/root/jellyfinmedia,target=/media \
