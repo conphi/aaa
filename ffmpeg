@@ -1,3 +1,8 @@
+##################### 432hz ######################
+ffmpeg -i input_file.ext -af "showfreqs"
+ffmpeg -i input_file.ext -af "asetrate=44100*432/440,aresample=44100" output_file.ext
+#####################################################################################
+
 ################## remove watermark of BBC ##############
 ffmpeg.exe -i input.mp4 -vf "delogo=x=30:y=30:w=90:h=30" -c:a copy output.mp4
 #####################################################
