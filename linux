@@ -22,8 +22,11 @@ will run in the background as a daemon
 ######## zellij ####################
 zellij ls
 zellij a
-ctrl p n // new pane
+ctrl p d // new pane splitted horizontally
+ctrl p n // new pane splitted vertically
 ctrl o d // detach
+
+ctrl t n // new tab
 
 ############# screen #################
 screen -ls // list all
