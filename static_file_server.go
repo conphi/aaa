@@ -110,21 +110,25 @@ e.g.     ./s7 -d \.\/
 ///////////// webdav with a prefix wd.go ////////////
 
 package main
+
 import (
         "flag"
         "net/http"
          "golang.org/x/net/webdav"
 )
+
 func main() {
         port := flag.String("p", "9001", "a port")
+        dir := flag.String("d", "/root/tmp", "a dir")
         tag := flag.String("t", "dd", "a tag")
         flag.Parse()
         sub := "/" + *tag + "/"
     handler := &webdav.Handler{
-        FileSystem: webdav.Dir("."),
+        FileSystem: webdav.Dir(*dir),
         LockSystem: webdav.NewMemLS(),
     }
 
         http.Handle(sub, http.StripPrefix(sub, handler))
         http.ListenAndServe(":"+*port, nil)
 }
+
