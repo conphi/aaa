@@ -1,0 +1,4 @@
+apt install davfs2
+mkdir ~/webdav
+mount -t davfs "http://<server_address>:8080/webdav" ~/webdav
+umount ~/webdav
