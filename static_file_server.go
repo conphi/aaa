@@ -132,3 +132,49 @@ func main() {
         http.ListenAndServe(":"+*port, nil)
 }
 
+//////////////// /webdav with a prefix and auth wd2.go///////////////////////////////
+package main
+
+import (
+	"flag"
+	"golang.org/x/net/webdav"
+	"net/http"
+)
+
+type AuthWebdav struct {
+	webdav.Handler
+	username *string
+	password *string
+}
+
+func (aw *AuthWebdav) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	user, pass, ok := r.BasicAuth()
+	if !ok || user != *aw.username || pass != *aw.password {
+		w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+	aw.Handler.ServeHTTP(w, r)
+}
+
+func main() {
+	port := flag.String("p", "9001", "a port")
+	dir := flag.String("d", "/root/fuck", "a dir")
+	username := flag.String("u", "fuck", "username")
+	password := flag.String("k", "fuck", "password")
+
+	flag.Parse()
+
+	handler := &AuthWebdav{
+		Handler: webdav.Handler{
+			Prefix:     "/fuck",
+			FileSystem: webdav.Dir(*dir),
+			LockSystem: webdav.NewMemLS(),
+		},
+		username: username,
+		password: password,
+	}
+	http.Handle("/fuck/", handler)
+	http.ListenAndServe(":"+*port, nil)
+}
+///////////////////////////////////////////////////////////////////////////////
