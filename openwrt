@@ -1,3 +1,10 @@
+cat /etc/openwrt_release
+uname -a
+opkg list-installed | grep luci
+
+find . -name "*.ipk" -exec mv {} /path/to/destination/ \;
+
+#################################################################################
 remove dnsmasq （make menuconfig -----basefile） for offical openwrt
 keep dnsmasq-full
 
