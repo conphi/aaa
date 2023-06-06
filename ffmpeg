@@ -1,3 +1,7 @@
+############# window cmd #####################
+for %i in (*.mp4) do ffmpeg -i "%i" -c:v libx264 -c:a copy "%~ni_h264.mp4"
+###############################################
+
 ##################### 432hz ######################
 ffmpeg -i input_file.ext -af "showfreqs"
 ffmpeg -i input_file.ext -af "asetrate=44100*432/440,aresample=44100" output_file.ext
