@@ -1,0 +1,119 @@
+#### probably rust version #####
+./ssserver -k 123456 -s 0.0.0.0:7000 -m none 
+########################################
+
+################ uk server debian #############################
+#####################################
+lsb_release -a
+No LSB modules are available.
+Distributor ID: Debian
+Description:    Debian GNU/Linux 9.13 (stretch)
+Release:        9.13
+Codename:       stretch
+############################################
+cat /etc/os-release
+PRETTY_NAME="Debian GNU/Linux 9 (stretch)"
+NAME="Debian GNU/Linux"
+VERSION_ID="9"
+VERSION="9 (stretch)"
+VERSION_CODENAME=stretch
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+###########################################################
+uname -mrs
+Linux 4.14.91-bbrplus x86_64
+##############################
+node -v
+v10.24.1
+#############################
+############################################################
+ssserver -k 123456 -m none -s 0:7000
+qrencode -t ansiutf8 < /etc/wireguard/client.conf 
+
+find / -size +100M
+https://www.btmulu3.online/
+https://cursor.vip/btmulu
+https://btmulu.world/
+
+bbc https://www.bbc.co.uk/iplayer/episodes/m000w0dn/maddie-the-home-and-you  --pid-recursive 
+
+curl -O https://ngosang.github.io/trackerslist/trackers_best.txt
+tr -s '\r\n' ',' < trackers_best.txt | sed -e 's/,$/\n/' > output.txt
+
+curl -O https://ngosang.github.io/trackerslist/trackers_best_ip.txt
+tr -s '\r\n' ',' < trackers_best_ip.txt | sed -e 's/,$/\n/' > output.txt
+
+aria2c -S xxx.torrent
+aria2c --select-file=1-5,8,9 --seed-time=0 xxx.torrent
+aria2c --seed-time=0 --bt-tracker=
+--bt-tracker=
+aria2c --show-files your-torrent-file.torrent
+
+aria2c --bt-save-metadata --bt-metadata-only magnet:?xt=urn:btih:
+
+--bt-save-metadata
+--bt-metadata-only
+
+-S works for local file only.
+For magnet URIs, first download torrent metadata using --bt-save-metadata and --bt-metadata-only, and then use -S option against the downloaded torrent file.
+
+
+get_iplayer --proxy=http://127.0.0.1:1080 --subtitles --pid=b09yn3zq
+get_iplayer --subtitles --pid=b09yn3zq
+get_iplayer --url URL1,URL2,URL3
+get_iplayer "Programme Name"
+get_iplayer --get "Top Gear"
+get_iplayer --cache-rebuild
+get_iplayer --get 962 123 1234
+get_iplayer --pid PID1,PID2,PID3
+get_iplayer --subtitles --get 
+get_iplayer --subtitles --get "Hey Duggee"
+get_iplayer --subtitles --get "Where in the World?"
+get_iplayer --subtitles --get "My World Kitchen"
+get_iplayer --subtitles --get "JoJo & Gran Gran"
+get_iplayer --subtitles --get "Happy Tent Tales"
+get_iplayer --subtitles --get "Topsy and Tim"
+get_iplayer --subtitles --get "Woolly and Tig"
+get_iplayer --subtitles --get "CBeebies Bedtime Stories"
+
+get_iplayer --thumbnail-only --thumbnail-size=1920 --overwrite 
+get_iplayer --thumbnail-only --thumbnail-size=1280 --overwrite 
+
+--versions=signed
+
+
+
+ssserver -h
+ssserver -p 3647 -k 123456 -d start
+ssserver -p 3647 -k 123456 -m rc4-md5 -d start
+ssserver -p 3647 -k 123456 --user nobody -d start
+ssserver -d stop
+less /var/log/shadowsocks.log
+sudo ssserver -p 443 -k password -m aes-256-cfb --user nobody -d start
+ssserver -c shadowsocks.json -d start
+ssserver -c shadowsocks.json -d stop
+
+
+apt install rar
+apt install rarcrack
+rarcrack testfile.7z --type 7z
+
+
+https://www.bbc.co.uk/iplayer/episode/p08bd3hp/bbc-trails-normal-people
+######################################################################
+cat > /etc/wireguard/c3.conf << _EOF
+[Interface]
+PrivateKey = $(cat /etc/wireguard/cpri3)
+Address = 10.0.0.3/32
+DNS = 8.8.8.8
+[Peer]
+PublicKey = $(cat /etc/wireguard/cpub3)
+Endpoint = 1.2.3.4:1234
+AllowedIPs = 0.0.0.0/0
+PersistentKeepalive = 25
+_EOF
+
+wg set wg0 peer $(cat /etc/wireguard/cpub3) allowed-ips 10.0.0.3/32
+###########################################################################
