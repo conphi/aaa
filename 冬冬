@@ -117,3 +117,22 @@ _EOF
 
 wg set wg0 peer $(cat /etc/wireguard/cpub3) allowed-ips 10.0.0.3/32
 ###########################################################################
+######################### crontab_iplayer #################################
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "Hey Duggee"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "Where in the World?"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "CBeebies Bedtime Stories"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "Arthur:"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "JoJo & Gran Gran"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "Happy Tent Tales"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "Arthur:"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "Love Monster"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "Oti's Boogie Beebies"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "My World Kitchen"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "She-Ra"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "Shakespeare Unlocked"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "we bare bear"
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "Numberblocks: Series 5"
+
+10 10 * * * /snap/bin/get_iplayer --subtitles --get "Hey Duggee" "Where in the World?" "CBeebies Bedtime Stories" "Arthur:" "JoJo & Gran Gran" "Happy Tent Tales" "Love Monster" "Oti's Boogie Beebies" "My World Kitchen" "She-Ra" "Shakespeare Unlocked" "we bare bear" "Numberblocks: Series 5" 
+/snap/bin/get_iplayer --subtitles --get "Hey Duggee" "Where in the World?" "CBeebies Bedtime Stories" "Arthur:" "JoJo & Gran Gran" "Happy Tent Tales" "Love Monster" "Oti's Boogie Beebies" "My World Kitchen" "She-Ra" "Shakespeare Unlocked" "we bare bear" "Numberblocks: Series 5" 
+###################################################################################
