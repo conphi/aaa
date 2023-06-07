@@ -1,3 +1,14 @@
+############ H.264 ################################
+####### -c:v libx264 -profile:v high ##############
+High Profile (HiP): -profile:v high
+Main Profile (MP): -profile:v main
+Baseline Profile (BP): -profile:v baseline
+Extended Profile (XP): -profile:v extended
+High 10 Profile (Hi10P): -profile:v high10
+High 4:2:2 Profile (Hi422P): -profile:v high422
+High 4:4:4 Predictive Profile (Hi444PP): -profile:v high444
+##################################################
+
 ############# window cmd #####################
 for %i in (*.mp4) do ffmpeg -i "%i" -c:v libx264 -c:a copy "%~ni_h264.mp4"
 ###############################################
