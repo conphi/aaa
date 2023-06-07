@@ -12,6 +12,9 @@ High 4:4:4 Predictive Profile (Hi444PP): -profile:v high444
 ############# window cmd #####################
 for %i in (*.mp4) do ffmpeg -i "%i" -c:v libx264 -c:a copy "%~ni_h264.mp4"
 for %i in (*.mp4) do ffmpeg -i "%i" -c:v libx264 -profile:v main -c:a aac "%~ni_h264_main.mp4"
+#### fix error ##########
+for %i in (*.mp4) do ffmpeg -i "%i" -c:v libx264 -profile:v main -pix_fmt yuv420p -c:a aac "%~ni_h264_main.mp4"
+### the -pix_fmt yuv420p option is added to enforce the 8-bit bit depth. 
 ###############################################
 
 ##################### 432hz ######################
