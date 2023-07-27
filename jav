@@ -12,6 +12,9 @@ https://sukebei.nyaa.si/user/offkab?f=0&c=0_0&q=fc2
 btdig.com
 https://sukebei.nyaa.si/user/offkab
 
+https://sukebei.nyaa.si/user/Yhhh
+
+
 ### 特别网站，用什么做的呢？
 https://www.ptt.cc/bbs/index.html
 
