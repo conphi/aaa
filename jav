@@ -37,6 +37,7 @@ wpf2/Fuckc198
 https://yourdoll.jp/product/piperdoll-ppd001-iris-100cm-fcup-tpe-love-doll/
 https://www.oldoll.com/
 https://www.tpdoll.com/
+https://erotogenic.com.tw/
 e-nls.com
 https://www.ms-online.co.jp/
 https://daimaoh.co.jp/
