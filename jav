@@ -39,6 +39,8 @@ https://www.doll-mate.com/
 https://www.oldoll.com/
 https://www.tpdoll.com/
 https://erotogenic.com.tw/
+http://cst2002.com/
+https://www.jpbbdoll.com/
 e-nls.com
 https://www.ms-online.co.jp/
 https://daimaoh.co.jp/
