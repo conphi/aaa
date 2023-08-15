@@ -34,6 +34,7 @@ sifang
 wpf2/Fuckc198
 
 ################## shop ##############################
+https://kd-doll.com/
 https://yourdoll.jp/product/piperdoll-ppd001-iris-100cm-fcup-tpe-love-doll/
 https://www.doll-mate.com/
 https://www.oldoll.com/
