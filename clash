@@ -1,3 +1,24 @@
+#####################################################################
+./clash -h
+./clash -f to-yaml-file.yaml
+
+cd ~/.config/clash
+git clone -b gh-pages https://github.com/Dreamacro/clash-dashboard ui
+## or wget https://github.com/haishanh/yacd/archive/gh-pages.zip
+## unzip gh-pages.zip
+## mv yacd-gh-pages/ dashboard/
+
+#to-yaml-file.yaml
+secret: fuck
+external-controller: 0.0.0.0:9090
+external-ui: ui
+
+http://192.168.191.131:9090/ui/#/proxies
+
+#bash
+export http_proxy=http://127.0.0.1:7890
+export https_proxy=http://127.0.0.1:7890
+
 ########################## linux cli ##########################
 docker run -p 3001:80 -d --rm haishanh/yacd
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7891
