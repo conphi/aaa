@@ -48,3 +48,8 @@ https://www.jpbbdoll.com/
 e-nls.com
 https://www.ms-online.co.jp/
 https://daimaoh.co.jp/
+########################################################
+############# get hj video ##############################
+find 123456abcdef_i0.ts file
+click to find the url https://somewhereto/.../123456abcdef_i0.ts
+m3u8 -o ./ -u https://somewhereto/.../123456abcdef_i.m3u8
