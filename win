@@ -22,3 +22,13 @@ rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,0
 ## pkill -9 redir
 ## killall -9 redir
 ######################################################
+#### smithyuk/windows-portproxy.cmd
+:: add a seamless TCP proxy to another host/port (ensure IP Helper service is running)
+netsh interface portproxy add v4tov4 listenport=1433 listenaddress=0.0.0.0 connectport=1433 connectaddress=192.168.56.1
+
+:: show current portproxy rules
+netsh interface portproxy dump
+
+:: remove all portproxy rules
+netsh interface portproxy reset
+######################################################
