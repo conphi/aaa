@@ -1,3 +1,4 @@
+############ 0.2 版本 22h2 iso 勿安装更新版本 ############################
 1. no internet
 2. install win10.iso by ventoy
 3. run reg of disable driver update
@@ -8,3 +9,9 @@
 8. SDIO for other drivers - Snappy Driver Installer Origin
 9. reboot
 ################## https://ameliorated.io/
+##########  disable nvidia control panel
+msconfig ==> hide microsoft ==> uncheck nvidia 
+##########################################
+credssp 远程桌面错误
+gpedit 计算机配置-管理模板-系统-凭据分配-加密数据库修正-启用-（点击）易受攻击
+###################################################################################
