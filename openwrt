@@ -1,3 +1,9 @@
+###### tf card format to ext4 on mac os############
+brew install e2fsprogs
+diskutil list
+diskutil unmountdisk /dev/disk44444444444444
+sudo $(brew --prefix e2fsprogs)/sbin/mkfs.ext4 /dev/disk44444444444444
+##################################################################################
 cat /etc/openwrt_release
 uname -a
 opkg list-installed | grep luci
