@@ -3,6 +3,12 @@ brew install e2fsprogs
 diskutil list
 diskutil unmountdisk /dev/disk44444444444444
 sudo $(brew --prefix e2fsprogs)/sbin/mkfs.ext4 /dev/disk44444444444444
+##### nfs server #########################################################
+opkg install nfs-kernel-server
+df -h
+vim /etc/exports
+/mnt/mmcblk1 *(rw,sync,insecure,no_subtree_check)  #### insecure for mac os error
+/etc/init.d/nfsd restart
 ##################################################################################
 cat /etc/openwrt_release
 uname -a
