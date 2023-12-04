@@ -1,7 +1,8 @@
 ## check the port available
 apt install wireguard
+### debian bookworm might not need resolvconf and openresolv
 #apt install resolvconf
-apt install openresolv
+#apt install openresolv
 
 cd /etc/wireguard
 wg genkey | tee s.key | wg pubkey > s.pub
