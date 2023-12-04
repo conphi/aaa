@@ -32,7 +32,12 @@ AllowedIPs = 0.0.0.0/0
 PersistentKeepalive = 25
 _EOF
 #############################################
-
+### reboot
+reboot
+reboot
+reboot
+##########if error below need a reboot ########################################
+### reboot before wg-quick
 wg-quick up wg0
 
 ########## add client peer ##############
