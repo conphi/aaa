@@ -1,3 +1,16 @@
+### 查看端口占用
+netstat -an | findstr 8080
+##########################################################
+### 端口转发
+netsh interface portproxy add v4tov4 listenport=9001 listenaddress=0.0.0.0 connectport=7777 connectaddress=192.168.191.131
+netsh interface portproxy show all
+### 重启失效
+add command to PortForwarding.bat (or any name you prefer, with a .bat extension).
+Place the Script in the Startup Folder:
+Win + R 
+shell:startup
+Copy your PortForwarding.bat file into this folder.
+################################################################
 ## windows server 2012 r2
 ## rdp 修改端口前--先关闭防火墙--这台电脑右键--远程设置--允许
 # regedit
