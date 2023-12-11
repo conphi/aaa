@@ -27,9 +27,9 @@ https://www.ptt.cc/bbs/index.html
 hjd2048#gmail.com
 
 
-海角社区
+hj
 https://haijiao.com/
-wp/jg+
+wp/fuc123
 
 sifang
 wpf2/Fuckc198
