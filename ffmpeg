@@ -82,15 +82,12 @@ https://trac.ffmpeg.org/wiki/HowToBurnSubtitlesIntoVideo
 ## default: h264 (libx264)); aac (native))
 ffmpeg -i 指环王1：护戒使者\ \(2001\).mkv -map 0:0 -map 0:1 -vf subtitles="指环王1：护戒使者 (2001).mkv" ../../downloads/"指环王1：护戒使者 (2001)".mp4
 ffmpeg -i input.mkv -map 0:0 -map 0:2 -map 0:5 -c copy output.mkv
-####### untest ##################################################################################
-To render the second subtitles stream from that file, use:
-subtitles=video.mkv:si=1
-You'll have to use the double and single quote if the file has spaces in it.
-
-ffmpeg -i input.mkv -map 0:0 -map 0:2 -vf "subtitles='video.mkv':si=0" -c:v libx264 -c:a copy output.mp4
-
-To make the subtitles stream from sub.srt appear in 80% transparent blue DejaVu Serif, use:
-subtitles=sub.srt:force_style='Fontname=DejaVu Serif,PrimaryColour=&HCCFF0000'
+ffmpeg -i "狗镇 (2003).mkv" -map 0:v -map 0:a:1 -c:v libx264 -c:a copy -vf "subtitles='狗镇 (2003).mkv':si=0" dogville.mp4
+# -map 0:v selects the video stream from the first input file.
+# -map 0:a:1 selects the second audio track from the first input file.
+# 0: This is the index number of the input file. FFmpeg allows you to work with multiple input files, 
+and they are indexed starting from 0. So, 0 refers to the first input file. 
+If you had multiple input files, they would be indexed as 0, 1, 2, and so on.
 #############################################################################
 
 ###### untested m3u8 & merge 
