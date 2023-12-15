@@ -42,6 +42,7 @@ ctrl a TAB // switch and fails to swith after reattach ==> solution below
 ctrl a shift ' // switch splitted bash
 
 ############# tmux ##################
+tmux
 tmux ls
 tmux new -t name
 tmux a
@@ -50,6 +51,8 @@ ctrl b %
 ctrl b "
 tmux kill-session -t name
 ctrl b d
+### rename shortcut
+ctrl b $
 #####################################
 
 端口使用情况
