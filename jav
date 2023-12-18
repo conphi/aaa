@@ -18,6 +18,8 @@ https://sukebei.nyaa.si/user/offkab
 
 https://sukebei.nyaa.si/user/1k-man
 
+JujuXOXO
+
 https://sukebei.nyaa.si/user/Yhhh
 
 
