@@ -64,7 +64,7 @@ exit
 /opt/lampp/lampp restart
 
 ########################################################### 下面的有一些问题 phpmyadmin 和 红色提示 “文件无法创建。”
-docker run -dt --name paper -p 4747:80 -p 3306:3306 conphi/paper
+docker run -dt --name paper -p 4747:80 -p 3306:3306 paper
 docker exec paper /opt/lampp/lampp start
 ##############################
 #############################
