@@ -1,0 +1,113 @@
+########### drupal 7.36 / drupal 7.99
+##################################################################
+cd /opt/lampp/htdocs/drupal7/sites/default
+mkdir files
+cp default.settings.php settings.php
+chmod o+w sites/default
+chmod o+w settings.php
+create paper database
+
+http://192.168.191.55/phpmyadmin
+select paper database
+import paper.sql.zip
+
+mkdir tmp
+chmod o+w tmp/
+chmod o-w settings.php
+节点访问权限	停用
+如果站点在内容权限上发生问题，可能需要重建权限缓存。重建缓存会清除内容的所有权限并基于当前模块及设置替换权限。如果内容量巨大或权限设置很复杂，重建缓存可能会花上一段时间。在重建缓存完成后，内容会自动使用新的权限。 重建权限
+
+#########################################################################
+drupal 7.36 to drupal 7.99 drupal core 更新 除了 sites 文件夹，全部替换
+##########################################################################
+webform report 报错
+settings.php add bellow
+ini_set('error_reporting', 'E_ALL ^ E_NOTICE');
+#######################################################################
+/opt/lampp/lampp security
+
+user:lampp
+pass:tsg+
+
+mysql/root/wAtsg+
+#########################################################################
+paper site aaa::wAtsg+
+############################################################################
+  
+############################################################################
+############ docker version #####################################
+docker run -dt --name paper -p 4747:80 -p 3306:3306 b4
+docker cp lampp paper:/opt/
+docker cp paper paper:/opt/lampp/htdocs/
+docker cp paper.sql paper:/opt/
+docker exec -it paper bash
+apt update
+apt install net-tools nano
+/opt/lampp/lampp status
+/opt/lampp/lampp start
+/opt/lampp/lampp restart
+
+nano /opt/lampp/etc/extra/httpd-xampp.conf 
+####  #Deny from all ####
+
+/opt/lampp/bin/mysql
+show databases;
+
+/opt/lampp/lampp start
+/opt/lampp/bin/mysqladmin -u root -p create paper
+
+/opt/lampp/bin/mysql paper< /opt/paper.sql
+
+/opt/lampp/bin/mysql
+mysql> SET PASSWORD FOR root@'localhost'=PASSWORD('wAtsg+');
+exit
+/opt/lampp/lampp restart
+
+########################################################### 下面的有一些问题 phpmyadmin 和 红色提示 “文件无法创建。”
+docker run -dt --name paper -p 4747:80 -p 3306:3306 conphi/paper
+docker exec paper /opt/lampp/lampp start
+##############################
+#############################
+apt-get update
+dpkg --add-architecture i386
+apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386
+
+cp -r paper /opt/lampp/htdocs/
+cp paper.sql /opt/
+nano /opt/lampp/etc/extra/httpd-xampp.conf 
+####  #Deny from all ####
+/opt/lampp/lampp start
+
+/opt/lampp/bin/mysql
+show databases;
+
+/opt/lampp/bin/mysqladmin -u root -p create paper
+# enter
+/opt/lampp/bin/mysql paper< /opt/paper.sql
+
+/opt/lampp/bin/mysql
+mysql> SET PASSWORD FOR root@'localhost'=PASSWORD('wAtsg+');
+exit
+/opt/lampp/lampp restart
+##### 文件无法创建。
+文件无法创建。
+目录 sites/default/files 已存在但不可写也不能设置成可写。
+目录 sites/default/files/tmp 已存在但不可写也不能设置成可写。
+#####################################################################
+  * Check the public/sites/default/settings.php file:
+
+$databases = array (
+'default' =>
+array (
+'default' =>
+array (
+'database' => 'database-name',
+'username' => 'drupal',
+'password' => 'yourpassword',
+'host' => 'localhost',
+'port' => '',
+'driver' => 'mysql',
+'prefix' => '',
+),
+),
+);
