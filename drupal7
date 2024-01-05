@@ -1,4 +1,9 @@
 ########### drupal 7.36 / drupal 7.99
+#############################################################
+# php.ini
+upload_max_filesize = 50M
+post_max_size = 50M
+# webform file upload max 50M
 ##################################################################
 cd /opt/lampp/htdocs/drupal7/sites/default
 mkdir files
