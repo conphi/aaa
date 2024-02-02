@@ -22,6 +22,7 @@ JujuXOXO
 
 https://sukebei.nyaa.si/user/Yhhh
 
+xchina.co
 ### 磁力狗
 clg.im
 ciligou.top
