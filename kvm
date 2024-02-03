@@ -1,0 +1,21 @@
+# ubuntu server 20.04
+#### install kvm
+apt install cpu-checker
+kvm-ok
+INFO: /dev/kvm exists
+KVM acceleration can be used
+
+# If the output is greater than 0, your CPU supports hardware virtualization.
+grep -Eoc '(vmx|svm)' /proc/cpuinfo
+32
+
+apt update
+# apt install qemu qemu-kvm libvirt-daemon libvirt-clients bridge-utils virt-manager
+apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+
+systemctl start libvirtd
+systemctl enable libvirtd
+reboot
+#check
+lsmod | grep kvm
+########################################################
