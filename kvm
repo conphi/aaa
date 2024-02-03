@@ -32,3 +32,11 @@ virt-install \
 --graphics vnc,port=9001,listen=0.0.0.0 \
 --noautoconsole
 ##############################################################
+virsh edit win7vm
+<graphics type='vnc' port='9001' listen='0.0.0.0' passwd='YOUR_PASSWORD'>
+
+virsh destroy win7vm
+virsh list --all
+virsh start win7vm
+###########################################################
+
