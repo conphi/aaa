@@ -39,4 +39,18 @@ virsh destroy win7vm
 virsh list --all
 virsh start win7vm
 ###########################################################
+### terminal qemu(win7vm)
+## booting from hard disk...
+## boot failed: not a bootable disk
+## No bootable device.
+
+virsh edit win7vm
+
+<os>
+  <type arch='x86_64' machine='pc-q35-4.2'>hvm</type>
+  <boot dev='cdrom'/>  #################### add this line
+  <boot dev='hd'/>
+</os>
+
+
 
