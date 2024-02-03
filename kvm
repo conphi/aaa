@@ -19,3 +19,16 @@ reboot
 #check
 lsmod | grep kvm
 ########################################################
+
+virt-install \
+--name=win7vm \
+--ram=8192 \
+--vcpus=4 \
+--disk path=/var/lib/libvirt/images/win7vm.img,size=64 \
+--cdrom /var/lib/libvirt/images/win7.iso \
+--os-type windows \
+--os-variant win7 \
+--network bridge=virbr0,model=virtio \
+--graphics vnc,port=9001,listen=0.0.0.0 \
+--noautoconsole
+##############################################################
