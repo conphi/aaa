@@ -69,4 +69,6 @@ virsh attach-disk win7vm /var/lib/libvirt/images/virtio-win.iso sdb --type cdrom
 # os must be windows8, windows server 2012 or higher
 https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/
 https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.173-9/virtio-win-0.1.173.iso
+
+## use virtio-win-0.1.149
 ###################################################################################
