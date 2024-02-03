@@ -1,3 +1,10 @@
+Debian 12/11/10
+echo -e "\nnet.core.default_qdisc=fq\nnet.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf && sysctl -p
+sysctl net.ipv4.tcp_congestion_control
+net.ipv4.tcp_congestion_control = bbr
+modprobe tcp_bbr
+
+#####################################################
 Linux Kernel 内核升级到 4.9 及以上版本可以实现 BBR 加速，
 由于Ubuntu 18.04 默认的内核就是 4.15版本的内核，
 由于Ubuntu 20.04 默认的内核就是 5.4 版本的内核，并已经默认编译了 TCP BBR 模块，所以可以直接通过参数开启。
