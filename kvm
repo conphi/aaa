@@ -71,4 +71,7 @@ https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/
 https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.173-9/virtio-win-0.1.173.iso
 
 ## use virtio-win-0.1.149
+
+## host ping vm, get ip
+virsh net-dhcp-leases default
 ###################################################################################
