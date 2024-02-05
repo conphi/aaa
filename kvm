@@ -75,3 +75,5 @@ https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/
 ## host ping vm, get ip
 virsh net-dhcp-leases default
 ###################################################################################
+### resize
+qemu-img resize /var/lib/libvirt/images/win7vm.img +64G
