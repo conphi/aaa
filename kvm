@@ -77,3 +77,17 @@ virsh net-dhcp-leases default
 ###################################################################################
 ### resize
 qemu-img resize /var/lib/libvirt/images/win7vm.img +64G
+
+######## windows server 2012 9001 port #########
+virt-install \
+--name=windows-server-2012 \
+--ram=4096 \
+--vcpus=4 \
+--cpu host \
+--disk path=/var/lib/libvirt/images/windows-server-2012.img,size=30,bus=virtio \
+--cdrom /var/lib/libvirt/images/cn_windows_server_2012_storage_server_and_foundation_x64_dvd_916117.iso  \
+--os-type=windows \
+--os-variant=win2k12 \
+--network bridge=virbr0,model=virtio \
+--graphics vnc,port=7778,listen=0.0.0.0 \
+--noautoconsole
