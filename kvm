@@ -79,15 +79,24 @@ virsh net-dhcp-leases default
 qemu-img resize /var/lib/libvirt/images/win7vm.img +64G
 
 ######## windows server 2012 9001 port #########
+virsh undefine wins12vm
 virt-install \
 --name=wins12vm \
 --ram=4096 \
 --vcpus=4 \
 --cpu host \
 --disk path=/var/lib/libvirt/images/wins12vm.img,size=30,bus=virtio \
---cdrom /var/lib/libvirt/images/cn_windows_server_2012_storage_server_and_foundation_x64_dvd_916117.iso  \
+--disk path=/var/lib/libvirt/images/virtio-win.iso,device=cdrom \
+--cdrom /var/lib/libvirt/images/en_windows_server_2012_storage_server_and_foundation_x64_dvd_915793.iso \
 --os-type=windows \
 --os-variant=win2k12 \
 --network bridge=virbr0,model=virtio \
 --graphics vnc,port=7778,listen=0.0.0.0 \
 --noautoconsole
+##########
+virsh destroy wins12vm
+virsh edit wins12vm
+# passwd='fuck'
+# <os>
+# <boot dev='cdrom'/>  #################### add this line
+# </os>
