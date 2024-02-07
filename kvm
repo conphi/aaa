@@ -100,3 +100,5 @@ virsh edit wins12vm
 # <os>
 # <boot dev='cdrom'/>  #################### add this line
 # </os>
+###################################################################
+mac vnc screen sharing press "fn control option delete" to Send Ctrl+Alt+Del to login windows server 2012
