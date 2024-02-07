@@ -102,3 +102,5 @@ virsh edit wins12vm
 # </os>
 ###################################################################
 mac vnc screen sharing press "fn control option delete" to Send Ctrl+Alt+Del to login windows server 2012
+virsh undefine wins12vm --remove-all-storage
+
