@@ -109,16 +109,17 @@ virsh undefine wins12vm --remove-all-storage
 apt install libosinfo-bin
 osinfo-query os
 ###################################################
-sudo virt-install \
+virt-install \
 --name=win12 \
 --ram=4096 \
 --vcpus=4 \
---os-type=windows \
---os-variant=win2k12 \
+--cpu host \
 --disk path=/var/lib/libvirt/images/win12.img,size=30,bus=virtio \
 --disk path=/var/lib/libvirt/images/virtio-win.iso,device=cdrom \
---cdrom /var/lib/libvirt/images/cn_windows_server_2012_storage_server_and_foundation_x64_dvd_916117.iso \
+--cdrom /var/lib/libvirt/images/en_windows_server_2012_storage_server_and_foundation_x64_dvd_915793.iso \
+--os-type=windows \
+--os-variant=win2k12 \
 --network bridge=virbr0,model=virtio \
---graphics vnc,port=7777,listen=0.0.0.0 \
+--graphics vnc,port=7778,listen=0.0.0.0 \
 --noautoconsole
 
