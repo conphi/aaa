@@ -104,7 +104,7 @@ virsh edit wins12vm
 mac vnc screen sharing press "fn control option delete" to Send Ctrl+Alt+Del to login windows server 2012
 virsh undefine wins12vm --remove-all-storage
 
-#### cn windows server 2012 vm #############
+#### cn windows server 2012 foundation vm #############
 # --os-variant 
 apt install libosinfo-bin
 osinfo-query os
@@ -113,13 +113,13 @@ virt-install \
 --name=win12 \
 --ram=4096 \
 --vcpus=4 \
---cpu host \
---disk path=/var/lib/libvirt/images/win12.img,size=30,bus=virtio \
---disk path=/var/lib/libvirt/images/virtio-win.iso,device=cdrom \
---cdrom /var/lib/libvirt/images/en_windows_server_2012_storage_server_and_foundation_x64_dvd_915793.iso \
 --os-type=windows \
 --os-variant=win2k12 \
+--disk path=/var/lib/libvirt/images/win12.img,size=30,bus=virtio \
+--disk path=/var/lib/libvirt/images/virtio-win.iso,device=cdrom \
+--cdrom /var/lib/libvirt/images/cn_windows_server_2012_storage_server_and_foundation_x64_dvd_916117.iso \
 --network bridge=virbr0,model=virtio \
---graphics vnc,port=7777,listen=0.0.0.0 \
+--graphics vnc,port=9001,listen=0.0.0.0 \
 --noautoconsole
-
+###########################################################
+disk driver load "press ok ok ok!!!"
