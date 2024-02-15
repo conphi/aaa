@@ -120,6 +120,6 @@ virt-install \
 --os-type=windows \
 --os-variant=win2k12 \
 --network bridge=virbr0,model=virtio \
---graphics vnc,port=7778,listen=0.0.0.0 \
+--graphics vnc,port=7777,listen=0.0.0.0 \
 --noautoconsole
 
