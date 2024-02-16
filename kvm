@@ -123,3 +123,8 @@ virt-install \
 --noautoconsole
 ###########################################################
 disk driver load "press ok ok ok!!!"
+
+######### centos 7 without kvm ################
+nproc
+32
+
