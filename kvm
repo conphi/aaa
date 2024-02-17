@@ -1,4 +1,5 @@
 # ubuntu server 20.04
+##### In XML, the standard way to comment out sections is using <!-- and -->.
 #### install kvm
 apt install cpu-checker
 kvm-ok
