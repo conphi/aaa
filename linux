@@ -1,3 +1,8 @@
+## cpu info
+nproc
+lscpu
+grep -c ^processor /proc/cpuinfo
+
 ### ubuntu 20 terminal make color ####
 sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /root/.bashrc
 source /root/.bashrc
