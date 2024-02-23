@@ -17,6 +17,7 @@ netstat -an | findstr 8080
 netsh interface portproxy add v4tov4 listenport=8007 listenaddress=0.0.0.0 connectport=7777 connectaddress=192.168.191.131
 netsh interface portproxy add v4tov4 listenport=9001 listenaddress=0.0.0.0 connectport=7778 connectaddress=192.168.191.131
 netsh interface portproxy show all
+netsh interface portproxy add v4tov4 listenport=8000 listenaddress=192.168.191.130 connectport=8000 connectaddress=192.168.191.36
 ### 重启失效
 add command to PortForwarding.bat (or any name you prefer, with a .bat extension).
 Place the Script in the Startup Folder:
