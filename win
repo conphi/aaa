@@ -1,3 +1,15 @@
+### startup
+win + r
+shell:startup
+## create a shortcut of dufs.bat
+##### dufs.bat
+@echo off
+echo Changing directory to C:\Users\fuck
+cd C:\Users\fuck
+echo Running dufs -b command
+dufs -b 192.168.122.6 --port 80 --path-prefix fuck -A -a fuck:fuck@/:rw C:\mm
+echo dufs -b command completed
+######################################################
 ### 查看端口占用
 netstat -an | findstr 8080
 ##########################################################
