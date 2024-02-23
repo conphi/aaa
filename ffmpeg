@@ -13,6 +13,9 @@ High 4:2:2 Profile (Hi422P): -profile:v high422
 High 4:4:4 Predictive Profile (Hi444PP): -profile:v high444
 ##################################################
 
+############ linux command ##############################
+for file in *.avi *.rmvb; do ffmpeg -i "$file" "${file%.*}.mp4"; done
+
 ############# window cmd #####################
 for %i in (*.mp4) do ffmpeg -i "%i" -c:v libx264 -c:a copy "%~ni_h264.mp4"
 for %i in (*.mp4) do ffmpeg -i "%i" -c:v libx264 -profile:v main -c:a aac "%~ni_h264_main.mp4"
