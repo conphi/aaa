@@ -1,3 +1,6 @@
+### search string "8000" in all files starting from the /root/ directory
+grep -rl "8000" /root/
+
 ### centos7
 firewall-cmd --list-all
 systemctl list-unit-files
