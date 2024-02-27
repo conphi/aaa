@@ -16,6 +16,7 @@ netstat -an | findstr 8080
 ### 端口转发
 netsh interface portproxy add v4tov4 listenport=8007 listenaddress=0.0.0.0 connectport=7777 connectaddress=192.168.191.131
 netsh interface portproxy add v4tov4 listenport=9001 listenaddress=0.0.0.0 connectport=7778 connectaddress=192.168.191.131
+netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8000 connectaddress=192.168.191.36
 netsh interface portproxy add v4tov4 listenport=8000 listenaddress=192.168.191.130 connectport=8000 connectaddress=192.168.191.36
 netsh interface portproxy show all
 
