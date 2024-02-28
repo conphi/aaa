@@ -1,0 +1,69 @@
+###### redir #################
+ps aux|grep redir
+
+redir :80 127.0.0.1:8080
+redir -I nntp www:119 netgate:119
+redir -I pop3 ftp:110 netgate:110
+redir :4036 pool.supportxmr.com:3333
+
+####### socat ##############
+socat TCP-LISTEN:9001,fork TCP:192.168.122.6:80
+
+
+######### golang tcp ##########
+#### ./port :9001 192.168.122.6:80
+package main
+
+import (
+	"io"
+	"log"
+	"net"
+	"os"
+)
+
+func main() {
+	// Check if the correct number of arguments is passed
+	if len(os.Args) != 3 {
+		log.Fatalf("Usage: %s <localAddr:port> <remoteAddr:port>", os.Args[0])
+	}
+
+	localAddr := os.Args[1]
+	remoteAddr := os.Args[2]
+
+	// Listen on the specified local address and port
+	listener, err := net.Listen("tcp", localAddr)
+	if err != nil {
+		log.Fatalf("Failed to listen on %s: %v", localAddr, err)
+	}
+	defer listener.Close()
+	log.Printf("Listening on %s, forwarding to %s", localAddr, remoteAddr)
+
+	// Accept connections in a loop
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Printf("Failed to accept connection: %v", err)
+			continue
+		}
+
+		// Handle the connection in a new goroutine.
+		go forwardConnection(conn, remoteAddr)
+	}
+}
+
+// forwardConnection handles forwarding of connections from src to dst.
+func forwardConnection(src net.Conn, dstAddr string) {
+	defer src.Close()
+
+	// Connect to the destination address
+	dst, err := net.Dial("tcp", dstAddr)
+	if err != nil {
+		log.Printf("Failed to connect to %s: %v", dstAddr, err)
+		return
+	}
+	defer dst.Close()
+
+	// Forward data between src and dst
+	go io.Copy(dst, src)
+	io.Copy(src, dst)
+}
