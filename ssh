@@ -41,3 +41,15 @@ find / -name "sshd_config" 2>/dev/null
 # Port 22
 service ssh restart
 systemctl restart sshd
+############################ vs code ssh #################################################
+######## windows C:\Users\myname\.ssh 
+Host lib
+  HostName 192.168.191.131
+  User root
+  Port 9000
+  IdentityFile "C:\Users\myname\lib"
+#########
+######## gitbash 
+ssh-keygen ### enter lib, then the lib and lib.pub are created.
+ssh-copy-id -i lib.pub -p 9000 root@192.168.191.131
+###########################################################################################
