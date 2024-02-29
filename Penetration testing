@@ -1,0 +1,69 @@
+1. **Network Scanning and Enumeration:**
+   - Nmap
+   - Masscan
+   - Netcat
+   - Zenmap (Nmap GUI)
+   - Angry IP Scanner
+
+2. **Vulnerability Assessment:**
+   - OpenVAS
+   - Nessus
+   - Nikto
+   - Nexpose
+   - QualysGuard
+
+3. **Exploitation Frameworks:**
+   - Metasploit Framework
+   - ExploitDB
+   - Cobalt Strike
+   - Canvas
+   - Core Impact
+
+4. **Web Application Testing:**
+   - Burp Suite
+   - OWASP ZAP (Zed Attack Proxy)
+   - Acunetix
+   - WebScarab
+   - SQLMap
+
+5. **Wireless Network Testing:**
+   - Aircrack-ng
+   - Kismet
+   - Wireshark
+   - Reaver
+   - Fluxion
+
+6. **Password Cracking:**
+   - John the Ripper
+   - Hydra
+   - Hashcat
+   - Cain & Abel
+   - THC-Hydra
+
+7. **Social Engineering:**
+   - SET (Social-Engineer Toolkit)
+   - BeEF (Browser Exploitation Framework)
+   - Maltego
+   - King Phisher
+   - Ghost Phisher
+
+8. **Forensics and Data Analysis:**
+   - Volatility
+   - Autopsy
+   - Sleuth Kit
+   - FTK (Forensic Toolkit)
+   - EnCase
+
+9. **Wireless Attacks:**
+   - Airgeddon
+   - Fern Wifi Cracker
+   - Wifite
+   - MDK3
+   - Bully
+
+10. **Stress Testing and Denial of Service (DoS):**
+    - LOIC (Low Orbit Ion Cannon)
+    - HOIC (High Orbit Ion Cannon)
+    - Slowloris
+    - Hping
+    - THC-SSL-DOS
