@@ -6,6 +6,15 @@ src/gz openwrt_packages https://downloads.openwrt.org/releases/23.05.2/packages/
 src/gz openwrt_routing https://downloads.openwrt.org/releases/23.05.2/packages/aarch64_cortex-a53/routing
 src/gz openwrt_telephony https://downloads.openwrt.org/releases/23.05.2/packages/aarch64_cortex-a53/telephony
 
+############ might need comment out option check_signature
+### for src/gz supes https://dl.openwrt.ai/packages-23.05/aarch64_cortex-a53/kiddin9
+cat /etc/opkg.conf
+dest root /
+dest ram /tmp
+lists_dir ext /var/opkg-lists
+option overlay_root /overlay
+# option check_signature
+
 
 
 
