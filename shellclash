@@ -1,0 +1,11 @@
+### 原版openwrt 固件问题 安装shellclash需要下面插件
+模式只能选择 Nft基础：使用nftables转发TCP，不转发UDP
+opkg update
+opkg install ipset
+opkg install iptables
+################################
+
+## Upload these two files onto the /tmp
+## execute the following code
+mkdir -p /tmp/SC_tmp && tar -zxf '/tmp/ShellClash.tar.gz' -C /tmp/SC_tmp/ && source /tmp/SC_tmp/init.sh 
+Or ## 将 clash-linux-arm64-v1.18.0.gz 解压为标准二进制文件，通常无须改名。 gunzip clash-linux-arm64-v1.18.0.gz
