@@ -1,3 +1,15 @@
+## mt3000 backup
+src/gz openwrt_core https://downloads.openwrt.org/releases/23.05.2/targets/mediatek/filogic/packages
+src/gz openwrt_base https://downloads.openwrt.org/releases/23.05.2/packages/aarch64_cortex-a53/base
+src/gz openwrt_luci https://downloads.openwrt.org/releases/23.05.2/packages/aarch64_cortex-a53/luci
+src/gz openwrt_packages https://downloads.openwrt.org/releases/23.05.2/packages/aarch64_cortex-a53/packages
+src/gz openwrt_routing https://downloads.openwrt.org/releases/23.05.2/packages/aarch64_cortex-a53/routing
+src/gz openwrt_telephony https://downloads.openwrt.org/releases/23.05.2/packages/aarch64_cortex-a53/telephony
+
+
+
+
+
 #### source
 src/gz ustc_base https://mirrors.ustc.edu.cn/openwrt/releases/22.03.6/packages/aarch64_cortex-a53/base/
 src/gz ustc_luci https://mirrors.ustc.edu.cn/openwrt/releases/22.03.6/packages/aarch64_cortex-a53/luci/
