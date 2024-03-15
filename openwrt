@@ -17,12 +17,12 @@ src/gz ustc_packages https://mirrors.ustc.edu.cn/openwrt/releases/22.03.6/packag
 src/gz ustc_routing https://mirrors.ustc.edu.cn/openwrt/releases/22.03.6/packages/aarch64_cortex-a53/routing/
 src/gz ustc_telephony https://mirrors.ustc.edu.cn/openwrt/releases/22.03.6/packages/aarch64_cortex-a53/telephony/
 
-
-src/gz ustc_base https://mirrors.ustc.edu.cn/openwrt/releases/23.05.2/packages/aarch64_cortex-a53/base/
-src/gz ustc_luci https://mirrors.ustc.edu.cn/openwrt/releases/23.05.2/packages/aarch64_cortex-a53/luci/
-src/gz ustc_packages https://mirrors.ustc.edu.cn/openwrt/releases/23.05.2/packages/aarch64_cortex-a53/packages/
-src/gz ustc_routing https://mirrors.ustc.edu.cn/openwrt/releases/23.05.2/packages/aarch64_cortex-a53/routing/
-src/gz ustc_telephony https://mirrors.ustc.edu.cn/openwrt/releases/23.05.2/packages/aarch64_cortex-a53/telephony/
+src/gz ustc_core https://mirrors.ustc.edu.cn/openwrt/releases/23.05.2/targets/mediatek/filogic/packages
+src/gz ustc_base https://mirrors.ustc.edu.cn/openwrt/releases/23.05.2/packages/aarch64_cortex-a53/base
+src/gz ustc_luci https://mirrors.ustc.edu.cn/openwrt/releases/23.05.2/packages/aarch64_cortex-a53/luci
+src/gz ustc_packages https://mirrors.ustc.edu.cn/openwrt/releases/23.05.2/packages/aarch64_cortex-a53/packages
+src/gz ustc_routing https://mirrors.ustc.edu.cn/openwrt/releases/23.05.2/packages/aarch64_cortex-a53/routing
+src/gz ustc_telephony https://mirrors.ustc.edu.cn/openwrt/releases/23.05.2/packages/aarch64_cortex-a53/telephony
 
 21.02.7
 src/gz ustc_base https://mirrors.ustc.edu.cn/openwrt/releases/21.02.7/packages/aarch64_cortex-a53/base/
