@@ -25,6 +25,7 @@ JujuXOXO
 https://sukebei.nyaa.si/user/Yhhh
 
 https://www.south-plus.net/
+bt4g.com
 xchina.co
 ### 磁力狗
 clg.im
