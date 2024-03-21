@@ -5,3 +5,32 @@ command + /
 
 settings.json
 "remote.SSH.showLoginTerminal": false,
+
+
+################################################################################
+"workbench.startupEditor": "none",
+## "workbench.startupEditor": "terminal",
+
+
+"remote.SSH.showLoginTerminal": false,
+    "editor.renderControlCharacters": false,
+    "breadcrumbs.enabled": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.startupEditor": "terminal",
+    "explorer.confirmDelete": false,
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "git.openRepositoryInParentFolders": "never",
+    "update.enableWindowsBackgroundUpdates": false,
+    "terminal.integrated.automationProfile.windows": {
+        
+
+
+    },
+    "terminal.integrated.automationProfile.linux": {},
+    "terminal.integrated.automationProfile.osx": {
+
+    }
+}
