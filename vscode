@@ -2,3 +2,6 @@
 # comments
 command + /
 ##########
+
+settings.json
+"remote.SSH.showLoginTerminal": false,
