@@ -53,3 +53,29 @@ Host lib
 ssh-keygen ### enter lib, then the lib and lib.pub are created.
 ssh-copy-id -i lib.pub -p 9000 root@192.168.191.131
 ###########################################################################################
+
+####### mac os m1 chip ########################
+# cat .ssh/config
+# sudo vim .ssh/known_hosts 
+# sudo vim .ssh/config
+
+ServerAliveInterval 5
+
+Host r
+  HostName 192.168.8.1 
+    HostKeyAlgorithms +ssh-rsa
+  User root
+
+Host n1
+  HostName 192.168.8.1
+  User root
+
+Host mt
+  HostName 192.168.7.1
+  User root
+
+Host drupal
+  HostName 1.2.3.4
+  User root
+  Port 3003
+######################################################
