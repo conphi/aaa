@@ -35,6 +35,9 @@ http://45.145.75.81:12580/
 ### 特别网站，用什么做的呢？
 https://www.ptt.cc/bbs/index.html
 
+fastzone.org
+hilala/fuc123/c198e@gmai
+
 hjd2048#gmail.com
 
 
