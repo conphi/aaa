@@ -1,3 +1,49 @@
+############# webdav opwd #######################################
+GOOS=linux GOARCH=arm64 go build -o opwd /root/openwrt_webdav.go
+##############
+package main
+import (
+        "flag"
+        "net/http"
+         "golang.org/x/net/webdav"
+)
+func main() {
+        port := flag.String("p", "1234", "a port")
+        dir := flag.String("d", "/mnt/mmcblk1/", "a dir")
+        tag := flag.String("t", "fuck", "a tag")
+        flag.Parse()
+        sub := "/" + *tag + "/"
+    handler := &webdav.Handler{
+        FileSystem: webdav.Dir(*dir),
+        LockSystem: webdav.NewMemLS(),
+    }
+        http.Handle(sub, http.StripPrefix(sub, handler))
+        http.ListenAndServe(":"+*port, nil)
+}
+###################
+vi /etc/init.d/opwd
+#!/bin/sh /etc/rc.common
+
+START=99  # The start priority
+STOP=10   # The stop priority
+
+USE_PROCD=1
+PROG=/root/opwd  # Path to your binary
+
+start_service() {
+    procd_open_instance
+    procd_set_param command $PROG  # Command to run your binary
+    procd_set_param respawn        # Automatically restart if it crashes
+    procd_close_instance
+}
+#########################
+chmod +x /etc/init.d/opwd
+/etc/init.d/opwd start
+/etc/init.d/opwd enable
+########################################################################
+
+
+
 ## mt3000 backup
 src/gz openwrt_core https://downloads.openwrt.org/releases/23.05.2/targets/mediatek/filogic/packages
 src/gz openwrt_base https://downloads.openwrt.org/releases/23.05.2/packages/aarch64_cortex-a53/base
