@@ -1,3 +1,8 @@
+# turn off update notifications
+Go to File > Preferences > Settings (or press Ctrl+,).
+In the settings search bar, type "update.mode". Select "none"
+# extensions remote.ssh local server download "off"
+
 # short key
 # comments
 command + /
