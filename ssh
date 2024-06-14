@@ -4,7 +4,6 @@
 ssrplus 访问控制 ==> 黑白名单 WAN IP 访问控制 ==> 不走代理的WAN IP 添加 vps 的ip
 #########################################################################
 
-
 ##change ssh port
 
 netstat -tulnp | grep ssh
@@ -17,7 +16,6 @@ systemctl restart sshd
 ssh -p 123456 11.22.33.44
 ######################################
 echo get -ar /file/path/file.data | sftp login@server
-
 
 ######## Mac OS ##############
 cat ~/.ssh/config 
@@ -79,3 +77,23 @@ Host drupal
   User root
   Port 3003
 ######################################################
+
+# ubuntu
+## Remove the Offending Key
+ssh-keygen -f "/root/.ssh/known_hosts" -R "192.168.191.133"
+
+ssh-copy-id -i ~/.ssh/130.pub remote_user@remote_host
+# ls .ssh/
+130  130.pub  authorized_keys  config  known_hosts  known_hosts.old
+# code config
+Host 130
+    HostName 192.168.191.130
+    User root
+    Port 22
+    IdentityFile /root/.ssh/130
+Host 133
+    HostName 192.168.191.133
+    User root
+    Port 22
+    IdentityFile /root/.ssh/130
+########################################################################
