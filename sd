@@ -1,0 +1,11 @@
+# ubuntu 22.04
+apt update
+apt upgrade
+apt dist-upgrade
+apt install build-essential dkms
+
+
+for servers:
+sudo ubuntu-drivers list --gpgpu
+ubuntu-drivers install
+reboot
