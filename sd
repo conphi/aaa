@@ -9,3 +9,9 @@ for servers:
 sudo ubuntu-drivers list --gpgpu
 ubuntu-drivers install
 reboot
+
+
+### try
+ubuntu-drivers install --gpgpu
+ubuntu-drivers install --gpgpu nvidia:535-server
+apt install nvidia-utils-535-server
