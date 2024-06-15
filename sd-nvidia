@@ -1,3 +1,13 @@
+apt search nvidia-driver
+apt install nvidia-driver-550
+
+add-apt-repository ppa:graphics-drivers/ppa
+apt update
+ubuntu-drivers devices
+
+apt install alsa-utils
+###################################################################
+
 # ubuntu 22.04
 apt update
 apt upgrade
