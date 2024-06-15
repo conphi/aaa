@@ -11,7 +11,14 @@ ubuntu-drivers install
 reboot
 
 
-### try
+### try failed
 ubuntu-drivers install --gpgpu
 ubuntu-drivers install --gpgpu nvidia:535-server
 apt install nvidia-utils-535-server
+######################
+dpkg -l | grep nvidia
+apt-get remove --purge '^nvidia-.*'
+apt-get autoremove
+
+ubuntu-drivers devices
+apt install nvidia-driver-550
