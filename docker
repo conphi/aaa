@@ -23,3 +23,18 @@
 [Service]
 Environment="HTTP_PROXY=socks5://127.0.0.1:1080"
 Environment="HTTPS_PROXY=socks5://127.0.0.1:1080"
+
+############ openwrt ####################
+docker exec -it <container_id_or_name> /bin/bash
+useradd -m -s /bin/bash newuser
+passwd newuser
+
+docker exec -it <container_id_or_name> apt-get update
+docker exec -it <container_id_or_name> apt-get install -y openssh-server
+docker exec -it <container_id_or_name> service ssh start
+
+docker run -d -p 2222:22 <image_name>
+
+ssh newuser@localhost -p 2222
+
+
