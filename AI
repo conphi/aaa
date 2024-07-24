@@ -1,0 +1,23 @@
+### huggingface 
+huggingface-cli -h
+
+proxychains huggingface-cli download lllyasviel/misc --local-dir ./
+proxychains huggingface-cli download --resume-download
+
+### for using curl or wget to add ###
+git config --global credential.helper store
+#############################################
+proxychains curl -C - -O -L https://huggingface.co/fuck/.../sth.safetensors
+
+########## comfyui ##############
+pfy
+proxychains python main.py --listen --port 9001
+fy
+python main.py --listen --port 9001
+
+~/.bash_aliases
+#################################
+
+###### IPAdapter v1 vs v2 ################
+https://www.reddit.com/r/comfyui/comments/1bov4xw/maintaining_legacy_ipadapter_nodes_alongside_new/
+
