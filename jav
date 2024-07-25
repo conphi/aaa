@@ -1,6 +1,8 @@
 //https://www.i-dol.tv/idol/detail/257399/
 村上りいな
 
+https://spice-tv.jp/
+https://www.akiba-online.com/
 
 //木内//由香
 https://bigboobs.pink/archives/106720
