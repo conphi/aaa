@@ -22,6 +22,7 @@ https://njav.tv/
 https://sukebei.nyaa.si/user/offkab
 
 https://sukebei.nyaa.si/user/1k-man
+https://nyaa.si/user/tyerggh
 
 大号泣
 
