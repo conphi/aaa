@@ -31,7 +31,7 @@ ffmpeg -i input_file.ext -af "asetrate=44100*432/440,aresample=44100" output_fil
 
 ################## remove watermark of BBC ##############
 ffmpeg.exe -i input.mp4 -vf "delogo=x=30:y=30:w=90:h=30" -c:a copy output.mp4
-## ffmpeg -i enhui.mp4 -vf delogo=x=56:y=582:w=250:h=82:show=1 loveenhui.mp4
+## ffmpeg -i enhui.mp4 -vf delogo=x=56:y=582:w=250:h=82:show=1 loveenhui.mp4 ## remove show=1 to remove green rectangle
 #####################################################
 # ffmpeg -ss 0 -t 20:00 -i inputA.avi -ss 0 -t 10:00 -i inputB.avi -filter_complex "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1" out.mp4
 ffmpeg -itsoffset -3 -c copy -i np.ass
