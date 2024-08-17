@@ -1,0 +1,25 @@
+apt install rclone
+
+### curl -u fuckname:fuckpass -L -O http://dav.mypikpak.com/tmp/fuck.mp4
+
+rclone config
+###########################################
+Current remotes:
+
+Name                 Type
+====                 ====
+pikpak               webdav
+###############################################
+## List Directories Only:
+rclone lsd pikpak:/tmp/
+
+## List Files and Directories:
+rclone lsf pikpak:/tmp/
+
+## List Everything Recursively:
+rclone lsf pikpak:/tmp/ --recursive
+
+## List Files Only:
+rclone ls pikpak:/
+proxychains rclone ls pikpak:/
+proxychains rclone copy pikpak:/tmp/ /root/enhui/ --transfers=1 --progress
