@@ -1,3 +1,6 @@
+## 安装中文字体
+apt-get install fonts-wqy-zenhei fonts-wqy-microhei fonts-arphic-ukai fonts-arphic-uming
+
 ################
 ### Overlay the first subtitle stream (0:s:0) onto the video stream (0:v) with the subtitles positioned 460 pixels from the bottom of the video (0:main_h-460).
 for i in {1..50}; do ffmpeg -i "S01E$(printf "%02d" $i).mkv" -filter_complex "[0:v][0:s:0]overlay=0:main_h-460[v]" -map "[v]" -map 0:a -c:v libx264 -c:a aac "S01E$(printf "%02d" $i).mp4"; done
