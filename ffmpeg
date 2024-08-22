@@ -1,5 +1,5 @@
 ###### iphone 不能播的问题
--c:v libx264 -profile:v main -level 3.1 -pix_fmt yuv420p -c:a aac
+-c:v libx264 -profile:v main -level 3.1 -pix_fmt yuv420p -c:a aac -ac 2
 ## 网络播放优化 -movflags +faststart
 ###################################################
 ## 安装中文字体
