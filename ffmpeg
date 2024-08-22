@@ -1,6 +1,7 @@
 ###### iphone 不能播的问题
 -c:v libx264 -profile:v main -level 3.1 -pix_fmt yuv420p -c:a aac -ac 2
 ## 网络播放优化 -movflags +faststart
+##5.1转2声道  -af "pan=stereo|FL=0.8*FL+0.2*FC|FR=0.8*FR+0.2*FC" -c:a aac -b:a 320k -ac 2
 ###################################################
 ## 安装中文字体
 apt-get install fonts-wqy-zenhei fonts-wqy-microhei fonts-arphic-ukai fonts-arphic-uming fonts-noto-cjk
