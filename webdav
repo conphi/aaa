@@ -8,7 +8,7 @@ umount ~/webdav
 
 mkdir /mnt/webdav
 mount -t davfs http://.com/ /mnt/webdav
-
+umount /mnt/webdav
 ################################################################################
 ############# webdav server golang ##########################
 package main
