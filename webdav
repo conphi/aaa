@@ -3,6 +3,12 @@ mkdir ~/webdav
 mount -t davfs "http://<server_address>:8080/webdav" ~/webdav
 umount ~/webdav
 
+/etc/davfs2/secrets
+<webdav-url> <username> <password>
+
+mkdir /mnt/webdav
+mount -t davfs http://.com/ /mnt/webdav
+
 ################################################################################
 ############# webdav server golang ##########################
 package main
