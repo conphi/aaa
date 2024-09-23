@@ -25,3 +25,18 @@ To select files, use --select-file option. If it is not used, all files are assu
 Please use this option with care because it will actually remove files from your disk. Default: false
 
 aria2c --select-file=471,472 --seed-time=0 --bt-remove-unselected-file=true TPimage1-520.torrent
+##########################################################################################################
+######## win bbc.bat
+SET "PATH=C:\Users\aaa;%PATH%"
+aria2c.exe http://ip:4000/
+
+type index.html|pup a text{}>input
+
+for /f "tokens=*" %%a in (input) do (echo http://ip:4000/%%a) >> output
+
+aria2c.exe -c -i output
+
+del index.html
+del input
+del output
+#############################################################################################################
