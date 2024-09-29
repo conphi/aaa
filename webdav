@@ -59,3 +59,56 @@ func main() {
 	http.Handle("/fuck/", handler)
 	http.ListenAndServe(":"+*port, nil)
 }
+
+
+########## updated ######################################################################################
+package main
+
+import (
+	"flag"
+	"net/http"
+	"golang.org/x/net/webdav"
+)
+
+type AuthWebdav struct {
+	webdav.Handler
+}
+
+// Correctly define the ServeHTTP method outside of main.
+func (aw *AuthWebdav) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	user, pass, ok := r.BasicAuth()
+	// Dereference username and password for comparison.
+	if !ok || user != *username || pass != *password {
+		w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+	aw.Handler.ServeHTTP(w, r)
+}
+
+var (
+	// Declare these as global variables so they can be accessed in the ServeHTTP method.
+	username *string
+	password *string
+)
+
+func main() {
+	port := flag.String("p", "9001", "a port")
+	dir := flag.String("d", "/root/tmp", "a dir")
+	username = flag.String("u", "fuck", "username")
+	password = flag.String("k", "fuck", "password")
+	prefix := flag.String("s", "/fuck", "url prefix")
+	flag.Parse()
+
+	handler := &AuthWebdav{
+		Handler: webdav.Handler{
+			Prefix:     *prefix,             // Set the prefix from the flag
+			FileSystem: webdav.Dir(*dir),    // Fix the variable name to dir
+			LockSystem: webdav.NewMemLS(),
+		},
+	}
+
+	// Use the prefix provided by the user
+	http.Handle(*prefix+"/", handler)
+	http.ListenAndServe(":"+*port, nil)
+}
