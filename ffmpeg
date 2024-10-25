@@ -1,5 +1,8 @@
 ### JBL m4a to mp3 ############
 ffmpeg -i input.m4a -codec:a libmp3lame -qscale:a 2 output.mp3
+
+for f in *.m4a; do ffmpeg -i "$f" -codec:a libmp3lame -qscale:a 2 "${f%.m4a}.mp3"; done
+
 ###############################
 
 
