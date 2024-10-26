@@ -1,3 +1,13 @@
+###### openwrt glinet mv1000w ##############
+##.ssh/known_hosts:16
+## Host key for 192.168.8.1 has changed and you have requested strict checking.
+## Host key verification failed.
+
+### Remove the outdated host key:
+ssh-keygen -R 192.168.8.1
+############################################################
+
+###############################################
 ### ERROR: kex_exchange_identification: Connection closed by remote host
 ### ERROR: Connection closed by x.x.x.x port 22
 ### 1.开全局导致的；或者 2. 绕过国内IP，有时候绕不过
