@@ -32,7 +32,7 @@ PROG=/root/opwd  # Path to your binary
 
 start_service() {
     procd_open_instance
-    procd_set_param command $PROG  # Command to run your binary
+    procd_set_param command $PROG  # add "-d /mnt/green/" Command to run your binary
     procd_set_param respawn        # Automatically restart if it crashes
     procd_close_instance
 }
