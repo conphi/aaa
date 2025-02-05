@@ -45,7 +45,7 @@ Description=Sunshine GameStream Host
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/sunshine
+ExecStart=/usr/bin/sunshine
 Restart=always
 User=root
 Group=root
@@ -61,4 +61,15 @@ systemctl start sunshine
 ##########################################################################################
 dpkg --add-architecture i386
 apt update
-apt install wine64 wine32
+sudo mkdir -pm755 /etc/apt/keyrings
+sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
+sudo apt update
+sudo apt install --install-recommends winehq-stable -y
+sudo apt install wine32 -y
+
+wine --version
+wine-10.0
+#############################################################
+apt install libvulkan1 vulkan-tools
+vulkaninfo | grep "Vulkan Instance Version"
