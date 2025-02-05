@@ -78,6 +78,7 @@ WantedBy=multi-user.target
 systemctl daemon-reload
 systemctl enable sunshine
 systemctl start sunshine
+/root/.config/sunshine/sunshine.conf
 ##########################################################################################
 dpkg --add-architecture i386
 apt update
