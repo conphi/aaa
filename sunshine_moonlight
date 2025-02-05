@@ -1,0 +1,64 @@
+### Ubuntu 22.04 lts
+##########################################################################################
+### xorg
+apt install -y xserver-xorg-video-dummy x11-xserver-utils
+nano /etc/X11/xorg.conf.d/10-headless.conf
+
+Section "Device"
+    Identifier  "NVIDIA GPU"
+    Driver      "nvidia"
+EndSection
+
+Section "Monitor"
+    Identifier "Monitor0"
+    HorizSync 28.0-80.0
+    VertRefresh 48.0-75.0
+EndSection
+
+Section "Screen"
+    Identifier "Screen0"
+    Device "NVIDIA GPU"
+    Monitor "Monitor0"
+    DefaultDepth 24
+    SubSection "Display"
+        Depth 24
+        Modes "1920x1080"
+    EndSubSection
+EndSection
+
+#################
+Xorg :0 &
+export DISPLAY=:0
+echo $DISPLAY
+##########################################################################################
+
+######################## sunshine 
+cd /tmp
+wget https://github.com/LizardByte/Sunshine/releases/download/v2025.203.34856/sunshine-ubuntu-22.04-amd64.deb
+apt install ./sunshine-ubuntu-22.04-amd64.deb
+sunshine --version
+###
+nano /etc/systemd/system/sunshine.service
+
+[Unit]
+Description=Sunshine GameStream Host
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/sunshine
+Restart=always
+User=root
+Group=root
+Environment=DISPLAY=:0
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl enable sunshine
+systemctl start sunshine
+##########################################################################################
+dpkg --add-architecture i386
+apt update
+apt install wine64 wine32
