@@ -80,6 +80,8 @@ systemctl enable sunshine
 systemctl start sunshine
 
 /root/.config/sunshine/sunshine.conf
+
+########## do not use these below
 sudo setcap cap_sys_admin+p $(readlink -f $(which sunshine))
 sudo setcap -r $(readlink -f $(which sunshine))
 systemctl --user start sunshine
