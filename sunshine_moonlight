@@ -30,6 +30,26 @@ EndSection
 Xorg :0 &
 export DISPLAY=:0
 echo $DISPLAY
+#####################
+sudo nano /etc/systemd/system/xorg.service
+
+[Unit]
+Description=Start Xorg Virtual Display
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/Xorg :0 -noreset
+Restart=always
+User=root
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl daemon-reload
+sudo systemctl enable xorg
+sudo systemctl start xorg
+
 ##########################################################################################
 
 ######################## sunshine 
