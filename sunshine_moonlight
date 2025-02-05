@@ -78,7 +78,14 @@ WantedBy=multi-user.target
 systemctl daemon-reload
 systemctl enable sunshine
 systemctl start sunshine
+
 /root/.config/sunshine/sunshine.conf
+sudo setcap cap_sys_admin+p $(readlink -f $(which sunshine))
+sudo setcap -r $(readlink -f $(which sunshine))
+systemctl --user start sunshine
+systemctl --user enable sunshine
+Created symlink /root/.config/systemd/user/xdg-desktop-autostart.target.wants/sunshine.service → /usr/lib/systemd/user/sunshine.service.
+
 ##########################################################################################
 dpkg --add-architecture i386
 apt update
