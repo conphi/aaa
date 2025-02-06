@@ -11,7 +11,7 @@ To start tailscale now and restart at login:
 Or, if you don't want/need a background service you can just run:
   /opt/homebrew/opt/tailscale/bin/tailscaled
 
-tailscaled
+sudo tailscaled
 tailscale login --login-server http://1.2.3.4:8080
 
 # linux client
@@ -23,6 +23,7 @@ systemctl start tailscaled
 tailscale up
 tailscale up --login-server http://1.2.3.4:8080
 tailscale ip -4
+tailscale status
 
 ##########################################################################################
 ### 获取ip
