@@ -1,3 +1,30 @@
+### headscale tailscale ubuntu 22
+
+# mac os client
+brew install tailscale
+
+zsh completions have been installed to:
+  /opt/homebrew/share/zsh/site-functions
+
+To start tailscale now and restart at login:
+  brew services start tailscale
+Or, if you don't want/need a background service you can just run:
+  /opt/homebrew/opt/tailscale/bin/tailscaled
+
+tailscaled
+tailscale login --login-server http://1.2.3.4:8080
+
+# linux client
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+sudo apt-get update
+sudo apt-get install tailscale
+systemctl start tailscaled
+tailscale up
+tailscale up --login-server http://1.2.3.4:8080
+tailscale ip -4
+
+##########################################################################################
 ### 获取ip
 ip a | grep inet
 hostname -I
