@@ -1,3 +1,7 @@
+cat uk ### wireguard
+#!/bin/bash
+echo "mypass" | sudo -S wg-quick up /usr/local/bin/uk.conf
+#########################
 caffeinate -idm
 ################################
 https://sspai.com/post/61379
