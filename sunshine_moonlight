@@ -24,6 +24,12 @@ tailscale up
 tailscale up --login-server http://1.2.3.4:8080
 tailscale ip -4
 tailscale status
+#########################
+headscale nodes expire -i 1
+headscale nodes delete -i 1
+
+headscale nodes expire -i 2
+headscale nodes delete -i 2
 
 ##########################################################################################
 ### 获取ip
