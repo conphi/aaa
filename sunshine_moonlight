@@ -1,3 +1,4 @@
+must reboot after xorg and sunshine
 ### headscale tailscale ubuntu 22
 
 # mac os client
@@ -81,6 +82,9 @@ ExecStart=/usr/bin/Xorg :0 -noreset
 Restart=always
 User=root
 Environment=DISPLAY=:0
+Environment="XDG_SESSION_TYPE=x11"
+Environment="XDG_RUNTIME_DIR=/run/user/1000"
+Environment="DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
 
 [Install]
 WantedBy=multi-user.target
@@ -101,7 +105,8 @@ nano /etc/systemd/system/sunshine.service
 
 [Unit]
 Description=Sunshine GameStream Host
-After=network.target
+After=network.target xorg.service
+Requires=xorg.service
 
 [Service]
 ExecStart=/usr/bin/sunshine
