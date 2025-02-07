@@ -1,3 +1,36 @@
+###### 鼠标问题
+apt install xserver-xorg-input-evdev
+nano /etc/X11/xorg.conf.d/30-dummy-mouse.conf
+Section "ServerLayout"
+    Identifier "Default Layout"
+    Screen 0 "Screen0"
+    InputDevice "Dummy Mouse" "CorePointer"
+EndSection
+
+Section "InputDevice"
+    Identifier "Dummy Mouse"
+    Driver "evdev"
+    Option "Device" "/dev/input/mice"
+    Option "Emulate3Buttons" "true"
+    Option "CorePointer"
+EndSection
+
+systemctl restart xorg
+xinput list
+⎡ Virtual core pointer                    	id=2	[master pointer  (3)]
+⎜   ↳ Virtual core XTEST pointer              	id=4	[slave  pointer  (2)]
+⎜   ↳ Logitech Wireless Mouse PID:4038        	id=10	[slave  pointer  (2)]
+⎜   ↳ Mouse passthrough                       	id=12	[slave  pointer  (2)]
+⎣ Virtual core keyboard                   	id=3	[master keyboard (2)]
+    ↳ Virtual core XTEST keyboard             	id=5	[slave  keyboard (3)]
+    ↳ Power Button                            	id=6	[slave  keyboard (3)]
+    ↳ Power Button                            	id=7	[slave  keyboard (3)]
+    ↳ Sleep Button                            	id=8	[slave  keyboard (3)]
+    ↳ Eee PC WMI hotkeys                      	id=9	[slave  keyboard (3)]
+    ↳ Keyboard passthrough                    	id=11	[slave  keyboard (3)]
+
+###################################################################
+
 must reboot after xorg and sunshine
 ### headscale tailscale ubuntu 22
 
