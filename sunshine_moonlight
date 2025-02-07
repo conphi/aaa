@@ -166,6 +166,9 @@ sudo apt install -y \
 apt install winetricks
 winetricks dxvk vkd3d d3dx9 vcrun2019 dinput8 win10
 
+winetricks d3dx9 vcrun2019 dinput8 win10
+
+
 #############################################################
 apt install libvulkan1 vulkan-tools
 vulkaninfo | grep "Vulkan Instance Version"
