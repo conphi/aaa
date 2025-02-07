@@ -144,6 +144,28 @@ sudo apt install wine32 -y
 
 wine --version
 wine-10.0
+
+apt install winbind
+wineboot
+
+sudo apt install -y \
+    winbind \
+    libncurses5 \
+    libgphoto2-6 \
+    libgphoto2-dev \
+    libxml2 \
+    libxslt1.1 \
+    libasound2-plugins:i386 \
+    libpulse0:i386 \
+    libfaudio0:i386 \
+    libvkd3d1:i386 \
+    mesa-vulkan-drivers:i386 \
+    libvulkan1:i386 \
+    libudev1:i386
+
+apt install winetricks
+winetricks dxvk vkd3d d3dx9 vcrun2019 dinput8 win10
+
 #############################################################
 apt install libvulkan1 vulkan-tools
 vulkaninfo | grep "Vulkan Instance Version"
