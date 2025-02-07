@@ -168,6 +168,7 @@ winetricks dxvk vkd3d d3dx9 vcrun2019 dinput8 win10
 
 winetricks d3dx9 vcrun2019 dinput8 win10
 
+wine ~/setup_theme_hospital_2.1.0.8.exe /extract /nogui /silent
 
 #############################################################
 apt install libvulkan1 vulkan-tools
