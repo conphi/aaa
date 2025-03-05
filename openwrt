@@ -42,7 +42,78 @@ chmod +x /etc/init.d/opwd
 /etc/init.d/opwd enable
 ########################################################################
 
+root@GL-MV1000:~# cat godns.yaml 
+provider: DuckDNS
+password:
+login_token: "23131421341321321421321321321"
+domains:
+  - domain_name: www.duckdns.org
+    sub_domains:
+      - mysubdomain
+ip_urls: []  # 清空外部 API，不再依赖第三方获取公网 IP
+ip_type: IPv4
+interval: 300  # 每 5 分钟更新一次
+resolver: 8.8.8.8
+ip_interface: pppoe-wan  # 直接从 OpenWrt WAN 口获取 IP
+user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36"
 
+web_panel:
+  enabled: false  # 关闭 Web 面板
+
+socks5_proxy:
+use_proxy: false
+debug_info: false
+skip_ssl_verify: false
+#################################################################
+root@GL-MV1000:/etc/init.d# cat godns
+#!/bin/sh /etc/rc.common
+
+START=99  # 启动优先级，确保在网络启动后运行
+STOP=10   # 停止优先级
+
+USE_PROCD=1
+PROG=/root/godns  # GoDNS 可执行文件路径
+CONFIG_FILE=/root/godns.yaml  # GoDNS 配置文件路径
+
+start_service() {
+
+    procd_open_instance
+    procd_set_param command $PROG -c $CONFIG_FILE  # 启动 GoDNS 并指定配置文件
+    procd_set_param respawn  # 如果进程崩溃，自动重启
+    procd_close_instance
+}
+
+stop_service() {
+    killall godns
+}
+########################################################################
+cat frps.toml 
+[common]
+bind_port = 77
+token = fcp
+
+root@GL-MV1000:/etc/init.d# cat frps
+#!/bin/sh /etc/rc.common
+
+START=99  # 确保在网络启动后运行
+STOP=10   # 关闭优先级
+
+USE_PROCD=1
+PROG=/root/frps  # Frp 服务器可执行文件路径
+CONFIG_FILE=/root/frps.toml
+
+start_service() {
+
+    procd_open_instance
+    procd_set_param command $PROG -c $CONFIG_FILE  # 运行 Frps 并指定配置文件
+    procd_set_param respawn  # 如果进程崩溃，自动重启
+    procd_close_instance
+}
+
+stop_service() {
+    killall frps
+}
+##############################################################################
 
 ## mt3000 backup
 src/gz openwrt_core https://downloads.openwrt.org/releases/23.05.2/targets/mediatek/filogic/packages
