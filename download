@@ -1,0 +1,11 @@
+// mac os
+// download x
+brew install gallery-dl pipx
+pipx install browser_cookie3
+rm -f ~/.cache/gallery-dl/cookies.sqlite
+gallery-dl --cookies-from-browser chrome "https://x.com/x"
+
+// download ins
+// chrome extension Turbo Downloader for Ins
+download all
+  
