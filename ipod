@@ -1,0 +1,53 @@
+// iPod Video (5th Gen)  RockboxUtility-v1.5.1.dmg
+"Could not open Ipod: permission denied"
+// Step 1: Give Full Disk Access to Rockbox Utility
+Open System Settings > Privacy & Security > Full Disk Access
+Click the + button to add an app.
+Navigate to the Rockbox Utility (probably in your Downloads or Applications folder).
+Add it and enable the toggle.
+// Step 2: Run Rockbox Utility with sudo (Terminal method)
+sudo /Applications/RockboxUtility.app/Contents/MacOS/RockboxUtility
+////////////////////////////
+After that:
+Eject your iPod
+Reboot it (Menu + Center)
+It should now boot into Rockbox 🎉
+////////////////////////////////////////////////////
+install iVideo theme from RockboxUtility
+
+打开 .rockbox/ 文件夹（是隐藏文件夹）
+在 Finder 中按下 Command + Shift + .（点）显示隐藏文件
+//////////////////////////////////////////////////////
+
+
+//////// untest blow !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+2. 如何用 macOS Ventura 恢复 iPod（回到 Apple 原版系统）
+如果你哪天想卸载 Rockbox，回到苹果原厂状态，你可以这么做：
+
+📲 步骤：
+把 iPod 连接到 Mac
+
+打开 Finder（macOS 13 不再用 iTunes）
+
+找到左侧的设备「IPOD」
+
+按住 iPod 上的 Menu + Center 键直到重启
+
+然后立刻按住 Center + Play/Pause 进入 Disk Mode
+
+Finder 会识别设备
+
+点击「恢复」按钮，macOS 会下载并安装官方 Apple 固件
+
+💡 如果 Finder 没法恢复，你可以使用 Apple Configurator 2（在 App Store 免费下载），它也可以识别 iPod 并恢复系统。
+
+🛠️ 3. 如果要彻底清除 Rockbox（可选）
+将来如果你想完全卸载 Rockbox：
+
+打开 Rockbox Utility
+
+进入 “Backup & Uninstallation”
+
+点击 “Uninstall Bootloader” → 然后点击 “Remove Rockbox”
+
+然后再用 Finder 或 iTunes 恢复一次，即可让 iPod 彻底恢复原貌。
