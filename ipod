@@ -1,4 +1,18 @@
-// iPod Video (5th Gen)  RockboxUtility-v1.5.1.dmg
+// iPod Video (5th Gen) 
+// video import
+ffmpeg -i my.mp4 \
+  -vf scale=320:240,fps=30 \
+  -c:v mpeg4 -qscale:v 3 -b:v 1000k -maxrate 1200k \
+  -c:a aac -b:a 128k -ar 44100 \
+  -movflags +faststart \
+  my_ipod_final.mp4
+
+
+
+
+
+
+////////RockboxUtility-v1.5.1.dmg
 "Could not open Ipod: permission denied"
 // Step 1: Give Full Disk Access to Rockbox Utility
 Open System Settings > Privacy & Security > Full Disk Access
