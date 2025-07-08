@@ -1,4 +1,5 @@
 // iPod Video (5th Gen) 
+
 // video import
 ffmpeg -i my.mp4 \
   -vf scale=320:240,fps=30 \
@@ -6,6 +7,10 @@ ffmpeg -i my.mp4 \
   -c:a aac -b:a 128k -ar 44100 \
   -movflags +faststart \
   my_ipod_final.mp4
+
+
+//  flac to ipod
+for f in *.flac; do ffmpeg -i "$f" -vn -c:a aac -b:a 256k -movflags +faststart "${f%.flac}.m4a"; done
 
 
 
