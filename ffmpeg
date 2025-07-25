@@ -7,9 +7,14 @@ for f in *.m4a; do ffmpeg -i "$f" -codec:a libmp3lame -qscale:a 2 "${f%.m4a}.mp3
 
 
 ###### iphone 不能播的问题
--c:v libx264 -profile:v main -level 3.1 -pix_fmt yuv420p -c:a aac -ac 2
+-c:v libx264 -profile:v main -level 3.1 -pix_fmt yuv420p -c:a aac -ac 2 -movflags +faststart
 ## 网络播放优化 -movflags +faststart 有这个参数后，浏览器可以边下边播
 ##5.1转2声道  -af "pan=stereo|FL=0.7*FL+0.3*FC|FR=0.7*FR+0.3*FC" -c:a aac -b:a 320k -ac 2
+
+ffmpeg -i Midori.1992.mkv -vf "subtitles=Midori.1992.mkv" -movflags +faststart output.mp4
+## -movflags +faststart: Optimizes the MP4 file for web playback.
+# right # ffmpeg -i Midori.1992.mkv -vf "subtitles=Midori.1992.mkv" -t 00:03:00 -movflags +faststart output.mp4
+# wrong # ffmpeg -i Midori.1992.mkv -vf "ass=Midori.1992.mkv" -t 00:03:00 -movflags +faststart output.mp4
 ###################################################
 ## 安装中文字体
 apt-get install fonts-wqy-zenhei fonts-wqy-microhei fonts-arphic-ukai fonts-arphic-uming fonts-noto-cjk
