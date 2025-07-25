@@ -10,7 +10,21 @@ for f in *.m4a; do ffmpeg -i "$f" -codec:a libmp3lame -qscale:a 2 "${f%.m4a}.mp3
 -c:v libx264 -profile:v main -level 3.1 -pix_fmt yuv420p -c:a aac -ac 2 -movflags +faststart
 ## 网络播放优化 -movflags +faststart 有这个参数后，浏览器可以边下边播
 ##5.1转2声道  -af "pan=stereo|FL=0.7*FL+0.3*FC|FR=0.7*FR+0.3*FC" -c:a aac -b:a 320k -ac 2
-
+### 解决字幕问题
+ffmpeg \
+-i title.mkv \
+-filter_complex "[0:v:0]subtitles='title.mkv':si=0[v]" \
+-map "[v]" \
+-map 0:a:0 \
+-c:v libx264 \
+-profile:v main \
+-level 3.1 \
+-pix_fmt yuv420p \
+-c:a aac \
+-ac 2 \
+-movflags +faststart \
+title.mp4
+###
 ffmpeg -i Midori.1992.mkv -vf "subtitles=Midori.1992.mkv" -movflags +faststart output.mp4
 ## -movflags +faststart: Optimizes the MP4 file for web playback.
 # right # ffmpeg -i Midori.1992.mkv -vf "subtitles=Midori.1992.mkv" -t 00:03:00 -movflags +faststart output.mp4
