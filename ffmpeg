@@ -4,12 +4,13 @@ ffmpeg -i input.m4a -codec:a libmp3lame -qscale:a 2 output.mp3
 for f in *.m4a; do ffmpeg -i "$f" -codec:a libmp3lame -qscale:a 2 "${f%.m4a}.mp3"; done
 
 ###############################
-
-
 ###### iphone 不能播的问题
 -c:v libx264 -profile:v main -level 3.1 -pix_fmt yuv420p -c:a aac -ac 2 -movflags +faststart
 ## 网络播放优化 -movflags +faststart 有这个参数后，浏览器可以边下边播
 ##5.1转2声道  -af "pan=stereo|FL=0.7*FL+0.3*FC|FR=0.7*FR+0.3*FC" -c:a aac -b:a 320k -ac 2
+##############。压制sup字幕方法 #######
+HandBrakeCLI -i "Eden.Lake.2008.BluRay.1080p.x265.10bit-MiniHD.mkv" -o "Eden.Lake.2008.H264.burned.mp4" -e x264 --x264-profile main --encoder-level 3.1 --optimize -E ca_aac -B 160 --audio-fallback ca_aac --subtitle 2 --subtitle-burned
+#######################################
 ### 解决字幕问题 用 -filter_complex 是专业方式 不要用 -vf
 ffmpeg \
 -i title.mkv \
