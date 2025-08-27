@@ -1,0 +1,5 @@
+### Whisper CLI
+pip install -U openai-whisper (ffmpeg must be there)
+whisper 1408406-1.aac --model large --device cuda --language Japanese
+### whisper japanese.wav --model medium --language Japanese --task translate
+################################
