@@ -3,3 +3,191 @@ pip install -U openai-whisper (ffmpeg must be there)
 whisper 1408406-1.aac --model large --device cuda --language Japanese
 ### whisper japanese.wav --model medium --language Japanese --task translate
 ################################
+
+########## python m2m_srt_translate.py 1408406-1-medium.srt --src ja --tgt zh --model facebook/m2m100_418M --batch-size 16 --no-sample --wrap 42
+##########
+# 新建并激活虚拟环境（可选）
+python -m venv venv && source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# 安装依赖
+pip install -U transformers accelerate torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+pip install pysrt sentencepiece
+# 可选：想要显存更省可以装 8bit 量化
+pip install bitsandbytes
+#############################################################
+####### srt jp to cn  m2m_srt_translate.py ################
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+m2m_srt_translate.py
+使用 Meta M2M100 将 .srt 字幕从一种语言翻译到另一种语言，同时保留时间轴。
+
+示例：
+python m2m_srt_translate.py 1408406-1-medium.srt --src ja --tgt zh --model facebook/m2m100_418M --batch-size 16 --no-sample --wrap 42
+"""
+
+import argparse
+import os
+import re
+from typing import List
+
+import pysrt
+import torch
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+
+COMMON_LANG_CODES = {
+    "zh": "中文", "en": "英语", "ja": "日语", "ko": "韩语",
+    "de": "德语", "fr": "法语", "es": "西班牙语", "ru": "俄语",
+    "it": "意大利语", "pt": "葡萄牙语", "ar": "阿拉伯语",
+    "vi": "越南语", "th": "泰语", "id": "印尼语", "hi": "印地语"
+}
+
+def normalize_srt_text(t: str) -> str:
+    t = re.sub(r"</?[^>]+>", "", t or "")
+    t = t.replace("\r", "")
+    t = "\n".join(" ".join(line.strip().split()) for line in t.split("\n")).strip()
+    return t
+
+def wrap_by_visual_length(text: str, max_len_per_line: int = 42) -> str:
+    if not text or max_len_per_line <= 0:
+        return text
+    def vlen(ch: str) -> int:
+        return 2 if ord(ch) > 255 else 1
+    lines, cur, cur_len = [], "", 0
+    for ch in text:
+        w = vlen(ch)
+        if cur_len + w > max_len_per_line and cur:
+            lines.append(cur)
+            cur, cur_len = ch, w
+        else:
+            cur += ch
+            cur_len += w
+    if cur:
+        lines.append(cur)
+    return "\n".join(lines)
+
+def chunk_indices(n_items: int, batch_size: int) -> List[List[int]]:
+    return [list(range(i, min(i + batch_size, n_items))) for i in range(0, n_items, batch_size)]
+
+def translate_batch(
+    texts: List[str],
+    tokenizer,
+    model,
+    src_lang: str,
+    tgt_lang: str,
+    max_new_tokens: int,
+    do_sample: bool,
+    temperature: float,
+    device: str
+) -> List[str]:
+    if not src_lang:
+        raise ValueError("src_lang 未设置。请传入 --src，例如日语为 --src ja")
+
+    tokenizer.src_lang = src_lang
+    forced_bos = tokenizer.get_lang_id(tgt_lang)
+
+    inputs = tokenizer(
+        texts,
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+        max_length=512
+    ).to(device)
+
+    # ✅ 修复：根据设备选择上下文管理器，CPU 用 nullcontext()，CUDA 用 autocast()
+    if device.startswith("cuda"):
+        ctx = torch.cuda.amp.autocast()
+    else:
+        from contextlib import nullcontext
+        ctx = nullcontext()
+
+    with torch.inference_mode():
+        with ctx:
+            outputs = model.generate(
+                **inputs,
+                forced_bos_token_id=forced_bos,
+                max_new_tokens=max_new_tokens,
+                do_sample=do_sample,
+                temperature=temperature
+            )
+    return tokenizer.batch_decode(outputs, skip_special_tokens=True)
+
+def main():
+    parser = argparse.ArgumentParser(description="Translate SRT using Meta M2M100 while preserving timestamps.")
+    parser.add_argument("input", help="输入 .srt 文件路径")
+    parser.add_argument("-o", "--output", help="输出 .srt 文件路径（默认同目录加 .<tgt>.srt）")
+    parser.add_argument("--src", help="源语言代码（建议显式指定，如 ja、en、zh）", default=None)
+    parser.add_argument("--tgt", help="目标语言代码（必填，如 zh、en、ja）", required=True)
+    parser.add_argument("--model", default="facebook/m2m100_418M", help="默认 facebook/m2m100_418M；可用 facebook/m2m100_1.2B")
+    parser.add_argument("--batch-size", type=int, default=16, help="批大小（根据显存调整）")
+    parser.add_argument("--max-new-tokens", type=int, default=256, help="单条字幕最大生成长度")
+    parser.add_argument("--no-sample", action="store_true", help="关闭采样（更稳更直译）")
+    parser.add_argument("--temperature", type=float, default=0.7, help="采样温度（开启采样时有效）")
+    parser.add_argument("--wrap", type=int, default=0, help="翻译后按可视长度换行（如 42；0 表示不处理）")
+    parser.add_argument("--load-in-8bit", action="store_true", help="使用 8bit 量化加载（需 bitsandbytes）")
+    parser.add_argument("--device", default=None, help="设备：cuda / cpu（默认自动）")
+    args = parser.parse_args()
+
+    device = "cuda" if (args.device is None and torch.cuda.is_available()) else (args.device or "cpu")
+
+    tokenizer = AutoTokenizer.from_pretrained(args.model)
+    load_kwargs = {}
+    if args.load_in_8bit:
+        load_kwargs.update(dict(load_in_8bit=True, device_map="auto"))
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+    else:
+        load_kwargs.update(dict(torch_dtype=torch.float16 if device.startswith("cuda") else torch.float32))
+
+    model = AutoModelForSeq2SeqLM.from_pretrained(args.model, **load_kwargs)
+    if not args.load_in_8bit and device.startswith("cuda"):
+        model.to(device)
+
+    subs = pysrt.open(args.input, encoding="utf-8")
+    raw_texts = [normalize_srt_text(s.text) for s in subs]
+    texts = [t if t is not None else "" for t in raw_texts]
+
+    src_lang = args.src or "ja"
+    if args.src is None:
+        print("⚠ 未显式提供 --src，已默认使用日语 'ja'。若源语言不是日语，请加上 --src <lang>。")
+
+    do_sample = not args.no_sample
+    results = [""] * len(texts)
+
+    for batch_ids in chunk_indices(len(texts), max(1, args.batch_size)):
+        batch = [texts[i] for i in batch_ids]
+        mask = [bool(x.strip()) for x in batch]
+        to_translate = [t for t, keep in zip(batch, mask) if keep]
+
+        if to_translate:
+            translated = translate_batch(
+                to_translate, tokenizer, model,
+                src_lang=src_lang, tgt_lang=args.tgt,
+                max_new_tokens=args.max_new_tokens,
+                do_sample=do_sample, temperature=args.temperature,
+                device=device
+            )
+        else:
+            translated = []
+
+        j = 0
+        for k, keep in enumerate(mask):
+            out = translated[j] if keep else ""
+            if keep:
+                j += 1
+            if args.wrap and out:
+                out = wrap_by_visual_length(out, args.wrap)
+            results[batch_ids[k]] = out
+
+    for i, out in enumerate(results):
+        subs[i].text = out
+
+    out_path = args.output or f"{os.path.splitext(args.input)[0]}.{args.tgt}.srt"
+    subs.save(out_path, encoding="utf-8")
+    print(f"✓ Done: {out_path}")
+
+if __name__ == "__main__":
+    main()
+#################################################################
