@@ -6,6 +6,10 @@ smbpasswd -e rrr
 
 mkdir -p /srv/samba/infuse
 
+##### maybe need below
+### chown -R rrr:rrr /root/infuse
+### chown -R rrr:rrr /srv/samba/share
+
 sudo nano /etc/samba/smb.conf
 [global]
    workgroup = WORKGROUP
@@ -30,3 +34,14 @@ sudo nano /etc/samba/smb.conf
 mount --bind /root/infuse /srv/samba/infuse
 umount /srv/samba/infuse
 rm -rf /srv/samba/infuse
+
+############ webdav backup #####################
+crontab -l
+# 1) Kill the process every day at midnight (00:00)
+30 23 * * * pkill -f "wd -d infuse"
+
+# 2) Start Monday–Friday at 6 PM (18:00)
+0 18 * * 1-5 /usr/local/bin/wd -d infuse &>/dev/null
+
+# 3) Start Saturday & Sunday at 8 AM (08:00)
+0 8 * * 6,0 /usr/local/bin/wd -d infuse &>/dev/null
