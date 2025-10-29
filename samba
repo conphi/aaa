@@ -1,0 +1,32 @@
+########### ubuntu install samba ########################
+apt install samba
+useradd -M -s /usr/sbin/nologin rrr
+smbpasswd -a rrr
+smbpasswd -e rrr
+
+mkdir -p /srv/samba/infuse
+
+sudo nano /etc/samba/smb.conf
+[global]
+   workgroup = WORKGROUP
+   server string = Samba Server
+   security = user
+   map to guest = never
+   smb ports = 9002
+   interfaces = 0.0.0.0/0
+   bind interfaces only = no
+   disable netbios = yes
+   smb encrypt = required
+[infuse]
+   comment = Private Share for rrr
+   path = /srv/samba/infuse
+   browseable = yes
+   read only = no
+   valid users = rrr
+   create mask = 0660
+   directory mask = 0770
+
+
+mount --bind /root/infuse /srv/samba/infuse
+umount /srv/samba/infuse
+rm -rf /srv/samba/infuse
