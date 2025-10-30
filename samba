@@ -35,6 +35,24 @@ mount --bind /root/infuse /srv/samba/infuse
 umount /srv/samba/infuse
 rm -rf /srv/samba/infuse
 
+############# must have #########################
+server min protocol = SMB3
+server max protocol = SMB3
+smb encrypt = required
+
+disable netbios = yes
+interfaces = 127.0.0.1 192.168.191.131
+bind interfaces only = yes
+
+sudo systemctl stop nmbd
+sudo systemctl disable nmbd
+
+sudo systemctl restart smbd
+
+browseable = no (yes for apple tv)
+smb://192.168.1.x/infuse
+p 192.168.191.131:445 192.168.191.131:9002
+
 ############ webdav backup #####################
 crontab -l
 # 1) Kill the process every day at midnight (00:00)
