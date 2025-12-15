@@ -53,6 +53,16 @@ browseable = no (yes for apple tv)
 smb://192.168.1.x/infuse
 p 192.168.191.131:445 192.168.191.131:9002
 
+############ smb backup #####################
+# 1) Kill the process every day at midnight (00:00)
+30 23 * * * /usr/bin/systemctl stop smbd
+
+# 2) Start Monday–Friday at 6 PM (18:00)
+0 18 * * 1-5 /usr/bin/systemctl start smbd
+
+# 3) Start Saturday & Sunday at 8 AM (08:00)
+0 8 * * 6,0 /usr/bin/systemctl start smbd
+
 ############ webdav backup #####################
 crontab -l
 # 1) Kill the process every day at midnight (00:00)
