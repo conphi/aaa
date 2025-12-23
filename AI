@@ -26,3 +26,14 @@ python main.py --listen --port 9001
 ###### IPAdapter v1 vs v2 ################
 https://www.reddit.com/r/comfyui/comments/1bov4xw/maintaining_legacy_ipadapter_nodes_alongside_new/
 
+###################### uk server #################
+########## aws 服务器 限制 ###################
+fallocate -l 8G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+free -h
+###################################################
+hf download Qwen/Qwen2.5-1.5B --local-dir ./Qwen2.5-1.5B --max-workers 1
+###############################################################
+
