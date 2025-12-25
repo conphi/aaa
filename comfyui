@@ -1,0 +1,7 @@
+### ubuntu 22.04.01 lts
+### python 3.10
+apt update
+apt install -y nvidia-driver-535-server
+reboot
+nvidia-smi
+###############################################################
