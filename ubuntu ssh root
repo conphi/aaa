@@ -4,6 +4,7 @@ sudo systemctl restart ssh
 sudo passwd
 
 
+### fuck ubuntu 24.04 server
 
 ######## boot stuck waiting for network #################################################
 sudo systemctl disable systemd-networkd-wait-online.service
@@ -13,3 +14,18 @@ sudo reboot
 sudo systemctl unmask systemd-networkd-wait-online.service
 sudo systemctl enable systemd-networkd-wait-online.service
 ###################################################################################
+### disable auto_update
+sudo systemctl stop unattended-upgrades
+sudo systemctl disable unattended-upgrades
+systemctl status unattended-upgrades
+### remove Pro / ESM / News
+sudo dpkg --configure -a
+sudo apt purge ubuntu-advantage-tools
+###############################################
+### disable daily update
+systemctl is-enabled apt-daily.timer
+systemctl is-enabled apt-daily-upgrade.timer
+sudo systemctl disable apt-daily.timer
+sudo systemctl disable apt-daily-upgrade.timer
+sudo systemctl stop apt-daily.timer
+sudo systemctl stop apt-daily-upgrade.timer
