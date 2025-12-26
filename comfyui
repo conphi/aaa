@@ -4,6 +4,7 @@ apt update
 apt install -y nvidia-driver-535-server
 reboot
 nvidia-smi
+### 上面可能要接显示器重启
 ###############################################################
 apt install -y python3-full python3-venv
 python3 -m venv ~/venv-comfy
