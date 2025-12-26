@@ -1,0 +1,38 @@
+虽然 Zed 的远程开发功能还处于早期阶段，且官方确实没有提供一个像 VS Code 那样显眼的“手动下载”按钮，但手动安装 remote server 实际上是可行的。
+
+如果你处于内网、服务器无法访问外网、或者网络环境极差，可以按照以下逻辑操作：
+
+核心思路：利用 upload_binary_over_ssh
+Zed 提供了一个非常实用的内置设置，专门解决服务器无法联网的问题。你不需要手动去拼湊版本号下载，只需在本地电脑的 Zed 设置中开启这个开关：
+
+在本地打开 Zed，进入设置 (Ctrl + , 或 Cmd + ,)。
+
+找到（或添加）你的 ssh_connections 配置。
+
+添加 "upload_binary_over_ssh": true。
+##########################################################################
+
+{
+  "ssh_connections": [
+    {
+      "host": "133", // 这里建议写成 ~/.ssh/config 里的别名
+      "upload_binary_over_ssh": true, // 核心：本地下载后通过 SSH 自动上传到服务器
+      "projects": []
+    }
+  ]
+}
+###########################################################
+{
+  "ssh_connections": [
+    {
+      "host": "your-server-ip",
+      "user": "root",
+      "upload_binary_over_ssh": true, // 核心：从本地上传 server 镜像
+      "projects": [
+        {
+          "paths": ["/home/root/my-project"]
+        }
+      ]
+    }
+  ]
+}
