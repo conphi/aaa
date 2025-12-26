@@ -5,3 +5,11 @@ apt install -y nvidia-driver-535-server
 reboot
 nvidia-smi
 ###############################################################
+apt install -y python3-full python3-venv
+python3 -m venv ~/venv-comfy
+source ~/venv-comfy/bin/activate
+(venv-comfy) root@133:~#
+proxychains4 pip install -U pip
+proxychains4 pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu121
+
+
