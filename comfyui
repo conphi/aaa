@@ -15,5 +15,17 @@ source ~/venv-comfy/bin/activate
 (venv-comfy) root@133:~#
 proxychains4 pip install -U pip
 proxychains4 pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu121
+######################################################################
+############ update comfyui ##########################################################
+(venv-comfy) root@133:~/ComfyUI/
+cd ComfyUI
+proxychains git pull
 
+source venv/bin/activate
+proxychains pip install --upgrade pip
+proxychains pip install -r requirements.txt
+
+cd custom_nodes
+for d in */; do (cd "$d" && proxychains git pull); done
+#########################################################################
 
