@@ -1,3 +1,8 @@
+wget https://github.com/SagerNet/sing-box/releases/download/v1.12.14/sing-box-1.12.14-linux-amd64.tar.gz
+tar -zxvf sing-box-1.12.14-linux-amd64.tar.gz
+cd sing-box-1.12.14-linux-amd64/
+sing-box run -c config.json
+
 ### server #########
 {
   "log": {
