@@ -1,0 +1,78 @@
+### server #########
+{
+  "log": {
+    "level": "info"
+  },
+  "inbounds": [
+    {
+      "type": "shadowsocks",
+      "tag": "ss-in",
+      // 关键点：只监听 IPv4 地址
+      "listen": "0.0.0.0",
+      "listen_port": 3333,
+      "method": "aes-256-gcm",
+      "password": "123456"
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct",
+      // 关键点：服务器访问外网时也强制只走 IPv4
+      "domain_strategy": "ipv4_only"
+    }
+  ]
+}
+##########################################
+### client #################################
+{
+  "log": {
+    "level": "info"
+  },
+  "dns": {
+    "servers": [
+      { "tag": "dns_proxy", "address": "https://8.8.8.8/dns-query", "detour": "proxy" },
+      { "tag": "dns_direct", "address": "223.5.5.5", "detour": "direct" }
+    ],
+    "rules": [
+      { "outbound": "proxy", "server": "dns_proxy" },
+      { "outbound": "direct", "server": "dns_direct" }
+    ],
+    // 关键点 1：强制 DNS 只解析 IPv4 地址
+    "strategy": "ipv4_only"
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "inet4_address": "172.19.0.1/30",
+      // 关键点 2：移除或不配置 inet6_address，让虚拟网卡不处理 IPv6
+      "auto_route": true,
+      "strict_route": true,
+      "sniff": true
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "shadowsocks",
+      "tag": "proxy",
+      "server": "1.2.3.4",
+      "server_port": 3333,
+      "method": "aes-256-gcm",
+      "password": "123456",
+      // 关键点 3：强制连接服务器时只走 IPv4
+      "domain_strategy": "ipv4_only"
+    },
+    { "type": "direct", "tag": "direct" },
+    { "type": "dns", "tag": "dns-out" }
+  ],
+  "route": {
+    "rules": [
+      { "protocol": "dns", "outbound": "dns-out" },
+      { "ip_cidr": ["1.2.3.4/32"], "outbound": "direct" },
+      { "geoip": "cn", "outbound": "direct" },
+      { "geosite": "cn", "outbound": "direct" }
+    ],
+    "auto_detect_interface": true
+  }
+}
+##############################################################
