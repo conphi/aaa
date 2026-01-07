@@ -1,83 +1,90 @@
 wget https://github.com/SagerNet/sing-box/releases/download/v1.12.14/sing-box-1.12.14-linux-amd64.tar.gz
 tar -zxvf sing-box-1.12.14-linux-amd64.tar.gz
 cd sing-box-1.12.14-linux-amd64/
-sing-box run -c config.json
+sing-box run -c server.json
+sing-box run -c client.json
 
-### server #########
+################ vless + reality ##########################
+### 需在“服务器”端运行脚本 setup_singbox.sh 必须 和 sing-box 在同一个文件夹 #########
+#!/bin/bash
+
+# 基础设置
+IP=$(curl -s ifconfig.me)
+UUID=$(./sing-box generate uuid)
+KEYS=$(./sing-box generate reality-keypair)
+PRIVATE_KEY=$(echo "$KEYS" | grep "PrivateKey" | awk '{print $2}')
+PUBLIC_KEY=$(echo "$KEYS" | grep "PublicKey" | awk '{print $2}')
+SHORT_ID=$(./sing-box generate rand --hex 8)
+
+# 生成服务端配置文件
+cat <<EOF > server.json
 {
-  "log": {
-    "level": "info"
-  },
-  "inbounds": [
-    {
-      "type": "shadowsocks",
-      "tag": "ss-in",
-      // 关键点：只监听 IPv4 地址
-      "listen": "0.0.0.0",
-      "listen_port": 3333,
-      "method": "aes-256-gcm",
-      "password": "123456"
+  "log": { "level": "info" },
+  "inbounds": [{
+    "type": "vless",
+    "tag": "vless-in",
+    "listen": "::",
+    "listen_port": 443,
+    "users": [{ "uuid": "$UUID", "flow": "xtls-rprx-vision" }],
+    "tls": {
+      "enabled": true,
+      "server_name": "www.microsoft.com",
+      "reality": {
+        "enabled": true,
+        "handshake": { "server": "www.microsoft.com", "server_port": 443 },
+        "private_key": "$PRIVATE_KEY",
+        "short_id": ["$SHORT_ID"]
+      }
     }
-  ],
-  "outbounds": [
-    {
-      "type": "direct",
-      "tag": "direct",
-      // 关键点：服务器访问外网时也强制只走 IPv4
-      "domain_strategy": "ipv4_only"
-    }
-  ]
+  }],
+  "outbounds": [{ "type": "direct", "tag": "direct" }]
 }
-##########################################
-### client #################################
+EOF
+
+# 生成客户端配置文件
+cat <<EOF > client.json
 {
-  "log": {
-    "level": "info"
-  },
+  "log": { "level": "info" },
   "dns": {
     "servers": [
       { "tag": "dns_proxy", "address": "https://8.8.8.8/dns-query", "detour": "proxy" },
       { "tag": "dns_direct", "address": "223.5.5.5", "detour": "direct" }
     ],
-    "rules": [
-      { "outbound": "proxy", "server": "dns_proxy" },
-      { "outbound": "direct", "server": "dns_direct" }
-    ],
-    // 关键点 1：强制 DNS 只解析 IPv4 地址
     "strategy": "ipv4_only"
   },
-  "inbounds": [
-    {
-      "type": "tun",
-      "inet4_address": "172.19.0.1/30",
-      // 关键点 2：移除或不配置 inet6_address，让虚拟网卡不处理 IPv6
-      "auto_route": true,
-      "strict_route": true,
-      "sniff": true
+  "inbounds": [{
+    "type": "tun",
+    "tag": "tun-in",
+    "address": [ "172.19.0.1/30" ],
+    "auto_route": true,
+    "strict_route": true,
+    "sniff": true
+  }],
+  "outbounds": [{
+    "type": "vless",
+    "tag": "proxy",
+    "server": "$IP",
+    "server_port": 443,
+    "uuid": "$UUID",
+    "packet_encoding": "xudp",
+    "flow": "xtls-rprx-vision",
+    "tls": {
+      "enabled": true,
+      "server_name": "www.microsoft.com",
+      "utls": { "enabled": true, "fingerprint": "chrome" },
+      "reality": { "enabled": true, "public_key": "$PUBLIC_KEY", "short_id": "$SHORT_ID" }
     }
-  ],
-  "outbounds": [
-    {
-      "type": "shadowsocks",
-      "tag": "proxy",
-      "server": "1.2.3.4",
-      "server_port": 3333,
-      "method": "aes-256-gcm",
-      "password": "123456",
-      // 关键点 3：强制连接服务器时只走 IPv4
-      "domain_strategy": "ipv4_only"
-    },
-    { "type": "direct", "tag": "direct" },
-    { "type": "dns", "tag": "dns-out" }
-  ],
+  }, { "type": "direct", "tag": "direct" }],
   "route": {
-    "rules": [
-      { "protocol": "dns", "outbound": "dns-out" },
-      { "ip_cidr": ["1.2.3.4/32"], "outbound": "direct" },
-      { "geoip": "cn", "outbound": "direct" },
-      { "geosite": "cn", "outbound": "direct" }
-    ],
+    "rules": [ { "protocol": "dns", "action": "hijack-dns" } ],
     "auto_detect_interface": true
   }
 }
+EOF
+
+echo "--------------------------------------------------"
+echo "全部完成！"
+echo "服务端文件已生成: server.json"
+echo "客户端文件已生成: client.json (请下载到本地使用)"
+echo "--------------------------------------------------"
 ##############################################################
