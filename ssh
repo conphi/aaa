@@ -1,3 +1,19 @@
+### 坑爹的Ubuntu25.10 ###
+root@130:~/.ssh# ssh root@192.168.191.133
+kex_exchange_identification: read: Connection reset by peer
+Connection reset by 192.168.191.133 port 22
+##### solution ################
+在 133 机器上 Ubuntu25.10
+nano /etc/ssh/sshd_config
+增加下面的 彻底关闭惩罚
+PerSourcePenalties no
+#sshd -t
+systemctl daemon-reload
+systemctl restart ssh.socket
+systemctl restart ssh.service
+##############################
+
+
 ###### openwrt glinet mv1000w ##############
 ##.ssh/known_hosts:16
 ## Host key for 192.168.8.1 has changed and you have requested strict checking.
