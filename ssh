@@ -11,6 +11,9 @@ PerSourcePenalties no
 systemctl daemon-reload
 systemctl restart ssh.socket
 systemctl restart ssh.service
+###### 应该是no ###################
+root@130:~# sshd -T | grep -i usedns
+usedns no
 ##############################
 
 
