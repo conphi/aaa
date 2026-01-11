@@ -1,0 +1,8 @@
+Ubuntu 文件夹变绿恢复
+chmod -R 755 win11
+
+-n  测试
+rsync -avP -n /root/comfyui_backup/ root@192.168.191.130:/root/comfyui_backup/
+
+rsync -avP /root/comfyui_backup/ root@192.168.191.130:/root/comfyui_backup/
+
