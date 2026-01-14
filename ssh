@@ -23,6 +23,15 @@ systemctl restart ssh.service
 root@130:~# sshd -T | grep -i usedns
 usedns no
 ##############################
+# 彻底拔除全家桶
+sudo apt purge snapd ubuntu-advantage-tools ubuntu-pro-client apport whoopsie ubuntu-report needrestart -y
+
+# 顺便清理一下不再需要的残留依赖
+sudo apt autoremove --purge -y
+
+# 清理各种 MOTD 广告文字
+sudo rm -f /etc/update-motd.d/10-help-text /etc/update-motd.d/50-motd-news /etc/update-motd.d/88-esm-announce /etc/update-motd.d/91-contract-ua-esm-status
+####################################################################################
 
 
 ###### openwrt glinet mv1000w ##############
