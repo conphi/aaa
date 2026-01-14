@@ -1,3 +1,11 @@
+####
+sudo passwd root
+sudo sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config && sudo systemctl restart ssh
+sudo apt update && sudo apt upgrade -y
+ubuntu-drivers devices
+apt install nvidia-driver-580-open
+#####################################################
+
 ### 坑爹的Ubuntu25.10 ###
 root@130:~/.ssh# ssh root@192.168.191.133
 kex_exchange_identification: read: Connection reset by peer
