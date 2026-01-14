@@ -1,3 +1,7 @@
+########### dropbear的坑 #############################
+# client cat ~/.ssh/id_rsa.pub
+# server echo "这里粘贴你复制的公钥内容" > ~/.ssh/authorized_keys
+####################################################################
 ####
 sudo passwd root
 sudo sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config && sudo systemctl restart ssh
