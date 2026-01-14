@@ -2,6 +2,14 @@
 root@130:~/.ssh# ssh root@192.168.191.133
 kex_exchange_identification: read: Connection reset by peer
 Connection reset by 192.168.191.133 port 22
+
+Add correct host key in /root/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in /root/.ssh/known_hosts:13
+  remove with:
+  ssh-keygen -f "/root/.ssh/known_hosts" -R "192.168.191.133"
+ECDSA host key for 192.168.191.133 has changed and you have requested strict checking.
+Host key verification failed.
+
 ##### solution ################
 在 133 机器上 Ubuntu25.10
 nano /etc/ssh/sshd_config
