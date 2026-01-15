@@ -1,3 +1,23 @@
+#### ssh tunnel ######################################################
+ssh -L 8188:127.0.0.1:8188 -L 9001:127.0.0.1:9001 root@server_IP
+###
+Host 130
+    HostName 你的服务器IP
+    Port 8000
+    User root
+    # 保持心跳
+    ServerAliveInterval 30
+    ServerAliveCountMax 2
+    # 自动拉起隧道
+    LocalForward 7681 127.0.0.1:7681
+    LocalForward 8188 127.0.0.1:8188
+########################################################################
+####### ttyd #######################################
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
+  -keyout ttyd.key -out ttyd.crt \
+  -subj "/C=CN/ST=State/L=City/O=Organization/CN=1.2.3.4"
+./ttyd.x86_64 -p 9001 -W -c user:pass -S -C ttyd.crt -K ttyd.key bash
+#######################################################################
 ### ubuntu 25.10 server 坑##
 apt purge apport multipath-tools cloud-init modemmanager thermald fwupd unattended-upgrades
 ##################################################################################################
