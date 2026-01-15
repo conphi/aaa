@@ -1,3 +1,6 @@
+### ubuntu 25.10 server 坑##
+apt purge apport multipath-tools cloud-init modemmanager thermald fwupd unattended-upgrades
+##################################################################################################
 ########### dropbear的坑 #############################
 # client cat ~/.ssh/id_rsa.pub
 # server echo "这里粘贴你复制的公钥内容" > ~/.ssh/authorized_keys
