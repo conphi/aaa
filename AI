@@ -1,3 +1,6 @@
+proxychains uvx hf auth login
+proxychains uvx hf download black-forest-labs/FLUX.2-klein-9b-fp8 flux-2-klein-9b-fp8.safetensors --local-dir .
+
 ### huggingface 
 huggingface-cli -h
 
