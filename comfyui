@@ -1,3 +1,19 @@
+########## uv comfyui ##################################################################
+apt install proxychains4
+proxychains curl -LsSf https://astral.sh/uv/install.sh | proxychains sh
+git clone https://github.com/comfyanonymous/ComfyUI.git
+cd ComfyUI
+uv venv ### uv venv --python 3.12 # uv python find # uv run python -V # uv python list # uv python dir ###
+proxychains uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130 ### use --index-url instead of --extra-index-url
+### uv pip list
+proxychains uv pip install -r requirements.txt
+uv run main.py ### proxychains uv run main.py
+
+### pip install -r manager_requirements.txt
+### python main.py --enable-manager
+### rm -rf .venv && uv venv --python 3.12 ### uv venv --python 3.12 --allow-existing
+
+#########################################################################################
 cd ComfyUI && source ../venv-comfy/bin/activate && python main.py --listen 0.0.0.0
 cd ComfyUI && source ../venv-comfy/bin/activate && proxychains python main.py --listen 0.0.0.0
 
