@@ -119,3 +119,140 @@ fn main() -> io::Result<()> {
 rustc -O sss.rs
 rustc -O -C strip=symbols sss.rs
 curl -v --socks5-hostname 127.0.0.1:1080 http://google.com
+######################################################################################
+######################################################################################
+########## zig 0.13.0 zig build-exe ssss.zig -O ReleaseSmall -fstrip
+#######################################################################################
+const std = @import("std");
+const net = std.net;
+const mem = std.mem;
+
+const DEFAULT_KEY = "aaa";
+const DEFAULT_PORT: u16 = 1984;
+
+pub fn main() !void {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+    defer _ = gpa.deinit();
+
+    const args = try std.process.argsAlloc(allocator);
+    defer std.process.argsFree(allocator, args);
+
+    if (args.len < 2) {
+        std.debug.print("用法:\n  服务端: ./sss s [端口]\n  客户端: ./sss c <VPS_IP> [端口]\n", .{});
+        return;
+    }
+
+    const mode = args[1][0];
+    const key = DEFAULT_KEY;
+
+    if (mode == 's') {
+        const port = if (args.len >= 3) try std.fmt.parseInt(u16, args[2], 10) else DEFAULT_PORT;
+        const address = try net.Address.parseIp("0.0.0.0", port);
+        var server = try address.listen(.{ .reuse_address = true });
+        defer server.deinit();
+
+        std.debug.print("✅ Zig 服务端已启动 [端口: {d}]\n", .{port});
+
+        while (true) {
+            const conn = try server.accept();
+            _ = try std.Thread.spawn(.{}, handleServer, .{ conn, key });
+        }
+    } else if (mode == 'c') {
+        const vps_ip = args[2];
+        const vps_port = if (args.len >= 4) try std.fmt.parseInt(u16, args[3], 10) else DEFAULT_PORT;
+        
+        const local_addr = try net.Address.parseIp("127.0.0.1", 1080);
+        var listener = try local_addr.listen(.{ .reuse_address = true });
+        defer listener.deinit();
+
+        std.debug.print("✅ Zig 客户端已启动: 127.0.0.1:1080 -> {s}:{d}\n", .{ vps_ip, vps_port });
+
+        while (true) {
+            const client_conn = try listener.accept();
+            const vps_addr = try net.Address.parseIp(vps_ip, vps_port);
+            const vps_conn = net.tcpConnectToAddress(vps_addr) catch {
+                client_conn.stream.close();
+                continue;
+            };
+
+            // 客户端直接开启双向盲转发，每个方向一个线程
+            _ = try std.Thread.spawn(.{}, bridge_move, .{ client_conn.stream, vps_conn, key, 0 });
+            _ = try std.Thread.spawn(.{}, bridge_move, .{ vps_conn, client_conn.stream, key, 0 });
+        }
+    }
+}
+
+/// 核心转发逻辑
+fn bridge(src: net.Stream, dst: net.Stream, key: []const u8, start_idx: usize) void {
+    defer src.close();
+    defer dst.close();
+    var buf: [16384]u8 = undefined;
+    var idx = start_idx;
+    while (true) {
+        const n = src.read(&buf) catch break;
+        if (n == 0) break;
+        for (buf[0..n]) |*b| {
+            b.* ^= key[idx % key.len];
+            idx +%= 1; // 使用 Zig 的溢出加法运算符
+        }
+        dst.writeAll(buf[0..n]) catch break;
+    }
+}
+
+/// 线程包装函数
+fn bridge_move(src: net.Stream, dst: net.Stream, key: []const u8, idx: usize) void {
+    bridge(src, dst, key, idx);
+}
+
+fn handleServer(conn: net.Server.Connection, key: []const u8) void {
+    defer conn.stream.close();
+    var buf: [1024]u8 = undefined;
+    var up_idx: usize = 0;
+    var down_idx: usize = 0;
+
+    // 1. SOCKS5 握手
+    var n = conn.stream.read(&buf) catch return;
+    if (n == 0) return;
+    for (buf[0..n]) |*b| { b.* ^= key[up_idx % key.len]; up_idx +%= 1; }
+
+    var resp1 = [_]u8{ 0x05, 0x00 };
+    for (&resp1) |*b| { b.* ^= key[down_idx % key.len]; down_idx +%= 1; }
+    conn.stream.writeAll(&resp1) catch return;
+
+    // 2. 解析 CONNECT 请求
+    n = conn.stream.read(&buf) catch return;
+    if (n < 4) return;
+    for (buf[0..n]) |*b| { b.* ^= key[up_idx % key.len]; up_idx +%= 1; }
+
+    const target_stream = match_target: {
+        if (buf[3] == 0x01) { // IPv4 情况
+            const ip4_bytes = buf[4..8].*;
+            const port_bytes = buf[8..10][0..2].*; // 转为固定长度数组指针
+            const port = mem.readInt(u16, &port_bytes, .big);
+            const addr = net.Address.initIp4(ip4_bytes, port);
+            break :match_target net.tcpConnectToAddress(addr) catch return;
+        } else if (buf[3] == 0x03) { // 域名情况
+            const len = buf[4];
+            const domain = buf[5 .. 5 + len];
+            const port_bytes = buf[5 + len .. 7 + len][0..2].*; // 转为固定长度数组指针
+            const port = mem.readInt(u16, &port_bytes, .big);
+            
+            var list = net.getAddressList(std.heap.page_allocator, domain, port) catch return;
+            defer list.deinit();
+            break :match_target net.tcpConnectToAddress(list.addrs[0]) catch return;
+        } else return;
+    };
+    defer target_stream.close();
+
+    // 响应客户端：连接已建立
+    var ok_resp = [_]u8{ 0x05, 0x00, 0x00, 0x01, 0, 0, 0, 0, 0, 0 };
+    for (&ok_resp) |*b| { b.* ^= key[down_idx % key.len]; down_idx +%= 1; }
+    conn.stream.writeAll(&ok_resp) catch return;
+
+    // 3. 进入双向 XOR 转发
+    const t1 = std.Thread.spawn(.{}, bridge_move, .{ conn.stream, target_stream, key, up_idx }) catch return;
+    bridge(target_stream, conn.stream, key, down_idx);
+    t1.join();
+}
+####################################################################################
