@@ -13,3 +13,5 @@ rm zig-x86_64-linux-0.16.0-dev.2193+fc517bd01.tar.xz
 ln -s /opt/zig/zig /usr/local/bin/zig
 zig version
 #########################################################################################
+rm /usr/local/bin/zig
+rm -rf /opt/zig
