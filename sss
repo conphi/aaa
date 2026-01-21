@@ -118,3 +118,4 @@ fn main() -> io::Result<()> {
 ################################################################################
 rustc -O sss.rs
 rustc -O -C strip=symbols sss.rs
+curl -v --socks5-hostname 127.0.0.1:1080 http://google.com
