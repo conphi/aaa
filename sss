@@ -1,0 +1,120 @@
+###### rust sock5 xor ipv4 proxy ##########################
+use std::io::{self, Read, Write};
+use std::net::{TcpListener, TcpStream, Shutdown};
+use std::thread;
+
+const DEFAULT_PORT: &str = "1984";
+const DEFAULT_KEY: &[u8] = b"aaa";
+
+fn bridge(mut src: TcpStream, mut dst: TcpStream, key: Vec<u8>, start_idx: usize, label: &'static str) {
+    let mut buf = [0u8; 16384];
+    let mut idx = start_idx;
+    while let Ok(n) = src.read(&mut buf) {
+        if n == 0 { break; }
+        for b in &mut buf[..n] {
+            *b ^= key[idx % key.len()];
+            idx = idx.wrapping_add(1);
+        }
+        if dst.write_all(&buf[..n]).is_err() { break; }
+    }
+    let _ = src.shutdown(Shutdown::Both);
+    let _ = dst.shutdown(Shutdown::Both);
+    println!("[{}] 连接关闭", label);
+}
+
+fn handle_server(mut conn: TcpStream, key: Vec<u8>) -> io::Result<()> {
+    let mut buf = [0u8; 1024];
+    let mut up_idx: usize = 0;
+    let mut down_idx: usize = 0;
+
+    // 1. 握手认证
+    let n = conn.read(&mut buf)?;
+    if n == 0 { return Ok(()); }
+    for b in &mut buf[..n] { *b ^= key[up_idx % key.len()]; up_idx += 1; }
+    
+    let mut resp = vec![0x05, 0x00];
+    for b in &mut resp { *b ^= key[down_idx % key.len()]; down_idx += 1; }
+    conn.write_all(&resp)?;
+
+    // 2. 解析请求 (重点：处理域名解析)
+    let n = conn.read(&mut buf)?;
+    if n < 4 { return Ok(()); }
+    for b in &mut buf[..n] { *b ^= key[up_idx % key.len()]; up_idx += 1; }
+
+    let target_addr = match buf[3] {
+        0x01 => { // IPv4
+            format!("{}.{}.{}.{}:{}", buf[4], buf[5], buf[6], buf[7], 
+                    u16::from_be_bytes([buf[8], buf[9]]))
+        },
+        0x03 => { // 域名 (Domain Name)
+            let len = buf[4] as usize;
+            let domain = std::str::from_utf8(&buf[5..5+len]).map_err(|_| io::Error::new(io::ErrorKind::Other, "Invalid Domain"))?;
+            let port = u16::from_be_bytes([buf[5+len], buf[6+len]]);
+            format!("{}:{}", domain, port)
+        },
+        _ => return Ok(()), // 暂不支持 IPv6
+    };
+
+    println!("-> 尝试连接目标: {}", target_addr);
+    let target_conn = match TcpStream::connect(&target_addr) {
+        Ok(t) => t,
+        Err(e) => {
+            println!("! 无法连接目标: {} - {}", target_addr, e);
+            return Ok(());
+        }
+    };
+
+    let mut ok_resp = vec![0x05, 0x00, 0x00, 0x01, 0, 0, 0, 0, 0, 0];
+    for b in &mut ok_resp { *b ^= key[down_idx % key.len()]; down_idx += 1; }
+    conn.write_all(&ok_resp)?;
+
+    // 3. 转发
+    let c_up = conn.try_clone()?;
+    let t_down = target_conn.try_clone()?;
+    let k1 = key.clone();
+    let k2 = key;
+
+    thread::spawn(move || bridge(c_up, target_conn, k1, up_idx, "Up"));
+    bridge(t_down, conn, k2, down_idx, "Down");
+    Ok(())
+}
+
+fn main() -> io::Result<()> {
+    let args: Vec<String> = std::env::args().collect();
+    let key = DEFAULT_KEY.to_vec();
+
+    if args.len() >= 2 && args[1] == "s" {
+        let port = args.get(2).map(|s| s.as_str()).unwrap_or(DEFAULT_PORT);
+        let listener = TcpListener::bind(format!("0.0.0.0:{}", port))?;
+        println!("🚀 服务端已启动，监听端口 {}", port);
+        for stream in listener.incoming() {
+            if let Ok(s) = stream {
+                let k = key.clone();
+                thread::spawn(move || { let _ = handle_server(s, k); });
+            }
+        }
+    } else if args.len() >= 3 && args[1] == "c" {
+        let vps_ip = &args[2];
+        let port = args.get(3).map(|s| s.as_str()).unwrap_or(DEFAULT_PORT);
+        let listener = TcpListener::bind("127.0.0.1:1080")?;
+        println!("🚀 客户端已启动，监听 1080 -> {}:{}", vps_ip, port);
+        for stream in listener.incoming() {
+            if let Ok(c_conn) = stream {
+                if let Ok(v_conn) = TcpStream::connect(format!("{}:{}", vps_ip, port)) {
+                    let k1 = key.clone();
+                    let k2 = key.clone();
+                    let c_up = c_conn.try_clone().unwrap();
+                    let v_down = v_conn.try_clone().unwrap();
+                    thread::spawn(move || bridge(c_up, v_conn, k1, 0, "Client-Up"));
+                    thread::spawn(move || bridge(v_down, c_conn, k2, 0, "Client-Down"));
+                }
+            }
+        }
+    } else {
+        println!("用法: ./sss s [端口] | ./sss c <VPS_IP> [端口]");
+    }
+    Ok(())
+}
+################################################################################
+rustc -O sss.rs
+rustc -O -C strip=symbols sss.rs
