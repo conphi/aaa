@@ -16,7 +16,8 @@ uv run main.py ### proxychains uv run main.py
 ########## uv install VoxCPM #########################################################################
 proxychains git clone https://github.com/OpenBMB/VoxCPM
 cd VoxCPM
-proxychains uv sync
+proxychains uv sync ### error maybe untest # apt-get install -y python3.13-dev build-essential
+### proxychains uv sync --python 3.10
 proxychains uv run app.py
 ### proxychains uv run lora_ft_webui.py
 #########################################################################################
