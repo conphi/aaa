@@ -1,6 +1,11 @@
 ### wanvideo 坑
 uv pip install -U sageattention triton onnxruntime-gpu librosa soundfile omegaconf
 
+Blocks to Swap	20	0 ~ 5	减少内存/显存交换，极大提升速度
+Force Offload	true	false	让模型常驻显存，消除加载等待
+Tiled VAE	可能开启	disabled	48GB 足以直接处理高分辨率，无需分块
+Batch Size	1	2 ~ 4	如果你想同时生成多个视频，可以调高
+
 ########## uv comfyui ##################################################################
 apt install proxychains4
 proxychains curl -LsSf https://astral.sh/uv/install.sh | proxychains sh
