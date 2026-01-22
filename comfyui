@@ -1,3 +1,6 @@
+### wanvideo 坑
+uv pip install -U triton sageattention onnxruntime-gpu
+
 ########## uv comfyui ##################################################################
 apt install proxychains4
 proxychains curl -LsSf https://astral.sh/uv/install.sh | proxychains sh
