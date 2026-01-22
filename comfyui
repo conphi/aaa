@@ -18,6 +18,8 @@ cd ComfyUI
 proxychains git pull
 proxychains uv sync
 proxychains uv pip install -r requirements.txt
+proxychains uv pip install -r manager_requirements.txt
+--enable-manager
 
 ########## uv install VoxCPM #########################################################################
 proxychains git clone https://github.com/OpenBMB/VoxCPM
