@@ -13,6 +13,12 @@ uv run main.py ### proxychains uv run main.py
 ### python main.py --enable-manager
 ### rm -rf .venv && uv venv --python 3.12 ### uv venv --python 3.12 --allow-existing
 
+########## uv install VoxCPM #########################################################################
+proxychains git clone https://github.com/OpenBMB/VoxCPM
+cd VoxCPM
+proxychains uv sync
+proxychains uv run app.py
+### proxychains uv run lora_ft_webui.py
 #########################################################################################
 cd ComfyUI && source ../venv-comfy/bin/activate && python main.py --listen 0.0.0.0
 cd ComfyUI && source ../venv-comfy/bin/activate && proxychains python main.py --listen 0.0.0.0
