@@ -1,5 +1,5 @@
 ### wanvideo 坑
-uv pip install -U triton sageattention onnxruntime-gpu
+uv pip install -U sageattention triton onnxruntime-gpu librosa soundfile omegaconf
 
 ########## uv comfyui ##################################################################
 apt install proxychains4
