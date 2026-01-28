@@ -1,3 +1,4 @@
+wget -c -t 0 -w 5 https://example.com/file.zip
 ### wanvideo 坑
 uv pip install -U sageattention triton onnxruntime-gpu librosa soundfile omegaconf
 
