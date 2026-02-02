@@ -1,3 +1,8 @@
+# 使用阿里云镜像源安装 vllm
+uv pip install vllm -i https://mirrors.aliyun.com/pypi/simple/
+uv pip install vllm -i https://mirrors.bfsu.edu.cn/pypi/web/simple/
+uv run python -c "import vllm; print(vllm.__version__)"
+########################################
 wget -c -t 0 -w 5 https://example.com/file.zip
 ### wanvideo 坑
 uv pip install -U sageattention triton onnxruntime-gpu librosa soundfile omegaconf
