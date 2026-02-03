@@ -1,5 +1,129 @@
 ###### srt trans rtx pro 5000 blackwell
-CMAKE_ARGS="-DGGML_CUDA=on -DCMAKE_CUDA_ARCHITECTURES=90a" uv pip install llama-cpp-python faster-whisper
+watch -n 1 nvidia-smi
+git clone https://github.com/ggml-org/llama.cpp
+cd llama.cpp
+apt install nvcc
+rm -rf build
+cmake -B build -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=90
+cmake --build build --config Release -j$(nproc)
+
+/root/llama/bin/llama-server -m /root/srt/Qwen2.5-72B-Instruct-abliterated.Q4_K_S.gguf -ngl 99 --port 8080 --host 0.0.0.0
+uv run translate_srt.py 1408406-1_jp.srt
+
+### only　trans translate_srt.py
+import re
+import time
+import requests
+import argparse
+import os
+
+# --- 配置 ---
+API_URL = "http://127.0.0.1:8080/v1/chat/completions"
+
+def parse_srt(file_path):
+    """解析 SRT 文件，确保能够处理非标准换行"""
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read().strip()
+    
+    # 兼容不同系统的换行符并分割块
+    blocks = re.split(r'\n\s*\n', content)
+    parsed_subs = []
+    
+    for block in blocks:
+        lines = block.strip().split('\n')
+        if len(lines) >= 3:
+            index = lines[0]
+            timestamp = lines[1]
+            # 合并可能存在的多行正文
+            text = " ".join(lines[2:]).strip()
+            if text:
+                parsed_subs.append({
+                    "index": index,
+                    "timestamp": timestamp,
+                    "text_ja": text,
+                    "text_zh": ""
+                })
+    return parsed_subs
+
+def translate_batch(batch):
+    """通过 API 执行翻译任务"""
+    # 构造带编号的列表，方便模型对齐
+    input_text = "\n".join([f"{j+1}. {item['text_ja']}" for j, item in enumerate(batch)])
+    
+    payload = {
+        "messages": [
+            {
+                "role": "system", 
+                "content": "你是一个专业翻译官。任务：将日文逐行翻译成中文。要求：地道、自然。禁止重复原文，禁止输出日文，禁止任何解释。严格保持行号格式。"
+            },
+            {
+                "role": "user", 
+                "content": f"请翻译以下内容：\n{input_text}"
+            }
+        ],
+        "temperature": 0.1, # 极低温度保证输出格式稳定
+        "max_tokens": 2048
+    }
+
+    try:
+        response = requests.post(API_URL, json=payload, timeout=120)
+        res_json = response.json()
+        translated_content = res_json['choices'][0]['message']['content'].strip()
+        
+        # 提取每一行
+        translated_lines = [l.strip() for l in translated_content.split('\n') if l.strip()]
+        
+        for k, line in enumerate(translated_lines):
+            if k < len(batch):
+                # 正则清理模型可能输出的编号（如 1. 或 1、）
+                clean_line = re.sub(r'^\d+[\.、\s\-\:]+', '', line)
+                batch[k]['text_zh'] = clean_line
+            
+    except Exception as e:
+        print(f"\n[错误] 第 {batch[0]['index']} 条附近请求异常: {e}")
+        for item in batch:
+            item['text_zh'] = "（翻译出错）" + item['text_ja']
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input", help="输入的日文 SRT 文件路径")
+    args = parser.parse_args()
+
+    if not os.path.exists(args.input):
+        print(f"❌ 找不到文件: {args.input}")
+        return
+
+    print(f"📂 正在解析日文 SRT: {args.input}")
+    subs = parse_srt(args.input)
+    total = len(subs)
+    
+    # 设定批次大小。Qwen-72B 在 Blackwell 上处理 10 条一批非常轻松
+    batch_size = 10 
+    print(f"🧠 开始翻译 (总计 {total} 条)...")
+    
+    start_all = time.time()
+    for i in range(0, total, batch_size):
+        batch = subs[i : i + batch_size]
+        translate_batch(batch)
+        print(f"🚀 进度: {min(i + batch_size, total)} / {total}", end='\r')
+
+    # 生成输出路径
+    output_file = args.input.replace(".srt", "_zh.srt")
+    if output_file == args.input:
+        output_file = "translated_output.srt"
+
+    # 写入新文件
+    with open(output_file, 'w', encoding='utf-8') as f:
+        for item in subs:
+            # 如果翻译落空，至少保留日文原文防止字幕断档
+            final_text = item['text_zh'] if item['text_zh'] else item['text_ja']
+            f.write(f"{item['index']}\n{item['timestamp']}\n{final_text}\n\n")
+    
+    print(f"\n\n✨ 任务完成！耗时: {time.time() - start_all:.2f}s")
+    print(f"💾 结果已保存至: {output_file}")
+
+if __name__ == "__main__":
+    main()
 
 ############################################
 proxychains uvx hf auth login
