@@ -6,6 +6,9 @@ apt install nvcc
 rm -rf build
 cmake -B build -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=90
 cmake --build build --config Release -j$(nproc)
+############ install llama-cpp-python ###################
+CMAKE_ARGS="-DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=90" uv pip install llama-cpp-python --upgrade --force-reinstall --no-cache-dir
+#########################################
 
 /root/llama/bin/llama-server -m /root/srt/Qwen2.5-72B-Instruct-abliterated.Q4_K_S.gguf -ngl 99 --port 8080 --host 0.0.0.0
 uv run translate_srt.py 1408406-1_jp.srt
