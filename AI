@@ -1,3 +1,12 @@
+###############
+# 添加 13.0 的仓库（假设你还在用 24.04/25.10 兼容源）
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt-get update
+
+# 【关键】只安装 13.0 的工具包，不安装 13.1，也不装驱动
+sudo apt-get install cuda-toolkit-13-0
+###################################################################
 ###### srt trans rtx pro 5000 blackwell
 watch -n 1 nvidia-smi
 git clone https://github.com/ggml-org/llama.cpp
