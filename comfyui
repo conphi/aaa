@@ -33,6 +33,7 @@ proxychains git pull
 proxychains uv sync
 proxychains uv pip install -r requirements.txt
 proxychains uv pip install -r manager_requirements.txt
+find custom_nodes/ -name "requirements.txt" | xargs -I {} uv pip install -r {}
 --enable-manager
 
 ########## uv install VoxCPM #########################################################################
