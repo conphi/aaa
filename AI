@@ -1,4 +1,4 @@
-###############
+############### fail ##############################
 # 添加 13.0 的仓库（假设你还在用 24.04/25.10 兼容源）
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
