@@ -1,4 +1,4 @@
-############### fail ##############################
+############### success ################################################################################
 # 添加 13.0 的仓库（假设你还在用 24.04/25.10 兼容源）
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
@@ -6,7 +6,17 @@ sudo apt-get update
 
 # 【关键】只安装 13.0 的工具包，不安装 13.1，也不装驱动
 sudo apt-get install cuda-toolkit-13-0
-###################################################################
+
+### ~.bashrc
+export PATH=/usr/local/cuda-13.0/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-13.0/lib64:$LD_LIBRARY_PATH
+### 
+###### for blackwell and python 3.13 and cuda 13.0
+wget https://github.com/JamePeng/llama-cpp-python/releases/download/v0.3.24-cu130-Basic-linux-20260208/llama_cpp_python-0.3.24+cu130.basic-cp313-cp313-linux_x86_64.whl
+uv pip install ./llama_cpp_python-0.3.24+cu130.basic-cp313-cp313-linux_x86_64.whl --force-reinstall
+
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda-13.0/lib64:$LD_LIBRARY_PATH' >> /root/ComfyUI/.venv/bin/activate
+##################################################################################################################
 ###### srt trans rtx pro 5000 blackwell
 watch -n 1 nvidia-smi
 git clone https://github.com/ggml-org/llama.cpp
