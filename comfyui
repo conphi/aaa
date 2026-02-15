@@ -1,3 +1,7 @@
+#### huggingface auth download ############################################################
+uvx hf download black-forest-labs/FLUX.2-klein-9B flux-2-klein-9b.safetensors --local-dir .
+#############################################################################################
+
 # 使用阿里云镜像源安装 vllm
 uv pip install vllm -i https://mirrors.aliyun.com/pypi/simple/
 uv pip install vllm -i https://mirrors.bfsu.edu.cn/pypi/web/simple/
