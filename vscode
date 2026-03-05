@@ -1,3 +1,6 @@
+如果你的服务器经常断网，可以在本地 VS Code 设置中搜索 remote.SSH.localServerDownload。
+将其设置为 always，VS Code 会尝试在本地下载好后再通过 SSH 拷贝到服务器，省去手动操作的麻烦。
+
 # turn off update notifications
 Go to File > Preferences > Settings (or press Ctrl+,).
 In the settings search bar, type "update.mode". Select "none"
