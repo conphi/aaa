@@ -1,0 +1,10 @@
+wget https://github.com/wangyu-/udp2raw/releases/download/20230206.0/udp2raw_binaries.tar.gz
+tar zxvf udp2raw_binaries.tar.gz
+
+### server
+./udp2raw_amd64 -s -l0.0.0.0:9001 -r 127.0.0.1:7777 -a
+nc -lu 7777
+
+### client
+./udp2raw_amd64 -c -l0.0.0.0:3333  -r1.2.3.4:9001 -a
+nc -u 127.0.0.1 3333 -v
