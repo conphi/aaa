@@ -1,0 +1,132 @@
+tree udp
+udp
+├── Cargo.toml
+├── src
+    └── main.rs
+################## Cargo.toml ###################################
+[package]
+name = "udp_tunnel"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "udp_tunnel"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+############################################################
+
+######## main.rs ##########
+use tokio::io::{AsyncReadExt, AsyncWriteExt};
+use tokio::net::{TcpListener, TcpStream, UdpSocket};
+use std::env;
+use std::net::SocketAddr;
+use std::error::Error;
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
+    let args: Vec<String> = env::args().collect();
+    if args.len() < 4 {
+        println!("Usage:\n  Server: ./udp_tunnel server [TCP_Listen] [UDP_Target]\n  Client: ./udp_tunnel client [UDP_Listen] [TCP_Target]");
+        return Ok(());
+    }
+
+    let mode = &args[1];
+    let addr1 = &args[2];
+    let addr2 = &args[3];
+
+    if mode == "server" {
+        run_server(addr1, addr2).await?;
+    } else {
+        run_client(addr1, addr2).await?;
+    }
+    Ok(())
+}
+
+async fn run_server(tcp_listen: &str, udp_target: &str) -> Result<(), Box<dyn Error>> {
+    let listener = TcpListener::bind(tcp_listen).await?;
+    let target_addr: SocketAddr = udp_target.parse()?;
+    println!("[*] Server: Listening on TCP {}, target UDP {}", tcp_listen, udp_target);
+
+    loop {
+        let (mut tcp, peer) = listener.accept().await?;
+        println!("[+] New connection from {}", peer);
+        
+        tokio::spawn(async move {
+            let udp = UdpSocket::bind("0.0.0.0:0").await.unwrap();
+            let _ = udp.connect(target_addr).await;
+
+            let mut tcp_data_buf = vec![0u8; 65535];
+            let mut udp_data_buf = vec![0u8; 65535];
+            let mut header_buf = [0u8; 2]; // 预先定义长度缓冲区
+
+            loop {
+                tokio::select! {
+                    // TCP -> UDP
+                    res = tcp.read_exact(&mut header_buf) => {
+                        if res.is_err() { break; }
+                        let n = u16::from_be_bytes(header_buf) as usize;
+                        if n > 0 {
+                            if tcp.read_exact(&mut tcp_data_buf[..n]).await.is_err() { break; }
+                            if udp.send(&tcp_data_buf[..n]).await.is_err() { break; }
+                        }
+                    }
+                    // UDP -> TCP
+                    res = udp.recv(&mut udp_data_buf) => {
+                        if let Ok(n) = res {
+                            let len_bytes = (n as u16).to_be_bytes();
+                            if tcp.write_all(&len_bytes).await.is_err() { break; }
+                            if tcp.write_all(&udp_data_buf[..n]).await.is_err() { break; }
+                        }
+                    }
+                }
+            }
+            println!("[-] Connection closed: {}", peer);
+        });
+    }
+}
+
+async fn run_client(udp_listen: &str, tcp_target: &str) -> Result<(), Box<dyn Error>> {
+    let udp = UdpSocket::bind(udp_listen).await?;
+    let mut tcp = TcpStream::connect(tcp_target).await?;
+    tcp.set_nodelay(true)?;
+    
+    println!("[*] Client: Listening on UDP {}, tunnel to TCP {}", udp_listen, tcp_target);
+
+    let mut udp_data_buf = vec![0u8; 65535];
+    let mut tcp_data_buf = vec![0u8; 65535];
+    let mut header_buf = [0u8; 2]; // 预先定义长度缓冲区
+    let mut last_peer: Option<SocketAddr> = None;
+
+    loop {
+        tokio::select! {
+            // UDP -> TCP
+            res = udp.recv_from(&mut udp_data_buf) => {
+                if let Ok((n, peer)) = res {
+                    last_peer = Some(peer);
+                    let len_bytes = (n as u16).to_be_bytes();
+                    if tcp.write_all(&len_bytes).await.is_err() { break; }
+                    if tcp.write_all(&udp_data_buf[..n]).await.is_err() { break; }
+                }
+            }
+            // TCP -> UDP
+            res = tcp.read_exact(&mut header_buf) => {
+                if res.is_err() { break; }
+                let n = u16::from_be_bytes(header_buf) as usize;
+                if n > 0 {
+                    if tcp.read_exact(&mut tcp_data_buf[..n]).await.is_err() { break; }
+                    if let Some(peer) = last_peer {
+                        let _ = udp.send_to(&tcp_data_buf[..n], peer).await;
+                    }
+                }
+            }
+        }
+    }
+    Ok(())
+}
+##################################################################
+######## usage ###################################################
+cargo build --release
+VPS: ./udp_tunnel server 0.0.0.0:9001 127.0.0.1:1111
+Mac: ./udp_tunnel client 127.0.0.1:2222 1.2.3.4:9001
