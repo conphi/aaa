@@ -112,3 +112,135 @@ func main() {
 	http.Handle(*prefix+"/", handler)
 	http.ListenAndServe(":"+*port, nil)
 }
+
+#######  wds # webdav https below ################
+package main
+
+import (
+	"crypto/ecdsa"
+	"crypto/elliptic"
+	"crypto/rand"
+	"crypto/tls"
+	"crypto/x509"
+	"crypto/x509/pkix"
+	"flag"
+	"fmt"
+	"log"
+	"math/big"
+	"net/http"
+	"os"
+	"path/filepath"
+	"time"
+
+	"golang.org/x/net/webdav"
+)
+
+type AuthWebdav struct {
+	webdav.Handler
+	Username string
+	Password string
+}
+
+func (aw *AuthWebdav) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	user, pass, ok := r.BasicAuth()
+	if !ok || user != aw.Username || pass != aw.Password {
+		w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+	aw.Handler.ServeHTTP(w, r)
+}
+
+// 自动在内存中生成自签名 TLS 证书
+func generateSelfSignedCert() (tls.Certificate, error) {
+	priv, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+	if err != nil {
+		return tls.Certificate{}, err
+	}
+
+	notBefore := time.Now()
+	notAfter := notBefore.Add(3650 * 24 * time.Hour) // 10年有效
+
+	serialNumber, err := rand.Int(rand.Reader, new(big.Int).Lsh(big.NewInt(1), 128))
+	if err != nil {
+		return tls.Certificate{}, err
+	}
+
+	template := x509.Certificate{
+		SerialNumber: serialNumber,
+		Subject: pkix.Name{
+			Organization: []string{"WebDAVS Server"},
+		},
+		NotBefore:             notBefore,
+		NotAfter:              notAfter,
+		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
+		ExtKeyUsage:           []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
+		BasicConstraintsValid: true,
+	}
+
+	derBytes, err := x509.CreateCertificate(rand.Reader, &template, &template, &priv.PublicKey, priv)
+	if err != nil {
+		return tls.Certificate{}, err
+	}
+
+	return tls.Certificate{
+		Certificate: [][]byte{derBytes},
+		PrivateKey:  priv,
+	}, nil
+}
+
+func main() {
+	port := flag.String("p", "9001", "port to listen on")
+	dir := flag.String("d", "/root/infuse", "directory to serve")
+	username := flag.String("u", "fuck", "username")
+	password := flag.String("k", "fuck", "password")
+	prefix := flag.String("s", "/fuck", "URL prefix")
+	flag.Parse()
+
+	// 自动创建共享目录（若不存在）
+	absDir, err := filepath.Abs(*dir)
+	if err != nil {
+		log.Fatalf("获取目录路径失败: %v", err)
+	}
+	_ = os.MkdirAll(absDir, 0755)
+
+	// 初始化 WebDAV Handler
+	handler := &AuthWebdav{
+		Handler: webdav.Handler{
+			Prefix:     *prefix,
+			FileSystem: webdav.Dir(absDir),
+			LockSystem: webdav.NewMemLS(),
+		},
+		Username: *username,
+		Password: *password,
+	}
+
+	// 生成内存 TLS 证书
+	cert, err := generateSelfSignedCert()
+	if err != nil {
+		log.Fatalf("生成自签名证书失败: %v", err)
+	}
+
+	server := &http.Server{
+		Addr:    ":" + *port,
+		Handler: nil,
+		TLSConfig: &tls.Config{
+			Certificates: []tls.Certificate{cert},
+		},
+	}
+
+	// 注册带 Prefix 的路由映射
+	pattern := *prefix
+	if pattern == "" || pattern == "/" {
+		http.Handle("/", handler)
+	} else {
+		http.Handle(pattern+"/", handler)
+		http.Handle(pattern, handler)
+	}
+
+	fmt.Printf("🚀 WebDAVS 已成功启动于端口 :%s (HTTPS)\n", *port)
+	fmt.Printf("📂 挂载目录: %s\n", absDir)
+	fmt.Printf("🔗 路径前缀: %s\n", *prefix)
+
+	log.Fatal(server.ListenAndServeTLS("", ""))
+}
