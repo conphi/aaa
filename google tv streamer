@@ -1,3 +1,8 @@
 // 大陆激活 google tv streamer
 openwrt lede 网络 DHCP/DNS 主机域名映射
 time.android.com 203.107.6.88
+
+/// channel 4 tv 
+// https://www.apkmirror.com/apk/channel-4-television-corporation/channel-4-android-tv/channel-4-android-tv-1-0-3-release/channel-4-android-tv-1-0-3-android-apk-download/
+// adb install 
+mkdir -p ~/Downloads/c4_apks && ditto -x -k ~/Downloads/com.channel4.ondemand_1.0.3-103_1dpi_25lang_f3fffc7ce58a5f3c0185d44abd9b525a_apkmirror.com.apkm ~/Downloads/c4_apks && adb install-multiple ~/Downloads/c4_apks/*.apk
